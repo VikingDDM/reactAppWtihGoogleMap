@@ -148,6 +148,10 @@ export class GoogleMap extends PureComponent {
     })
   }
 
+  getRef = ref => {
+    this.mapRef = ref
+  }
+
   render = () => (
     <div
       ref={this.props.mapRef}

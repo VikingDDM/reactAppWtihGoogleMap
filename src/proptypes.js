@@ -860,10 +860,9 @@ export const ImageMapTypePropTypes = {
 
 export const GroundOverlayOptionsInterface = {
   clickable: PropTypes.bool.isRequired,
-  // map prop is merged inside the component
-  // map: PropTypes.shape(
-  //   GoogleMapInterface
-  // ),
+  map: PropTypes.shape(
+    GoogleMapInterface
+  ), // it does not required, cos it is null initially
   opacity: PropTypes.number.isRequired
 }
 
@@ -1414,17 +1413,11 @@ export const TrafficLayerPropTypes = {
 }
 
 export const GroundOverlayPropTypes = {
-  map: PropTypes.object, // it is null at initialization, so can't be required
   options: PropTypes.shape(
     GroundOverlayOptionsInterface
   ),
   url: PropTypes.string,
-  bounds: PropTypes.arrayOf(
-    PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired
-    }).isRequired
-  ).isRequired,
+  bounds: PropTypes.object,
   opacity: PropTypes.number,
 
   onDblClick: PropTypes.func,
@@ -1433,6 +1426,7 @@ export const GroundOverlayPropTypes = {
 
 export const GoogleMapProviderPropTypes = {
   id: PropTypes.string.isRequired,
+  render: PropTypes.func.isRequired,
   loadingElement: PropTypes.node.isRequired
 }
 
@@ -1441,7 +1435,7 @@ export const GoogleMapPropTypes = {
   map: PropTypes.object, // it is null while map is not loaded
   mapContainerStyle: PropTypes.object,
   mapContainerClassName: PropTypes.string,
-  // mapRef: PropTypes.func.isRequired,
+  mapRef: PropTypes.func.isRequired,
   options: PropTypes.shape(
     GoogleMapOptionsInterface
   ),

@@ -1,3 +1,4 @@
+/* global google */
 // eslint-disable-next-line filenames/match-exported
 import React from 'react'
 import Layout from '../components/layout'
@@ -26,6 +27,8 @@ import {
   // compose
 } from 'react-google-maps-api'
 
+import { Polyline } from "../../../../src/components/drawing/Polyline"
+
 // import MapWithASearchBox from '../components/search-box'
 // import PlacesWithStandaloneSearchBox from '../components/standalone-search-box'
 
@@ -33,14 +36,6 @@ import {
 // You can obtain the API key here:
 // https://developers.google.com/maps/documentation/javascript/get-api-key
 import { googleMapsApiKey } from '../const'
-
-const groundOverlayBounds = [{
-  x: 233.94664370659723,
-  y: 153.67749447485028
-}, {
-  x: 36.34117495659723,
-  y: 154.66186947485028
-}]
 
 const mapBoxStyle = {
   marginTop: '2rem',
@@ -103,17 +98,20 @@ const IndexPage = () => (
         <GoogleMapProvider
           id={providerOneId}
           loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          />
-        </GoogleMapProvider>
+          render={({ map, mapRef }) => (
+            <GoogleMap
+              map={map}
+              mapRef={mapRef}
+              zoom={8}
+              center={center}
+              mapContainerStyle={mapContainerStyle}
+              mapContainerClassName={indexStyles.mapContainer}
+              onClick={(...args) => {
+                console.log('onClick args: ', args)
+              }}
+            />
+          )}
+        />
       </div>
 
       <div style={mapBoxStyle}>
@@ -124,19 +122,32 @@ const IndexPage = () => (
         <GoogleMapProvider
           id={providerTwoId}
           loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-            <TrafficLayer />
-          </GoogleMap>
-        </GoogleMapProvider>
+          render={({ map, mapRef }) => (
+            <GoogleMap
+              map={map}
+              mapRef={mapRef}
+              zoom={8}
+              center={{ lat: 0, lng: -180 }}
+              mapContainerStyle={mapContainerStyle}
+              mapContainerClassName={indexStyles.mapContainer}
+              onClick={(...args) => {
+                console.log('onClick args: ', args)
+              }}
+            >
+              <Polyline path={[
+                { lat: 37.772, lng: -122.214 },
+                { lat: 21.291, lng: -157.821 },
+                { lat: -18.142, lng: 178.431 },
+                { lat: -27.467, lng: 153.027 }
+              ]} options={{
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+              }} />
+              <TrafficLayer />
+            </GoogleMap>
+          )}
+        />
       </div>
 
       <div style={mapBoxStyle}>
@@ -147,19 +158,22 @@ const IndexPage = () => (
         <GoogleMapProvider
           id={providerThreeId}
           loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-            <BicyclingLayer />
-          </GoogleMap>
-        </GoogleMapProvider>
+          render={({ map, mapRef }) => (
+            <GoogleMap
+              map={map}
+              mapRef={mapRef}
+              zoom={8}
+              center={center}
+              mapContainerStyle={mapContainerStyle}
+              mapContainerClassName={indexStyles.mapContainer}
+              onClick={(...args) => {
+                console.log('onClick args: ', args)
+              }}
+            >
+              <BicyclingLayer />
+            </GoogleMap>
+          )}
+        />
       </div>
 
       <div style={mapBoxStyle}>
@@ -170,26 +184,33 @@ const IndexPage = () => (
         <GoogleMapProvider
           id={providerFourId}
           loadingElement={Loading}
-        >
-          <GoogleMap
-            zoom={8}
-            center={center}
-            mapContainerStyle={mapContainerStyle}
-            mapContainerClassName={indexStyles.mapContainer}
-            onClick={(...args) => {
-              console.log('onClick args: ', args)
-            }}
-          >
-            <GroundOverlay
-              url='https://legacy.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-              bounds={groundOverlayBounds}
-              options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                clickable: true,
-                opacity: 0.5
+          render={({ map, mapRef }) => (
+            <GoogleMap
+              map={map}
+              mapRef={mapRef}
+              zoom={8}
+              center={center}
+              mapContainerStyle={mapContainerStyle}
+              mapContainerClassName={indexStyles.mapContainer}
+              onClick={(...args) => {
+                console.log('onClick args: ', args)
               }}
-            />
-          </GoogleMap>
-        </GoogleMapProvider>
+            >
+              <GroundOverlay
+                url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+                bounds={new google.maps.LatLngBounds(
+                  new google.maps.LatLng(40.712216, -74.22655),
+                  new google.maps.LatLng(40.773941, -74.12544)
+                )}
+                options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+                  map,
+                  clickable: true,
+                  opacity: 0.5
+                }}
+              />
+            </GoogleMap>
+          )}
+        />
       </div>
     </LoadScript>
   </Layout>
