@@ -5,8 +5,12 @@ import { BicyclingLayerPropTypes } from '../../proptypes'
 export class BicyclingLayer extends PureComponent {
   static propTypes = BicyclingLayerPropTypes
 
-  state = {
-    bicyclingLayer: null
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      bicyclingLayer: null
+    }
   }
 
   static getDerivedStateFromProps (props, state) {

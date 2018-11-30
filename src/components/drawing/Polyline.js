@@ -5,6 +5,7 @@ import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
+import MapContext from '../../mapcontext'
 
 import { PolylinePropTypes } from '../../proptypes'
 
@@ -23,22 +24,22 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (instance, draggable) {
+  draggable(instance, draggable) {
     instance.setDraggable(draggable)
   },
-  editable (instance, editable) {
+  editable(instance, editable) {
     instance.setEditable(editable)
   },
-  map (instance, map) {
+  map(instance, map) {
     instance.setMap(map)
   },
-  options (instance, options) {
+  options(instance, options) {
     instance.setOptions(options)
   },
-  path (instance, path) {
+  path(instance, path) {
     instance.setPath(path)
   },
-  visible (instance, visible) {
+  visible(instance, visible) {
     instance.setVisible(visible)
   },
 }
@@ -46,66 +47,43 @@ const updaterMap = {
 export class Polyline extends PureComponent {
   static propTypes = PolylinePropTypes
 
-  registeredEvents = []
+  static contextType = MapContext
+
+  registerEvents = []
 
   state = {
     polyline: null
   }
 
-  initializePolyline = () => {
-    const polyline = new google.maps.Polyline(
-      Object.assign(
-        this.props.options, {
-          map: this.props.map
-        }
-      )
-    )
-
-    this.setState(
-      () => ({
-        polyline
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polyline
-        })
-      })
-  }
-
   componentDidMount = () => {
-    if (this.props.map !== null) {
-      this.initializePolyline()
-    }
-  }
+    const polyline = new google.maps.Polyline()
 
-  componentDidUpdate = prevProps => {
-    if (this.props.map !== null && this.state.polyline === null) {
-      this.initializePolyline()
-    }
-
-    if (this.state.polyline !== null) {
-      unregisterEvents(this.registeredEvents)
-
+    this.setState({ polyline }, () => {
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
         eventMap,
-        prevProps,
+        prevProps: {},
         nextProps: this.props,
         instance: this.state.polyline
       })
-    }
+      this.state.polyline.setMap(this.context)
+    })
+  }
+
+  componentDidUpdate = (prevProps) => {
+    unregisterEvents(this.registeredEvents)
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.polyline
+    })
   }
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
-
-    if (this.state.polyline !== null) {
-      this.state.polyline.setMap(null)
-    }
+    this.state.polyline && this.state.polyline.setMap(null)
   }
 
   render = () => null

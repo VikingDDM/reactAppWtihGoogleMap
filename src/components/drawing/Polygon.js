@@ -6,6 +6,7 @@ import {
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/MapChildHelper'
 
+
 import { PolygonPropTypes } from '../../proptypes'
 
 const eventMap = {
@@ -23,31 +24,31 @@ const eventMap = {
 }
 
 const updaterMap = {
-  draggable (instance, draggable) {
+  draggable(instance, draggable) {
     instance.setDraggable(draggable)
   },
 
-  editable (instance, editable) {
+  editable(instance, editable) {
     instance.setEditable(editable)
   },
 
-  options (instance, options) {
+  options(instance, options) {
     instance.setOptions(options)
   },
 
-  map (instance, map) {
+  map(instance, map) {
     instance.setMap(map)
   },
 
-  path (instance, path) {
+  path(instance, path) {
     instance.setPath(path)
   },
 
-  paths (instance, paths) {
+  paths(instance, paths) {
     instance.setPaths(paths)
   },
 
-  visible (instance, visible) {
+  visible(instance, visible) {
     instance.setVisible(visible)
   },
 }
@@ -55,67 +56,49 @@ const updaterMap = {
 export class Polygon extends PureComponent {
   static propTypes = PolygonPropTypes
 
-  registeredEvents = []
+  constructor(props) {
+    super(props)
 
-  state = {
-    polygon: null
-  }
+    this.registeredEvents = [];
 
-  initializePoligon = () => {
-    const polygon = new google.maps.Polygon(
-      Object.assign(this.props.options, {
-        map: this.props.map
-      })
-    )
-
-    this.setState(
-      () => ({
-        polygon
-      }),
-      () => {
-        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-          updaterMap,
-          eventMap,
-          prevProps: {},
-          nextProps: this.props,
-          instance: this.state.polygon
-        })
-      })
-  }
-
-  componentDidMount = () => {
-    if (this.props.map !== null) {
-      this.initializePoligon()
+    this.state = {
+      polygon: null
     }
   }
 
-  componentDidUpdate = prevProps => {
-    if (this.props.map !== null && this.state.polygon === null) {
-      this.initializePoligon()
-    }
+  componentDidMount() {
+    const polygon = new google.maps.Polygon()
 
-    if (this.state.polygon !== null) {
-      unregisterEvents(this.registeredEvents)
-
+    this.setState({ polygon }, () => {
       this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
         updaterMap,
         eventMap,
-        prevProps,
+        prevProps: {},
         nextProps: this.props,
         instance: this.state.polygon
       })
-    }
+    })
   }
 
-  componentWillUnmount = () => {
+  componentDidUpdate(prevProps) {
     unregisterEvents(this.registeredEvents)
-
-    if (this.state.polygon !== 'undefined') {
-      this.state.polygon.setMap(null)
-    }
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.polygon
+    })
   }
 
-  render = () => null
+  componentWillUnmount() {
+    unregisterEvents(this.registeredEvents)
+    this.state.polygon && this.state.polygon.setMap(null)
+  }
+
+  render() {
+    return null
+  }
 
   getDraggable = () =>
     this.state.polygon.getDraggable()
