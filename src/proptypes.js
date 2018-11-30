@@ -184,7 +184,7 @@ export const StreetViewPanoramaOptionsInterface = {
   ).isRequired,
   scrollwheel: PropTypes.bool.isRequired,
   showRoadLabels: PropTypes.bool.isRequired,
-  visible: PropTypes.bool, // visible by default
+  visible: PropTypes.bool.isRequired,
   zoom: PropTypes.number.isRequired,
   zoomControl: PropTypes.bool.isRequired,
   zoomControlOptions: PropTypes.shape(
@@ -446,13 +446,34 @@ export const PolylineOptionsInterface = {
   ),
   map: PropTypes.shape(
     GoogleMapInterface
-  ), // map is merged inside of the component
-  path: PathInterface, // path is merged inside of the component
+  ).isRequired,
+  path: PathInterface.isRequired,
   strokeColor: PropTypes.string,
   strokeOpacity: PropTypes.number,
   strokeWeight: PropTypes.number,
   visible: PropTypes.bool,
   zIndex: PropTypes.number
+}
+
+export const PolylinePropTypes = {
+  options: PropTypes.shape(
+    PolylineOptionsInterface
+  ),
+  draggable: PropTypes.bool,
+  editable: PropTypes.bool,
+  path: PathInterface,
+  visible: PropTypes.bool,
+  onDblClick: PropTypes.func,
+  onDragEnd: PropTypes.func,
+  onDragStart: PropTypes.func,
+  onMouseDown: PropTypes.func,
+  onMouseMove: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseUp: PropTypes.func,
+  onRightClick: PropTypes.func,
+  onClick: PropTypes.func,
+  onDrag: PropTypes.func,
 }
 
 export const PolygonOptionsInterface = {
@@ -464,7 +485,7 @@ export const PolygonOptionsInterface = {
   geodesic: PropTypes.bool.isRequired,
   map: PropTypes.shape(
     GoogleMapInterface
-  ), // map is merged inside of component
+  ).isRequired,
   paths: PropTypes.oneOfType([
     PropTypes.shape(
       MVCArrayInterface
@@ -494,10 +515,32 @@ export const PolygonOptionsInterface = {
   ]).isRequired,
   strokeColor: PropTypes.string.isRequired,
   strokeOpacity: PropTypes.number.isRequired,
-  strokePosition: PropTypes.string, // StrokePosition constants
+  strokePosition: PropTypes.string.isRequired, // StrokePosition constants
   strokeWeight: PropTypes.number.isRequired,
-  visible: PropTypes.bool,
+  visible: PropTypes.bool.isRequired,
   zIndex: PropTypes.number.isRequired
+}
+
+export const PolygonPropTypes = {
+  options: PropTypes.shape(
+    PolygonOptionsInterface
+  ),
+  draggable: PropTypes.bool,
+  editable: PropTypes.bool,
+  path: PropTypes.any,
+  paths: PropTypes.any,
+  visible: PropTypes.bool,
+  onDblClick: PropTypes.func,
+  onDragEnd: PropTypes.func,
+  onDragStart: PropTypes.func,
+  onMouseDown: PropTypes.func,
+  onMouseMove: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseUp: PropTypes.func,
+  onRightClick: PropTypes.func,
+  onClick: PropTypes.func,
+  onDrag: PropTypes.func,
 }
 
 export const LatLngBoundsInterface = {
@@ -542,9 +585,9 @@ export const RectangleOptionsInterface = {
   ).isRequired,
   strokeColor: PropTypes.string.isRequired,
   strokeOpacity: PropTypes.number.isRequired,
-  strokePosition: PropTypes.string, // StrokePosition constants
+  strokePosition: PropTypes.string.isRequired, // StrokePosition constants
   strokeWeight: PropTypes.number.isRequired,
-  visible: PropTypes.bool, // visible by default
+  visible: PropTypes.bool.isRequired,
   zIndex: PropTypes.number.isRequired,
 }
 
@@ -586,13 +629,13 @@ export const CircleOptionsInterface = {
   fillOpacity: PropTypes.number.isRequired,
   map: PropTypes.shape(
     GoogleMapInterface
-  ), // map is merged inside of the component
+  ).isRequired,
   radius: PropTypes.number.isRequired,
   strokeColor: PropTypes.string.isRequired,
   strokeOpacity: PropTypes.number.isRequired,
-  strokePosition: PropTypes.string, // StrokePosition constants
+  strokePosition: PropTypes.string.isRequired, // StrokePosition constants
   strokeWeight: PropTypes.number.isRequired,
-  visible: PropTypes.bool, // visible by default
+  visible: PropTypes.bool.isRequired,
   zIndex: PropTypes.number.isRequired,
 }
 
@@ -657,7 +700,7 @@ export const DataStyleOptionsInterface = {
   strokeOpacity: PropTypes.number.isRequired,
   strokeWeight: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  visible: PropTypes.bool, // visible by default
+  visible: PropTypes.bool.isRequired,
   zIndex: PropTypes.number.isRequired,
 }
 
@@ -1444,49 +1487,4 @@ export const LoadScriptPropTypes = {
   region: PropTypes.string.isRequired,
   version: PropTypes.string.isRequired,
   onLoad: PropTypes.func
-}
-
-export const PolygonPropTypes = {
-  map: PropTypes.object, // it is null while map is not loaded
-  options: PropTypes.shape(
-    PolygonOptionsInterface
-  ),
-  draggable: PropTypes.bool,
-  editable: PropTypes.bool,
-  path: PropTypes.any,
-  paths: PropTypes.any,
-  visible: PropTypes.bool,
-  onDblClick: PropTypes.func,
-  onDragEnd: PropTypes.func,
-  onDragStart: PropTypes.func,
-  onMouseDown: PropTypes.func,
-  onMouseMove: PropTypes.func,
-  onMouseOut: PropTypes.func,
-  onMouseOver: PropTypes.func,
-  onMouseUp: PropTypes.func,
-  onRightClick: PropTypes.func,
-  onClick: PropTypes.func,
-  onDrag: PropTypes.func,
-}
-
-export const PolylinePropTypes = {
-  map: PropTypes.object, // it is null while map is not loaded
-  options: PropTypes.shape(
-    PolylineOptionsInterface
-  ),
-  draggable: PropTypes.bool,
-  editable: PropTypes.bool,
-  path: PathInterface,
-  visible: PropTypes.bool,
-  onDblClick: PropTypes.func,
-  onDragEnd: PropTypes.func,
-  onDragStart: PropTypes.func,
-  onMouseDown: PropTypes.func,
-  onMouseMove: PropTypes.func,
-  onMouseOut: PropTypes.func,
-  onMouseOver: PropTypes.func,
-  onMouseUp: PropTypes.func,
-  onRightClick: PropTypes.func,
-  onClick: PropTypes.func,
-  onDrag: PropTypes.func,
 }
