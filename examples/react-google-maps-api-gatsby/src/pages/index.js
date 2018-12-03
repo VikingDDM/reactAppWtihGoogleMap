@@ -73,9 +73,13 @@ const mapContainerStyle = {
   width: `800px`
 }
 
-const googleMapsLibraries = ['drawing']
+const shapesStyles = {
+  container: mapContainerStyle,
+  mapContainer: indexStyles.mapContainer
+}
 
 const Loading = <div style={loadingStyle} />
+const googleMapsLibraries = ['drawing']
 
 const loaderId = uuid()
 const providerOneId = uuid()
@@ -117,7 +121,6 @@ const IndexPage = () => (
           </GoogleMap>
         </GoogleMapProvider>
       </div>
-
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>Google Map with Shapes</h2>
         <ShapesExample
@@ -127,7 +130,6 @@ const IndexPage = () => (
           }}
         />
       </div>
-
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>Google Map with DrawingManager</h2>
         <DrawingManagerExample
@@ -137,7 +139,6 @@ const IndexPage = () => (
           }}
         />
       </div>
-
       {/* 
 
       <div style={mapBoxStyle}>
@@ -183,6 +184,20 @@ const IndexPage = () => (
           >
           
         </GoogleMapProvider>
+<<<<<<< HEAD
+
+        <div style={mapBoxStyle}>
+          <h2 style={mapHeaderStyle}>
+            Google Map with Shapes
+          </h2>
+
+          <ShapesExample
+            styles={shapesStyles}
+            loadingElement={Loading}
+          />
+        </div>
+      </div>
+=======
        
  */}
     </LoadScript>

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   GoogleMapProvider,
   GoogleMap,
@@ -11,7 +12,7 @@ import {
   InfoWindow
 } from '../../../../src'
 
-import pinIcon from "../assets/pin.svg"
+import pinIcon from '../assets/pin.svg'
 
 const FLIGHT_PLAN_COORDS = [
   { lat: 37.772, lng: -122.214 },
@@ -47,19 +48,103 @@ const POLYLINE_OPTIONS = {
   strokeWeight: 2
 }
 
-export default class ShapesExample extends React.Component {
-  constructor (props) {
-    super(props)
+const ShapesExamplePropTypes = {
+  styles: PropTypes.object.isRequired,
+  loadingElement: PropTypes.node.isRequired
+}
 
-    this.state = {
-      polylineVisible: true,
-      polylineOptions: JSON.stringify(POLYLINE_OPTIONS)
-    }
+const mapCenter = {
+  lat: 0,
+  lng: -180
+}
+
+const MARKER_POSITION = { lat: 37.772, lng: -122.214 }
+const OVERLAY_VIEW_POSITION = { lat: 35.772, lng: -120.214 }
+const INFO_WINDOW_POSITION = { lat: 33.772, lng: -117.214 }
+
+const brisbanePolygonOptions = {
+  fillColor: '#00FF00',
+  fillOpacity: 1,
+  strokeColor: '#22FF22',
+  strokeOpacity: 1,
+  strokeWeight: 2,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  geodesic: false,
+  paths: BRISBANE_COORDS,
+  zIndex: 1
+}
+
+const sfPolygonOptions = {
+  fillColor: '#FF5500',
+  fillOpacity: 1,
+  strokeColor: '#FF7700',
+  strokeOpacity: 1,
+  strokeWeight: 2,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  geodesic: false,
+  paths: SAN_FRANCISCO_COORDS,
+  zIndex: 1
+}
+
+const circleOptions = {
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35,
+  center: {
+    lat: 34.052,
+    lng: -118.243
+  },
+  radius: 300000,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  visible: true,
+  zIndex: 1
+}
+
+const textareaStyle = {
+  minHeight: '6rem',
+  maxHeight: '12rem',
+  marginTop: '2rem',
+  marginBottom: '2rem',
+  width: '40rem',
+  minWidth: '40rem',
+  maxWidth: '40rem'
+}
+
+const infoWindowStyle = {
+  background: `white`,
+  border: `1px solid #ccc`,
+  padding: 15
+}
+
+export default class ShapesExample extends React.Component {
+  static propTypes = ShapesExamplePropTypes
+
+  state = {
+    polylineVisible: true,
+    polylineOptions: JSON.stringify(POLYLINE_OPTIONS)
   }
 
-  render () {
-    const { styles, loadingElement } = this.props
+  onCheckboxChange = () => {
+    this.setState(prevState => ({
+      polylineVisible: !prevState.polylineVisible
+    }))
+  }
 
+  onTextAreaChange = ({ target: { value } }) => {
+    this.setState(() => ({
+      polylineOptions: value
+    }))
+  }
+
+  render = () => {
     let polylineOptions
 
     try {
@@ -75,7 +160,7 @@ export default class ShapesExample extends React.Component {
             id='show-polyline-checkbox'
             type='checkbox'
             checked={this.state.polylineVisible}
-            onChange={() => this.setState({ polylineVisible: !this.state.polylineVisible })}
+            onChange={this.onCheckboxChange}
           />
           <label htmlFor='show-polyline-checkbox'>Show flight path</label>
         </div>
@@ -89,54 +174,40 @@ export default class ShapesExample extends React.Component {
             id='polyline-options-input'
             type='text'
             value={this.state.polylineOptions}
-            onChange={e => this.setState({ polylineOptions: e.target.value })}
+            style={textareaStyle}
+            onChange={this.onTextAreaChange}
           />
         </div>
 
         <GoogleMapProvider
           id='shapes-example'
-          mapContainerStyle={styles.container}
-          mapContainerClassName={styles.mapContainer}
+          mapContainerStyle={this.props.styles.container}
+          mapContainerClassName={this.props.styles.mapContainer}
         >
-          <GoogleMap zoom={2} center={{ lat: 0, lng: -180 }}>
+          <GoogleMap zoom={2} center={mapCenter}>
             {this.state.polylineVisible && (
               <Polyline path={FLIGHT_PLAN_COORDS} options={polylineOptions} />
             )}
-            <Polygon path={BRISBANE_COORDS} options={{ fillColor: 'green', fillOpacity: 1 }} />
+            <Polygon path={BRISBANE_COORDS} options={brisbanePolygonOptions} />
 
-            <Polygon
-              path={SAN_FRANCISCO_COORDS}
-              options={{ fillColor: 'purple', fillOpacity: 1 }}
-            />
+            <Polygon path={SAN_FRANCISCO_COORDS} options={sfPolygonOptions} />
 
             <Rectangle bounds={RECTANGLE_BOUNDS} />
-            <Circle
-              center={{ lat: 34.052, lng: -118.243 }}
-              radius={300000}
-              options={{
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35
-              }}
-            />
+            <Circle options={circleOptions} />
 
-            <Marker position={{ lat: 37.772, lng: -122.214 }} icon={pinIcon} />
+            <Marker position={MARKER_POSITION} icon={pinIcon} />
             <OverlayView
-              position={{ lat: 35.772, lng: -120.214 }}
+              position={OVERLAY_VIEW_POSITION}
               mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
             >
-              <div style={{ background: `white`, border: `1px solid #ccc`, padding: 15 }}>
+              <div style={infoWindowStyle}>
                 <h1>OverlayView</h1>
-                <button onClick={() => {}} style={{ height: 60 }}>
-                  I have been clicked
-                </button>
+                <button onClick={() => {}}>I have been clicked</button>
               </div>
             </OverlayView>
 
-            <InfoWindow position={{ lat: 33.772, lng: -117.214 }}>
-              <div style={{ background: `white`, border: `1px solid #ccc`, padding: 15 }}>
+            <InfoWindow position={INFO_WINDOW_POSITION}>
+              <div style={infoWindowStyle}>
                 <h1>InfoWindow</h1>
               </div>
             </InfoWindow>
