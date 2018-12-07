@@ -987,7 +987,7 @@ export const MarkerPropTypes = {
   onZindexChanged: PropTypes.func
 }
 
-export const MarkerClustererPropTypes = {
+export const MarkerClusterPropTypes = {
   children: PropTypes.node,
   averageCenter: PropTypes.bool,
   batchSizeIE: PropTypes.number,
@@ -1082,7 +1082,7 @@ export const GroundOverlayPropTypes = {
 }
 
 export const GoogleMapProviderPropTypes = {
-  id: PropTypes.string, // TODO: do we need this?
+  id: PropTypes.string.isRequired,
   mapContainerStyle: PropTypes.object,
   mapContainerClassName: PropTypes.string
 }
