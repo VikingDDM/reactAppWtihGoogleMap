@@ -44,7 +44,16 @@ export class GroundOverlay extends PureComponent {
   componentDidMount = () => {
     const groundOverlay = new google.maps.GroundOverlay(
       this.props.url,
-      this.props.bounds,
+      new google.maps.LatLngBounds(
+        new google.maps.LatLng(
+          this.props.bounds[0].x,
+          this.props.bounds[0].y
+        ),
+        new google.maps.LatLng(
+          this.props.bounds[1].x,
+          this.props.bounds[1].y
+        )
+      ),
       Object.assign({
         map: this.context
       },

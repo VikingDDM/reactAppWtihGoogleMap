@@ -6,6 +6,5 @@
   "editor.formatOnSave": true,
   "eslint.run": "onSave",
   "prettier.eslintIntegration": true,
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "eslint.autoFixOnSave": true
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true
 }

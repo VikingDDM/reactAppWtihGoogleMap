@@ -1642,10 +1642,12 @@ export const GroundOverlayPropTypes = {
     GroundOverlayOptionsInterface
   ),
   url: PropTypes.string,
-  bounds: PropTypes.oneOfType([
-    PropTypes.shape(LatLngBoundsInterface),
-    PropTypes.shape(LatLngBoundsLiteralInterface)
-  ]).isRequired,
+  bounds: PropTypes.arrayOf(
+    PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired
+    }).isRequired
+  ).isRequired,
   opacity: PropTypes.number,
 
   onDblClick: PropTypes.func,
