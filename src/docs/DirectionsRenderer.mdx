@@ -1,11 +1,15 @@
 ---
-name: GoogleMap
+name: Directions Renderer
 ---
 
-import { GoogleMap, LoadScript } from "../";
+import {
+  GoogleMap,
+  LoadScript,
+  BicyclingLayer
+} from "../";
 import WithApiKey from "./WithApiKey";
 
-# GoogleMap
+# Directions Renderer
 
 ```jsx
 <LoadScript
@@ -21,17 +25,22 @@ import WithApiKey from "./WithApiKey";
   }
 >
   <GoogleMap
-    id="basic-map-example"
+    id='directions-renderer-example'
     mapContainerStyle={{
       height: "400px",
       width: "800px"
     }}
-    zoom={8}
+    zoom={2}
     center={{
-      lat: -34.397,
-      lng: 150.644
+      lat: 0,
+      lng: -180
     }}
-  />
+    onClick={(...args) => {
+      console.log('onClick args: ', args)
+    }}
+  >
+    <BicyclingLayer />
+  </GoogleMap>
 </LoadScript>
 ```
 
@@ -51,17 +60,22 @@ import WithApiKey from "./WithApiKey";
         }
       >
         <GoogleMap
-          id="basic-map-example"
+          id='bicycling-example'
           mapContainerStyle={{
             height: "400px",
             width: "800px"
           }}
-          zoom={8}
+          zoom={2}
           center={{
-            lat: -34.397,
-            lng: 150.644
+            lat: 0,
+            lng: -180
           }}
-        />
+          onClick={(...args) => {
+            console.log('onClick args: ', args)
+          }}
+        >
+          <BicyclingLayer />
+        </GoogleMap>
       </LoadScript>
     )
   }
