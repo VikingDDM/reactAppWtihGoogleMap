@@ -28,23 +28,6 @@
         }
       ]
     },
-    "src/docs/Circle.mdx": {
-      "name": "Circle",
-      "id": "54606f31b3c457f120cb68146b79b219",
-      "filepath": "src/docs/Circle.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Circle.mdx",
-      "slug": "src-docs-circle",
-      "route": "/src-docs-circle",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "circle",
-          "value": "Circle"
-        }
-      ]
-    },
     "src/docs/GoogleMap.mdx": {
       "name": "GoogleMap",
       "route": "/",
@@ -79,20 +62,20 @@
         }
       ]
     },
-    "src/docs/Polyline.mdx": {
-      "name": "Polyline",
-      "id": "0927b6073d50d52aa35e245fcadc6db2",
-      "filepath": "src/docs/Polyline.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polyline.mdx",
-      "slug": "src-docs-polyline",
-      "route": "/src-docs-polyline",
+    "src/docs/Polygon.mdx": {
+      "name": "Polygon",
+      "id": "5ea94b1eaa69eb1699c13ac0a2fe681d",
+      "filepath": "src/docs/Polygon.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polygon.mdx",
+      "slug": "src-docs-polygon",
+      "route": "/src-docs-polygon",
       "order": 0,
       "menu": null,
       "headings": [
         {
           "depth": 1,
-          "slug": "polyline",
-          "value": "Polyline"
+          "slug": "polygon",
+          "value": "Polygon"
         }
       ]
     },
