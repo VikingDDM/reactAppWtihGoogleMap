@@ -79,54 +79,20 @@
         }
       ]
     },
-    "src/docs/Marker.mdx": {
-      "name": "Marker",
-      "id": "02c8339025d94755d0b3a5f655912b57",
-      "filepath": "src/docs/Marker.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Marker.mdx",
-      "slug": "src-docs-marker",
-      "route": "/src-docs-marker",
+    "src/docs/Polygon.mdx": {
+      "name": "Polygon",
+      "id": "5ea94b1eaa69eb1699c13ac0a2fe681d",
+      "filepath": "src/docs/Polygon.mdx",
+      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polygon.mdx",
+      "slug": "src-docs-polygon",
+      "route": "/src-docs-polygon",
       "order": 0,
       "menu": null,
       "headings": [
         {
           "depth": 1,
-          "slug": "marker",
-          "value": "Marker"
-        }
-      ]
-    },
-    "src/docs/Polyline.mdx": {
-      "name": "Polyline",
-      "id": "0927b6073d50d52aa35e245fcadc6db2",
-      "filepath": "src/docs/Polyline.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Polyline.mdx",
-      "slug": "src-docs-polyline",
-      "route": "/src-docs-polyline",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "polyline",
-          "value": "Polyline"
-        }
-      ]
-    },
-    "src/docs/Rectangle.mdx": {
-      "name": "Rectangle",
-      "id": "d1163f7c801914aa4d46b3452e5b91a8",
-      "filepath": "src/docs/Rectangle.mdx",
-      "link": "https://github.com/JustFly1984/react-google-maps-api/edit/master/src/docs/Rectangle.mdx",
-      "slug": "src-docs-rectangle",
-      "route": "/src-docs-rectangle",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "rectangle",
-          "value": "Rectangle"
+          "slug": "polygon",
+          "value": "Polygon"
         }
       ]
     },

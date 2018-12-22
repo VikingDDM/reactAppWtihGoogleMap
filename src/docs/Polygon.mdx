@@ -1,33 +1,31 @@
 ---
-name: Polyline
+name: Polygon
 ---
 
-import { GoogleMap, LoadScript, Polyline } from "../";
+import { GoogleMap, LoadScript, Polygon } from "../";
 import WithApiKey from "./WithApiKey";
 
-# Polyline
+# Polygon
 
 ```jsx
 
-const POLYLINE_COORD = [
-  {lat: 37.772, lng: -122.214},
-  {lat: 21.291, lng: -157.821},
-  {lat: -18.142, lng: 178.431},
-  {lat: -27.467, lng: 153.027}
+const SYDNEY_COORDS = [
+  { lat: -33.858, lng: 151.213 },
+  { lat: -33.859, lng: 151.222 },
+  { lat: -33.866, lng: 151.215 }
 ]
 
-const polylineOptions = {
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
+const sydneyPolygonOptions = {
+  fillColor: 'lightblue',
+  fillOpacity: 1,
+  strokeColor: 'red',
+  strokeOpacity: 1,
   strokeWeight: 2,
-  fillColor: '#FF0000',
-  fillOpacity: 0.35,
   clickable: false,
   draggable: false,
   editable: false,
-  visible: true,
-  radius: 30000,
-  paths: POLYLINE_COORD,
+  geodesic: false,
+  paths: SYDNEY_COORDS,
   zIndex: 1
 }
 
@@ -37,7 +35,6 @@ const polylineOptions = {
   language={"en"}
   region={"EN"}
   version={"weekly"}
-  libraries={[]}
   onLoad={() => console.log("script loaded")}
   loadingElement={<div>Loading...</div>}>
 
@@ -47,16 +44,16 @@ const polylineOptions = {
       height: "400px",
       width: "800px"
     }}
-    zoom={2.5}
+    zoom={13}
     center={{
-      lat: 2.519, 
-      lng: -163.770
+      lat: -33.861,
+      lng: 151.217
     }}
   >
 
-    <Polyline
-      path={POLYLINE_COORD}
-      options={polylineOptions}
+    <Polygon
+      path={SYDNEY_COORDS}
+      options={sydneyPolygonOptions}
     />
 
   </GoogleMap>
@@ -72,34 +69,39 @@ const polylineOptions = {
         language={"en"}
         region={"EN"}
         version={"weekly"}
-        libraries={[]}
         onLoad={() => console.log("script loaded")}
         loadingElement={<div>Loading...</div>}>
 
         <GoogleMap
-          id="polyline-example"
+          id="basic-map-example"
           mapContainerStyle={{
             height: "400px",
             width: "800px"
           }}
-          zoom={2.5}
+          zoom={13}
           center={{
-            lat: 2.519, 
-            lng: -163.770
+            lat: -33.861,
+            lng: 151.217
           }}
         >
 
-        <Polyline
+        <Polygon
           path={[
-            {lat: 37.772, lng: -122.214},
-            {lat: 21.291, lng: -157.821},
-            {lat: -18.142, lng: 178.431},
-            {lat: -27.467, lng: 153.027}
+            { lat: -33.858, lng: 151.213 },
+            { lat: -33.859, lng: 151.222 },
+            { lat: -33.866, lng: 151.215 }
           ]}
           options={{
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 2
+            fillColor: 'lightblue',
+            fillOpacity: 1,
+            strokeColor: 'red',
+            strokeOpacity: 1,
+            strokeWeight: 2,
+            clickable: false,
+            draggable: false,
+            editable: false,
+            geodesic: false,
+            zIndex: 1
           }}
         />
 
