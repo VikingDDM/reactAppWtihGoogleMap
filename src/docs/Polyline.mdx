@@ -1,31 +1,33 @@
 ---
-name: Polygon
+name: Polyline
 ---
 
-import { GoogleMap, LoadScript, Polygon } from "../";
+import { GoogleMap, LoadScript, Polyline } from "../";
 import WithApiKey from "./WithApiKey";
 
-# Polygon
+# Polyline
 
 ```jsx
 
-const SYDNEY_COORDS = [
-  { lat: -33.858, lng: 151.213 },
-  { lat: -33.859, lng: 151.222 },
-  { lat: -33.866, lng: 151.215 }
+const POLYLINE_COORD = [
+  {lat: 37.772, lng: -122.214},
+  {lat: 21.291, lng: -157.821},
+  {lat: -18.142, lng: 178.431},
+  {lat: -27.467, lng: 153.027}
 ]
 
-const sydneyPolygonOptions = {
-  fillColor: 'lightblue',
-  fillOpacity: 1,
-  strokeColor: 'red',
-  strokeOpacity: 1,
+const polylineOptions = {
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
   strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35,
   clickable: false,
   draggable: false,
   editable: false,
-  geodesic: false,
-  paths: SYDNEY_COORDS,
+  visible: true,
+  radius: 30000,
+  paths: POLYLINE_COORD,
   zIndex: 1
 }
 
@@ -44,16 +46,16 @@ const sydneyPolygonOptions = {
       height: "400px",
       width: "800px"
     }}
-    zoom={13}
+    zoom={2.5}
     center={{
-      lat: -33.861,
-      lng: 151.217
+      lat: 2.519, 
+      lng: -163.770
     }}
   >
 
-    <Polygon
-      path={SYDNEY_COORDS}
-      options={sydneyPolygonOptions}
+    <Polyline
+      path={POLYLINE_COORD}
+      options={polylineOptions}
     />
 
   </GoogleMap>
@@ -78,30 +80,24 @@ const sydneyPolygonOptions = {
             height: "400px",
             width: "800px"
           }}
-          zoom={13}
+          zoom={2.5}
           center={{
-            lat: -33.861,
-            lng: 151.217
+            lat: 2.519, 
+            lng: -163.770
           }}
         >
 
-        <Polygon
+        <Polyline
           path={[
-            { lat: -33.858, lng: 151.213 },
-            { lat: -33.859, lng: 151.222 },
-            { lat: -33.866, lng: 151.215 }
+            {lat: 37.772, lng: -122.214},
+            {lat: 21.291, lng: -157.821},
+            {lat: -18.142, lng: 178.431},
+            {lat: -27.467, lng: 153.027}
           ]}
           options={{
-            fillColor: 'lightblue',
-            fillOpacity: 1,
-            strokeColor: 'red',
-            strokeOpacity: 1,
-            strokeWeight: 2,
-            clickable: false,
-            draggable: false,
-            editable: false,
-            geodesic: false,
-            zIndex: 1
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
           }}
         />
 
