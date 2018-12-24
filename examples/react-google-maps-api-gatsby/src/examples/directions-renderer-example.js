@@ -4,7 +4,7 @@ import {
   GoogleMap,
   DirectionsService,
   DirectionsRenderer
-} from 'react-google-maps-api'
+} from '../../../../src'
 
 const DirectionsRendererExamplePropTypes = {
   styles: PropTypes.shape({

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   GoogleMap,
   FusionTablesLayer
-} from 'react-google-maps-api'
+} from '../../../../src'
 
 const FusionTablesLayerExamplePropTypes = {
   styles: PropTypes.shape({

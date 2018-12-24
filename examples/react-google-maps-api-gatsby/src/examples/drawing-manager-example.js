@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   GoogleMap,
   DrawingManager
-} from 'react-google-maps-api'
+} from '../../../../src'
 
 const center = {
   lat: 0,

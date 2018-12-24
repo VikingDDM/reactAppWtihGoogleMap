@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
   GoogleMap,
   BicyclingLayer
-} from 'react-google-maps-api'
+} from '../../../../src'
 
 const BicyclingExamplePropTypes = {
   styles: PropTypes.shape({
