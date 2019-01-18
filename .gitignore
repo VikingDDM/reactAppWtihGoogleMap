@@ -45,6 +45,6 @@ node_modules
 lib/
 dist/
 .vscode/settings.json
-packages/docz/.docz/cache
+.docz/cache
 
 googleMapKey.js
