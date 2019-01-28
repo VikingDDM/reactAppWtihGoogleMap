@@ -141,6 +141,7 @@ class LoadScript extends Component {
           })
         )
       })
+
       .catch(err => {
         this.props.onError(err)
 

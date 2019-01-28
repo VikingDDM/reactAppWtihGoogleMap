@@ -8,7 +8,7 @@ import { LoadScript } from '@react-google-maps/api'
 
 import {
   loadingStyle
-} from '../components/styles'
+} from './styles'
 
 import SectionFusion from './section-fusion'
 import SectionData from './section-data'

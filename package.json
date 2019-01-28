@@ -1,14 +1,20 @@
 {
   "name": "@react-google-maps/root",
+  "version": "1.0.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/JustFly1984/react-google-maps-api"
-  },
+  "description": "@react-google-maps API integration",
+  "license": "MIT",
   "author": {
     "name": "Alexey Lyakhov",
     "email": "justfly1984@gmail.com",
     "url": "https://github.com/JustFly1984"
+  },
+  "contributors": [
+    "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JustFly1984/react-google-maps-api"
   },
   "scripts": {
     "build:api": "cd packages/react-google-maps-api && npm run build && cd ../.. ",

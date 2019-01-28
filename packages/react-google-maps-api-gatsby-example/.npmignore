@@ -1,4 +1,5 @@
-src/
+.chache/
+public/
 .babelrc
 .editorconfig
 .eslintignore
