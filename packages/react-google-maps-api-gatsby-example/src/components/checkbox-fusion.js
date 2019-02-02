@@ -3,23 +3,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleFusion } from '../actions/app'
-
-const id = 'fusion'
+import {
+  toggleFusion
+} from '../actions/app'
 
 const CheckboxFusion = ({ onChange, value }) => (
   <div>
     <input
-      id={id}
+      id='fusion'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
-
+    {` `}
     <label
-      htmlFor={id}
+      htmlFor='fusion'
     >
       Fusion Layer Example
     </label>

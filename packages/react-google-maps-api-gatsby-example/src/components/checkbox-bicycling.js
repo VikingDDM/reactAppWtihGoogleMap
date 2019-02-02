@@ -3,23 +3,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleBicycling } from '../actions/app'
-
-const id = 'bicycling'
+import {
+  toggleBicycling
+} from '../actions/app'
 
 const CheckboxBicycling = ({ onChange, value }) => (
   <div>
     <input
-      id={id}
+      id='bicycling'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
-
+    {` `}
     <label
-      htmlFor={id}
+      htmlFor='bicycling'
     >
       Bicycling Layer Example
     </label>

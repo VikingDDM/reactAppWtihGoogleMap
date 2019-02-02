@@ -3,23 +3,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleGround } from '../actions/app'
-
-const id = 'ground'
+import {
+  toggleGround
+} from '../actions/app'
 
 const CheckboxGround = ({ onChange, value }) => (
   <div>
     <input
-      id={id}
+      id='ground'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
-
+    {` `}
     <label
-      htmlFor={id}
+      htmlFor='ground'
     >
       Ground Layer Example
     </label>

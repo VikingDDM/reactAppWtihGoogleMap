@@ -13,8 +13,7 @@ import {
   DRAWING_TOGGLE,
   BICYCLING_TOGGLE,
   GROUND_TOGGLE,
-  OPTIONS_TOGGLE,
-  STANDALONE_SEARCHBOX_TOGGLE
+  OPTIONS_TOGGLE
 } from '../action-types'
 
 export const changeLanguage = createAction(CHANGE_LANGUAGE)
@@ -30,4 +29,3 @@ export const toggleDrawing = createAction(DRAWING_TOGGLE)
 export const toggleBicycling = createAction(BICYCLING_TOGGLE)
 export const toggleGround = createAction(GROUND_TOGGLE)
 export const toggleOptions = createAction(OPTIONS_TOGGLE)
-export const toggleStandaloneSearchbox = createAction(STANDALONE_SEARCHBOX_TOGGLE)

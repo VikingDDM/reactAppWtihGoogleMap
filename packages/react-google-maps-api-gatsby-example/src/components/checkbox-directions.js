@@ -3,23 +3,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleDirections } from '../actions/app'
-
-const id = 'directions'
+import {
+  toggleDirections
+} from '../actions/app'
 
 const CheckboxDirections = ({ onChange, value }) => (
   <div>
     <input
-      id={id}
+      id='directions'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
-
+    {` `}
     <label
-      htmlFor={id}
+      htmlFor='directions'
     >
       Directions Example
     </label>

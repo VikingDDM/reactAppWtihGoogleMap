@@ -3,23 +3,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleData } from '../actions/app'
-
-const id = 'data'
+import {
+  toggleData
+} from '../actions/app'
 
 const CheckboxData = ({ onChange, value }) => (
   <div>
     <input
-      id={id}
+      id='data'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
-
+    {` `}
     <label
-      htmlFor={id}
+      htmlFor='data'
     >
       Data Example
     </label>

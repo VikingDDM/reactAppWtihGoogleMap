@@ -18,7 +18,6 @@ import CheckboxDrawing from '../components/checkbox-drawing'
 import CheckboxBicycling from '../components/checkbox-bicycling'
 import CheckboxGround from '../components/checkbox-ground'
 import CheckboxOptions from '../components/checkbox-options'
-import CheckboxStandaloneSearchbox from '../components/checkbox-standalone-searchbox'
 
 import GoogleMaps from '../components/google-maps'
 
@@ -62,8 +61,6 @@ const IndexPage = ({ googleMapsApiKey, loadScriptChecked }) => (
       <CheckboxGround />
 
       <CheckboxOptions />
-
-      <CheckboxStandaloneSearchbox />
     </div>
 
     {

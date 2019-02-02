@@ -10,30 +10,19 @@
     "url": "https://github.com/JustFly1984"
   },
   "contributors": [
-    "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
-    "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)"
+    "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/JustFly1984/react-google-maps-api"
   },
   "scripts": {
-    "publish": "cd packages/react-google-maps-api && npm run build && cd ../.. && lerna publish",
+    "publish": "lerna publish",
     "build:api": "cd packages/react-google-maps-api && npm run build && cd ../.. ",
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && npm run build && cd ../..",
-    "build:docz": "cd packages/react-google-maps-api-docz && npm run build && cd ../..",
-    "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start"
-  },
-  "lint-staged": {
-    "linters": {
-      "*.js": [
-        "npx eslint --fix",
-        "git add -A"
-      ]
-    }
+    "build:docz": "cd packages/react-google-maps-api-docz && npm run build && cd ../.."
   },
   "devDependencies": {
-    "lerna": "3.10.7",
-    "lint-staged": "^8.1.1"
+    "lerna": "3.10.7"
   }
 }

@@ -20,7 +20,6 @@ import SectionDrawing from './section-drawing'
 import SectionBicycling from './section-bicycling'
 import SectionGround from './section-ground'
 import SectionOptions from './section-options'
-import SectionStandaloneSearchbox from './section-standalone-searchbox'
 
 const Loading = (
   <div style={loadingStyle} />
@@ -28,8 +27,7 @@ const Loading = (
 
 const googleMapsLibraries = [
   'drawing',
-  'visualization',
-  'places'
+  'visualization'
 ]
 
 const loaderId = uuid()
@@ -65,8 +63,6 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
     <SectionGround />
 
     <SectionOptions />
-
-    <SectionStandaloneSearchbox />
   </LoadScript>
 )
 

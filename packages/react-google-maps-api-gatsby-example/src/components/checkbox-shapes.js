@@ -3,23 +3,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleShapes } from '../actions/app'
-
-const id = 'shapes'
+import {
+  toggleShapes
+} from '../actions/app'
 
 const CheckboxShapes = ({ onChange, value }) => (
   <div>
     <input
-      id={id}
+      id='shapes'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
-
+    {` `}
     <label
-      htmlFor={id}
+      htmlFor='shapes'
     >
       Shapes Example
     </label>

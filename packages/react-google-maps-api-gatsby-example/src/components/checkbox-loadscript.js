@@ -3,26 +3,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleLoadScript } from '../actions/app'
-
-const id = 'toggle-script'
+import {
+  toggleLoadScript
+} from '../actions/app'
 
 const CheckboxLoadscript = ({ checked, onChange }) => (
   <div>
     <input
-      id={id}
+      id='toggle-script'
       type='checkbox'
       checked={checked}
       onChange={onChange}
     />
-
-    &nbsp;
-
-    <label
-      htmlFor={id}
-    >
-      {`Toggle <LoadScript />`}
-    </label>
+    {` `}
+    <label htmlFor='toggle-script'>{`Toggle <LoadScript />`}</label>
   </div>
 )
 

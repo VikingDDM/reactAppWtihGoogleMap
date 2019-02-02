@@ -3,23 +3,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleHeatmap } from '../actions/app'
-
-const id = 'heatmap'
+import {
+  toggleHeatmap
+} from '../actions/app'
 
 const CheckboxHeatmap = ({ onChange, value }) => (
   <div>
     <input
-      id={id}
+      id='heatmap'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
-
+    {` `}
     <label
-      htmlFor={id}
+      htmlFor='heatmap'
     >
       Heatmap Layer Example
     </label>

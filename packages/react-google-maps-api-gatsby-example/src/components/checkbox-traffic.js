@@ -3,23 +3,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { toggleTraffic } from '../actions/app'
-
-const id = 'traffic'
+import {
+  toggleTraffic
+} from '../actions/app'
 
 const CheckboxTraffic = ({ onChange, value }) => (
   <div>
     <input
-      id={id}
+      id='traffic'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
-
-    &nbsp;
-
+    {` `}
     <label
-      htmlFor={id}
+      htmlFor='traffic'
     >
       Traffic Layer Example
     </label>
