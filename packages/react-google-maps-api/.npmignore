@@ -1,4 +1,5 @@
 src/
+.babelrc
 .editorconfig
 .eslintignore
 .prettierignore
