@@ -1,4 +1,4 @@
-/* global google */
+/* global google, Partial */
 import { PureComponent } from 'react'
 
 import {
@@ -72,7 +72,7 @@ interface RectangleProps {
 export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
   static contextType = MapContext
 
-  static defaultProps: RectangleProps = {
+  static defaultProps: Partial<RectangleProps> = {
     draggable: false,
     editable: false,
     visible: true
