@@ -5,32 +5,29 @@ import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
 } from '../../utils/helper'
-
 import MapContext from '../../map-context'
 
-import { ImageMapTypePropTypes } from '../../proptypes'
+import { TrafficLayerPropTypes } from '../../proptypes'
 
-const eventMap = {
-  onTilesLoaded: 'tilesloaded',
-}
+const eventMap = {}
 
 const updaterMap = {
-  opacity (instance, opacity) {
-    instance.setOpacity(opacity)
+  options (instance, options) {
+    instance.setOptions(options)
   }
 }
 
-export class ImageMapType extends PureComponent {
-  static propTypes = ImageMapTypePropTypes
+export class TrafficLayer extends PureComponent {
+  static propTypes = TrafficLayerPropTypes
 
   static contextType = MapContext
 
   state = {
-    imageMapType: null
+    trafficLayer: null
   }
 
   componentDidMount = () => {
-    const imageMapType = new google.maps.ImageMapType(
+    const trafficLayer = new google.maps.TrafficLayer(
       Object.assign(
         {
           map: this.context
@@ -41,10 +38,18 @@ export class ImageMapType extends PureComponent {
 
     this.setState(
       () => ({
-        imageMapType
+        trafficLayer
       }),
       () => {
-        this.state.imageMapType.setMap(this.context)
+        this.state.trafficLayer.setMap(this.context)
+
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.trafficLayer
+        })
       }
     )
   }
@@ -57,28 +62,19 @@ export class ImageMapType extends PureComponent {
       eventMap,
       prevProps,
       nextProps: this.props,
-      instance: this.state.imageMapType
+      instance: this.state.trafficLayer
     })
   }
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
 
-    if (this.state.imageMapType) {
-      this.state.imageMapType.setMap(null)
-    }
+    this.state.trafficLayer && this.state.trafficLayer.setMap(null)
   }
 
   render = () => null
 
-  getOpacity = () =>
-    this.state.imageMapType.getOpacity()
-
-  getTile = (tileCoord, zoom, ownerDocument) =>
-    this.state.imageMapType.getTile(tileCoord, zoom, ownerDocument)
-
-  releaseTile = tileDiv =>
-    this.state.imageMapType.releaseTile(tileDiv)
+  getMap = () => this.state.trafficLayer.getMap()
 }
 
-export default ImageMapType
+export default TrafficLayer

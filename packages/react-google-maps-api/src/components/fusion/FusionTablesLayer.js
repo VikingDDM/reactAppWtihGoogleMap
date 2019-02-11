@@ -8,29 +8,34 @@ import {
 
 import MapContext from '../../map-context'
 
-import { ImageMapTypePropTypes } from '../../proptypes'
+import { FusionTablesLayerPropTypes } from '../../proptypes'
 
 const eventMap = {
-  onTilesLoaded: 'tilesloaded',
+  onClick: 'click',
 }
 
 const updaterMap = {
-  opacity (instance, opacity) {
-    instance.setOpacity(opacity)
-  }
+  map (instance, map) {
+    instance.setMap(map)
+  },
+  options (instance, options) {
+    instance.setOptions(options)
+  },
 }
 
-export class ImageMapType extends PureComponent {
-  static propTypes = ImageMapTypePropTypes
+export class FusionTablesLayer extends PureComponent {
+  static propTypes = FusionTablesLayerPropTypes
 
   static contextType = MapContext
 
+  registeredEvents = []
+
   state = {
-    imageMapType: null
+    fusionTablesLayer: null
   }
 
   componentDidMount = () => {
-    const imageMapType = new google.maps.ImageMapType(
+    const fusionTablesLayer = new google.maps.FusionTablesLayer(
       Object.assign(
         {
           map: this.context
@@ -41,10 +46,10 @@ export class ImageMapType extends PureComponent {
 
     this.setState(
       () => ({
-        imageMapType
+        fusionTablesLayer
       }),
       () => {
-        this.state.imageMapType.setMap(this.context)
+        this.state.fusionTablesLayer.setMap(this.context)
       }
     )
   }
@@ -57,28 +62,22 @@ export class ImageMapType extends PureComponent {
       eventMap,
       prevProps,
       nextProps: this.props,
-      instance: this.state.imageMapType
+      instance: this.state.fusionTablesLayer
     })
   }
 
   componentWillUnmount = () => {
     unregisterEvents(this.registeredEvents)
 
-    if (this.state.imageMapType) {
-      this.state.imageMapType.setMap(null)
+    if (this.state.fusionTablesLayer) {
+      this.state.fusionTablesLayer.setMap(null)
     }
   }
 
   render = () => null
 
-  getOpacity = () =>
-    this.state.imageMapType.getOpacity()
-
-  getTile = (tileCoord, zoom, ownerDocument) =>
-    this.state.imageMapType.getTile(tileCoord, zoom, ownerDocument)
-
-  releaseTile = tileDiv =>
-    this.state.imageMapType.releaseTile(tileDiv)
+  getMap = () =>
+    this.state.fusionTablesLayer.getMap()
 }
 
-export default ImageMapType
+export default FusionTablesLayer
