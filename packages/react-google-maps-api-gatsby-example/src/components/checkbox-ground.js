@@ -8,10 +8,9 @@ import { toggleGround } from '../actions/app'
 const id = 'ground'
 
 const CheckboxGround = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
+  <div>
     <input
       id={id}
-      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
@@ -20,10 +19,9 @@ const CheckboxGround = ({ onChange, value }) => (
     &nbsp;
 
     <label
-      className='custom-control-label'
       htmlFor={id}
     >
-      Ground
+      Ground Layer Example
     </label>
   </div>
 )

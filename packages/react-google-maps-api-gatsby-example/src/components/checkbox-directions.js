@@ -8,10 +8,9 @@ import { toggleDirections } from '../actions/app'
 const id = 'directions'
 
 const CheckboxDirections = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
+  <div>
     <input
       id={id}
-      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
@@ -20,10 +19,9 @@ const CheckboxDirections = ({ onChange, value }) => (
     &nbsp;
 
     <label
-      className='custom-control-label'
       htmlFor={id}
     >
-      Directions
+      Directions Example
     </label>
   </div>
 )

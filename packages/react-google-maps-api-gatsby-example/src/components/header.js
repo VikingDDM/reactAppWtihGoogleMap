@@ -1,20 +1,31 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
-import logo from '../img/logo.svg'
 
-import { logoStyle } from '../components/styles'
+import {
+  headerStyle,
+  linkStyle,
+  innerHeaderStyle,
+  h1style
+} from './styles'
 
-const Header = () => (
-  <div className='container'>
-    <div className='py-4 text-center'>
-      <Link to='/'>
-        <img src={logo} style={logoStyle} alt='Logo' />
-      </Link>
-
-      <h1 className='h2'>React Google Maps API</h1>
-      <p className='lead text-secondary'>Gatsby Example</p>
+const Header = ({ siteTitle }) => (
+  <div style={headerStyle}>
+    <div style={innerHeaderStyle}>
+      <h1 style={h1style}>
+        <Link
+          to='/'
+          style={linkStyle}
+        >
+          {siteTitle}
+        </Link>
+      </h1>
     </div>
   </div>
 )
+
+Header.propTypes = {
+  siteTitle: PropTypes.string.isRequired
+}
 
 export default Header

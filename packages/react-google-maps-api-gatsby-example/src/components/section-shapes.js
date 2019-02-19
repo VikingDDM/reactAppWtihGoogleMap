@@ -6,14 +6,19 @@ import { connect } from 'react-redux'
 import ShapesExample from '../examples/shapes-example'
 
 import {
-  mapStyle,
+  mapBoxStyle,
+  mapHeaderStyle,
   shapeExampleStyles
 } from '../components/styles'
 
 const SectionShapes = ({ shapes }) =>
   shapes
     ? (
-      <div style={mapStyle}>
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+          Google Map with Shapes
+        </h2>
+
         <ShapesExample
           styles={shapeExampleStyles}
         />

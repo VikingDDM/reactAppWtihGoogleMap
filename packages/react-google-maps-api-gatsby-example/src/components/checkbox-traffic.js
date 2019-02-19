@@ -8,10 +8,9 @@ import { toggleTraffic } from '../actions/app'
 const id = 'traffic'
 
 const CheckboxTraffic = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
+  <div>
     <input
       id={id}
-      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
@@ -20,10 +19,9 @@ const CheckboxTraffic = ({ onChange, value }) => (
     &nbsp;
 
     <label
-      className='custom-control-label'
       htmlFor={id}
     >
-      Traffic
+      Traffic Layer Example
     </label>
   </div>
 )

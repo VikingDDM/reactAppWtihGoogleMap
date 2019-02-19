@@ -8,10 +8,9 @@ import { toggleDrawing } from '../actions/app'
 const id = 'drawing'
 
 const CheckboxDrawing = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
+  <div>
     <input
       id={id}
-      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
@@ -20,10 +19,9 @@ const CheckboxDrawing = ({ onChange, value }) => (
     &nbsp;
 
     <label
-      className='custom-control-label'
       htmlFor={id}
     >
-      Drawing
+      Drawing Layer Example
     </label>
   </div>
 )

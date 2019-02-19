@@ -8,17 +8,6 @@ import { LoadScript } from '@react-google-maps/api'
 
 import { loadingStyle } from './styles'
 
-import CheckboxData from '../components/checkbox-data'
-import CheckboxDirections from '../components/checkbox-directions'
-import CheckboxHeatmap from '../components/checkbox-heatmap'
-import CheckboxTraffic from '../components/checkbox-traffic'
-import CheckboxShapes from '../components/checkbox-shapes'
-import CheckboxDrawing from '../components/checkbox-drawing'
-import CheckboxBicycling from '../components/checkbox-bicycling'
-import CheckboxGround from '../components/checkbox-ground'
-import CheckboxOptions from '../components/checkbox-options'
-import CheckboxStandaloneSearchbox from '../components/checkbox-standalone-searchbox'
-
 import SectionData from './section-data'
 import SectionDirections from './section-directions'
 import SectionHeatmap from './section-heatmap'
@@ -37,103 +26,37 @@ const googleMapsLibraries = ['drawing', 'visualization', 'places']
 const loaderId = uuid()
 
 const GoogleMaps = ({ googleMapsApiKey, language }) => (
-  <div className='row'>
-    <div className='col-lg-10 offset-lg-1'>
-      <h2 className='h4 mb-3'>Examples</h2>
+  <LoadScript
+    id={loaderId}
+    googleMapsApiKey={googleMapsApiKey}
+    language={language}
+    region={'EN'}
+    version={'weekly'}
+    onLoad={() => console.log('script loaded')}
+    loadingElement={Loading}
+    libraries={googleMapsLibraries}
+    preventGoogleFontsLoading
+  >
+    <SectionData />
 
-      <LoadScript
-        id={loaderId}
-        googleMapsApiKey={googleMapsApiKey}
-        language={language}
-        region={'EN'}
-        version={'weekly'}
-        onLoad={() => console.log('script loaded')}
-        loadingElement={Loading}
-        libraries={googleMapsLibraries}
-        preventGoogleFontsLoading
-      >
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxData />
+    <SectionDirections />
 
-            <SectionData />
-          </div>
-        </div>
+    <SectionHeatmap />
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxDirections />
+    <SectionTraffic />
 
-            <SectionDirections />
-          </div>
-        </div>
+    <SectionShapes />
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxHeatmap />
+    <SectionDrawing />
 
-            <SectionHeatmap />
-          </div>
-        </div>
+    <SectionBicycling />
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxTraffic />
+    <SectionGround />
 
-            <SectionTraffic />
-          </div>
-        </div>
+    <SectionOptions />
 
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxShapes />
-
-            <SectionShapes />
-          </div>
-        </div>
-
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxDrawing />
-
-            <SectionDrawing />
-          </div>
-        </div>
-
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxBicycling />
-
-            <SectionBicycling />
-          </div>
-        </div>
-
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxGround />
-
-            <SectionGround />
-          </div>
-        </div>
-
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxOptions />
-
-            <SectionOptions />
-          </div>
-        </div>
-
-        <div className='card shadow-sm mb-3'>
-          <div className='card-body'>
-            <CheckboxStandaloneSearchbox />
-
-            <SectionStandaloneSearchbox />
-          </div>
-        </div>
-      </LoadScript>
-    </div>
-  </div>
+    <SectionStandaloneSearchbox />
+  </LoadScript>
 )
 
 GoogleMaps.propTypes = {

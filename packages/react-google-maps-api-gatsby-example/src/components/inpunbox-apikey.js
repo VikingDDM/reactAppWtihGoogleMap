@@ -12,13 +12,12 @@ const InputBoxApiKey = ({ value, onChange }) => (
     <label
       htmlFor='apikey'
     >
-      Google API key:
+      Enter your Google API key here:
     </label>
     {` `}
     <input
       id='apikey'
       type='text'
-      className='form-control mb-2'
       onChange={onChange}
       value={value}
     />

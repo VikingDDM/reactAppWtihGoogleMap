@@ -8,10 +8,9 @@ import { toggleData } from '../actions/app'
 const id = 'data'
 
 const CheckboxData = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
+  <div>
     <input
       id={id}
-      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
@@ -20,16 +19,16 @@ const CheckboxData = ({ onChange, value }) => (
     &nbsp;
 
     <label
-      className='custom-control-label'
       htmlFor={id}
     >
-      Data
+      Data Example
     </label>
   </div>
 )
 
 CheckboxData.propTypes = {
   value: PropTypes.bool.isRequired,
+
   onChange: PropTypes.func.isRequired
 }
 

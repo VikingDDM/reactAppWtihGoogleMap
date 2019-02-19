@@ -8,10 +8,9 @@ import { toggleBicycling } from '../actions/app'
 const id = 'bicycling'
 
 const CheckboxBicycling = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
+  <div>
     <input
       id={id}
-      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
@@ -20,10 +19,9 @@ const CheckboxBicycling = ({ onChange, value }) => (
     &nbsp;
 
     <label
-      className='custom-control-label'
       htmlFor={id}
     >
-      Bicycling
+      Bicycling Layer Example
     </label>
   </div>
 )
