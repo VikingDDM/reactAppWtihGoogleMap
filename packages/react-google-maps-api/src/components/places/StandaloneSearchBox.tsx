@@ -1,22 +1,20 @@
-import * as React from "react"
-import { Context, createRef, Children, PureComponent, RefObject } from "react"
+/* global google */
+import * as React from 'react'
+import { Context, createRef, Children, PureComponent, RefObject } from 'react'
 //@ts-ignore
-import invariant from "invariant" // Do we need this dependency?
+import invariant from 'invariant' // Do we need this dependency?
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from "../../utils/helper"
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
-import MapContext from "../../map-context"
-import { Bounds } from "../../types"
+import MapContext from '../../map-context'
+import { Bounds } from '../../types'
 
 const eventMap = {
-  onPlacesChanged: "places_changed"
+  onPlacesChanged: 'places_changed'
 }
 
 const updaterMap = {
-  bounds(instance: google.maps.places.SearchBox, bounds: Bounds) {
+  bounds (instance: google.maps.places.SearchBox, bounds: Bounds) {
     instance.setBounds(bounds)
   }
 }
@@ -25,16 +23,17 @@ interface StandaloneSearchBoxState {
   searchBox?: google.maps.places.SearchBox
 }
 
+//prettier-ignore
 interface StandaloneSearchBoxProps {
-  bounds?: Bounds
-  options?: google.maps.places.SearchBoxOptions
-  onPlacesChanged?: () => void
+  bounds?: Bounds;
+  options?: google.maps.places.SearchBoxOptions;
+  onPlacesChanged?: () => void;
 }
 
 class StandaloneSearchBox extends PureComponent<
   StandaloneSearchBoxProps,
   StandaloneSearchBoxState
-> {
+  > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -45,22 +44,16 @@ class StandaloneSearchBox extends PureComponent<
     searchBox: null
   }
 
-  constructor(
-    props: StandaloneSearchBoxProps,
-    context: Context<google.maps.Map>
-  ) {
+  constructor (props: StandaloneSearchBoxProps, context: Context<google.maps.Map>) {
     super(props, context)
 
-    invariant(
-      google.maps.places,
-      'Did you include "libraries=places" in the URL?'
-    )
+    invariant(google.maps.places, 'Did you include "libraries=places" in the URL?')
     this.containerElement = createRef()
   }
 
   componentDidMount = () => {
     const searchBox = new google.maps.places.SearchBox(
-      this.containerElement.current.querySelector("input"),
+      this.containerElement.current.querySelector('input'),
       this.props.options
     )
 
@@ -96,9 +89,7 @@ class StandaloneSearchBox extends PureComponent<
     unregisterEvents(this.registeredEvents)
   }
 
-  render = () => (
-    <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
-  )
+  render = () => <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
 
   getBounds = () => this.state.searchBox.getBounds()
 

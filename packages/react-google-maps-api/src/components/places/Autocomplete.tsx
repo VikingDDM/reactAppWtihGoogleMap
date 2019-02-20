@@ -1,35 +1,33 @@
-import * as React from "react"
-import { PureComponent, RefObject, Children, Context, createRef } from "react"
+/* global google */
+import * as React from 'react'
+import { PureComponent, RefObject, Children, Context, createRef } from 'react'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from "../../utils/helper"
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
-import MapContext from "../../map-context"
-import { Bounds } from "../../types"
-import * as invariant from "invariant"
+import MapContext from '../../map-context'
+import { Bounds } from '../../types'
+import * as invariant from 'invariant'
 
 const eventMap = {
-  onPlaceChanged: "place_changed"
+  onPlaceChanged: 'place_changed'
 }
 
 const updaterMap = {
-  bounds(instance: google.maps.places.Autocomplete, bounds: Bounds) {
+  bounds (instance: google.maps.places.Autocomplete, bounds: Bounds) {
     instance.setBounds(bounds)
   },
-  restrictions(
+  restrictions (
     instance: google.maps.places.Autocomplete,
     restrictions: google.maps.places.ComponentRestrictions
   ) {
     instance.setComponentRestrictions(restrictions)
   },
-  fields(instance: google.maps.places.Autocomplete, fields: string[]) {
+  fields (instance: google.maps.places.Autocomplete, fields: string[]) {
     // TODO: add to @types/googlemaps
     // @ts-ignore
     instance.setFields(fields)
   },
-  options(
+  options (
     instance: google.maps.places.Autocomplete,
     options: google.maps.places.AutocompleteOptions
   ) {
@@ -37,7 +35,7 @@ const updaterMap = {
     // @ts-ignore
     instance.setOptions(options)
   },
-  types(instance: google.maps.places.Autocomplete, types: string[]) {
+  types (instance: google.maps.places.Autocomplete, types: string[]) {
     instance.setTypes(types)
   }
 }
@@ -46,19 +44,17 @@ interface AutocompleteState {
   autocomplete?: google.maps.places.Autocomplete
 }
 
+// prettier-ignore
 interface AutocompleteProps {
-  bounds?: Bounds
-  restrictions?: google.maps.places.ComponentRestrictions
-  fields?: string[]
-  options?: google.maps.places.AutocompleteOptions
-  types?: string[]
-  onPlaceChanged?: () => void
+  bounds?: Bounds;
+  restrictions?: google.maps.places.ComponentRestrictions;
+  fields?: string[];
+  options?: google.maps.places.AutocompleteOptions;
+  types?: string[];
+  onPlaceChanged?: () => void;
 }
 
-export class Autocomplete extends PureComponent<
-  AutocompleteProps,
-  AutocompleteState
-> {
+export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -68,19 +64,16 @@ export class Autocomplete extends PureComponent<
     autocomplete: null
   }
 
-  constructor(props: AutocompleteProps, context: Context<google.maps.Map>) {
+  constructor (props: AutocompleteProps, context: Context<google.maps.Map>) {
     super(props, context)
 
-    invariant(
-      google.maps.places,
-      'Did you include "libraries=places" in the URL?'
-    )
+    invariant(google.maps.places, 'Did you include "libraries=places" in the URL?')
     this.containerElement = createRef()
   }
 
   componentDidMount = () => {
     const autocomplete = new google.maps.places.Autocomplete(
-      this.containerElement.current.querySelector("input"),
+      this.containerElement.current.querySelector('input'),
       this.props.options
     )
 
@@ -105,9 +98,7 @@ export class Autocomplete extends PureComponent<
     unregisterEvents(this.registeredEvents)
   }
 
-  render = () => (
-    <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
-  )
+  render = () => <div ref={this.containerElement}>{Children.only(this.props.children)}</div>
 
   getBounds = () => this.state.autocomplete.getBounds()
 

@@ -1,9 +1,11 @@
-import { PureComponent } from "react"
+/* global google */
+import { PureComponent } from 'react'
 
 // TODO: next line is broken import
-import MapContext from "../../map-context"
+import MapContext from '../../map-context'
 
 export class StreetViewService extends PureComponent {
+
   static contextType = MapContext
 
   state = {
@@ -13,14 +15,17 @@ export class StreetViewService extends PureComponent {
   componentDidMount = () => {
     const streetViewService = new google.maps.StreetViewService()
 
-    this.setState(() => ({
-      streetViewService
-    }))
+    this.setState(
+      () => ({
+        streetViewService
+      })
+    )
   }
 
   render = () => null
 
-  getPanorama = () => this.state.streetViewService.getPanorama()
+  getPanorama = () =>
+    this.state.streetViewService.getPanorama()
 }
 
 export default StreetViewService

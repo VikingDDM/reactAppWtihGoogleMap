@@ -1,3 +1,4 @@
+/* global google */
 import * as React from 'react'
 import { CSSProperties, PureComponent } from 'react'
 
