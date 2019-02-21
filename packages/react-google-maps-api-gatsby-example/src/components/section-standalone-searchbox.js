@@ -3,37 +3,37 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import GroundOverlayExample from '../examples/ground-overlay-example'
+import StandaloneSearchboxExample from '../examples/standalone-searchbox-example'
 
 import {
   mapBoxStyle,
   mapHeaderStyle,
   shapeExampleStyles
-} from '../components/styles'
+} from './styles'
 
-const SectionGround = ({ ground }) =>
-  ground
+const SectionStandaloneSearchbox = ({ standaloneSearchbox }) =>
+  standaloneSearchbox
     ? (
       <div style={mapBoxStyle}>
         <h2 style={mapHeaderStyle}>
-            Google Map with Ground Overlay
+          Standalone Searchbox Google Map example
         </h2>
 
-        <GroundOverlayExample
+        <StandaloneSearchboxExample
           styles={shapeExampleStyles}
         />
       </div>
     )
     : null
 
-SectionGround.propTypes = {
-  ground: PropTypes.bool.isRequired
+SectionStandaloneSearchbox.propTypes = {
+  standaloneSearchbox: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  ground: state.getIn(['app', 'ground'])
+  standaloneSearchbox: state.getIn(['app', 'standaloneSearchbox'])
 })
 
 export default connect(
   mapStateToProps
-)(SectionGround)
+)(SectionStandaloneSearchbox)

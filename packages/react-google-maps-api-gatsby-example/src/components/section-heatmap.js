@@ -3,16 +3,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import ExampleHeatmap from '../examples/example-heatmap'
+import HeatmapLayerExample from '../examples/heatmap-example'
 
-import { shapeExampleStyles } from './styles'
+import {
+  mapBoxStyle,
+  mapHeaderStyle,
+  shapeExampleStyles
+} from '../components/styles'
 
 const SectionHeatmap = ({ heatmap }) =>
   heatmap
     ? (
-      <ExampleHeatmap
-        styles={shapeExampleStyles}
-      />
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+          Heatmap Layer Google Map example
+        </h2>
+
+        <HeatmapLayerExample
+          styles={shapeExampleStyles}
+        />
+      </div>
     )
     : null
 

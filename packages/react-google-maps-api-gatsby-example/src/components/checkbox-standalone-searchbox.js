@@ -5,28 +5,28 @@ import { connect } from 'react-redux'
 
 import { toggleStandaloneSearchbox } from '../actions/app'
 
-const id = 'standaloneSearchbox'
+const id = 'traffic'
 
-const CheckboxSearchbox = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
+const CheckboxStandaloneSearchbox = ({ onChange, value }) => (
+  <div>
     <input
       id={id}
-      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
 
+    &nbsp;
+
     <label
-      className='custom-control-label'
       htmlFor={id}
     >
-      Searchbox
+      StandaloneSearchbox Example
     </label>
   </div>
 )
 
-CheckboxSearchbox.propTypes = {
+CheckboxStandaloneSearchbox.propTypes = {
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired
 }
@@ -48,4 +48,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CheckboxSearchbox)
+)(CheckboxStandaloneSearchbox)

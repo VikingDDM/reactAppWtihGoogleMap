@@ -8,17 +8,16 @@ import {
 } from '../actions/app'
 
 const InputBoxApiKey = ({ value, onChange }) => (
-  <div className='form-group mb-2'>
+  <div>
     <label
       htmlFor='apikey'
     >
-      Google API key:
+      Enter your Google API key here:
     </label>
     {` `}
     <input
       id='apikey'
       type='text'
-      className='form-control'
       onChange={onChange}
       value={value}
     />

@@ -8,20 +8,20 @@ import { toggleHeatmap } from '../actions/app'
 const id = 'heatmap'
 
 const CheckboxHeatmap = ({ onChange, value }) => (
-  <div className='custom-control custom-checkbox'>
+  <div>
     <input
       id={id}
-      className='custom-control-input'
       type='checkbox'
       onChange={onChange}
       value={value}
     />
 
+    &nbsp;
+
     <label
-      className='custom-control-label'
       htmlFor={id}
     >
-      Heatmap
+      Heatmap Layer Example
     </label>
   </div>
 )

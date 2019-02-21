@@ -3,16 +3,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import ExampleShapes from '../examples/example-shapes'
+import ShapesExample from '../examples/shapes-example'
 
-import { shapeExampleStyles } from './styles'
+import {
+  mapBoxStyle,
+  mapHeaderStyle,
+  shapeExampleStyles
+} from '../components/styles'
 
 const SectionShapes = ({ shapes }) =>
   shapes
     ? (
-      <ExampleShapes
-        styles={shapeExampleStyles}
-      />
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+          Google Map with Shapes
+        </h2>
+
+        <ShapesExample
+          styles={shapeExampleStyles}
+        />
+      </div>
     )
     : null
 

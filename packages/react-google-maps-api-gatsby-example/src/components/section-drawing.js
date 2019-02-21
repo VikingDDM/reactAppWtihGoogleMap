@@ -3,16 +3,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import ExampleDrawing from '../examples/example-drawing'
+import DrawingManagerExample from '../examples/drawing-manager-example'
 
-import { shapeExampleStyles } from './styles'
+import {
+  mapBoxStyle,
+  mapHeaderStyle,
+  shapeExampleStyles
+} from '../components/styles'
 
 const SectionDrawing = ({ drawing }) =>
   drawing
     ? (
-      <ExampleDrawing
-        styles={shapeExampleStyles}
-      />
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+        Google Map with DrawingManager
+        </h2>
+
+        <DrawingManagerExample
+          styles={shapeExampleStyles}
+        />
+      </div>
     )
     : null
 

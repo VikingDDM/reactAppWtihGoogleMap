@@ -3,16 +3,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import ExampleData from '../examples/example-data'
+import DataExample from '../examples/data-example'
 
-import { shapeExampleStyles } from './styles'
+import {
+  mapBoxStyle,
+  mapHeaderStyle,
+  shapeExampleStyles
+} from '../components/styles'
 
 const SectionData = ({ data }) =>
   data
     ? (
-      <ExampleData
-        styles={shapeExampleStyles}
-      />
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+          Data Google Map example
+        </h2>
+
+        <DataExample
+          styles={shapeExampleStyles}
+        />
+      </div>
     )
     : null
 

@@ -3,16 +3,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import ExampleBicycling from '../examples/example-bicycling'
+import BicyclingExample from '../examples/bicycling-example'
 
-import { shapeExampleStyles } from '../components/styles'
+import {
+  mapBoxStyle,
+  mapHeaderStyle,
+  shapeExampleStyles
+} from '../components/styles'
 
 const SectionBicycling = ({ bicycling }) =>
   bicycling
     ? (
-      <ExampleBicycling
-        styles={shapeExampleStyles}
-      />
+      <div style={mapBoxStyle}>
+        <h2 style={mapHeaderStyle}>
+        Google Map with Bicycling Layer
+        </h2>
+
+        <BicyclingExample
+          styles={shapeExampleStyles}
+        />
+      </div>
     )
     : null
 

@@ -4,9 +4,9 @@ import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
 import Header from './header'
+import './layout.css'
 
-import './bootstrap.css'
-import './styles.css'
+import { layoutStyle } from './styles'
 
 const meta = [
   { name: 'description', content: 'Sample' },
@@ -25,7 +25,7 @@ const Layout = ({ children }) => (
       }
     `}
     render={data => (
-      <div className='bg-light'>
+      <>
         <Helmet
           title={data.site.siteMetadata.title}
           meta={meta}
@@ -35,8 +35,12 @@ const Layout = ({ children }) => (
 
         <Header siteTitle={data.site.siteMetadata.title} />
 
-        {children}
-      </div>
+        <div
+          style={layoutStyle}
+        >
+          {children}
+        </div>
+      </>
     )}
   />
 )
