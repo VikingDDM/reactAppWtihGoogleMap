@@ -1,32 +1,23 @@
-import { PureComponent } from "react"
+/* global google */
+import { PureComponent } from 'react'
 //@ts-ignore
-import invariant from "invariant"
+import invariant from 'invariant'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from "../../utils/helper"
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
-import MapContext from "../../map-context"
+import MapContext from '../../map-context'
+import { HeatmapLayerData } from '../../types'
 
 const eventMap = {}
 
 const updaterMap = {
-  data(
-    instance: google.maps.visualization.HeatmapLayer,
-    data:
-      | google.maps.MVCArray<
-          google.maps.LatLng | google.maps.visualization.WeightedLocation
-        >
-      | google.maps.LatLng[]
-      | google.maps.visualization.WeightedLocation[]
-  ) {
+  data (instance: google.maps.visualization.HeatmapLayer, data: HeatmapLayerData) {
     instance.setData(data)
   },
-  map(instance: google.maps.visualization.HeatmapLayer, map: google.maps.Map) {
+  map (instance: google.maps.visualization.HeatmapLayer, map: google.maps.Map) {
     instance.setMap(map)
   },
-  options(
+  options (
     instance: google.maps.visualization.HeatmapLayer,
     options: google.maps.visualization.HeatmapLayerOptions
   ) {
@@ -40,20 +31,13 @@ interface HeatmapLayerState {
   heatmapLayer?: google.maps.visualization.HeatmapLayer
 }
 
+//prettier-ignore
 interface HeatmapLayerProps {
-  data?:
-    | google.maps.MVCArray<
-        google.maps.LatLng | google.maps.visualization.WeightedLocation
-      >
-    | google.maps.LatLng[]
-    | google.maps.visualization.WeightedLocation[]
-  options?: google.maps.visualization.HeatmapLayerOptions
+  data?: HeatmapLayerData;
+  options?: google.maps.visualization.HeatmapLayerOptions;
 }
 
-export class HeatmapLayer extends PureComponent<
-  HeatmapLayerProps,
-  HeatmapLayerState
-> {
+export class HeatmapLayer extends PureComponent<HeatmapLayerProps, HeatmapLayerState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -62,7 +46,7 @@ export class HeatmapLayer extends PureComponent<
     heatmapLayer: null
   }
 
-  constructor(props: HeatmapLayerProps) {
+  constructor (props: HeatmapLayerProps) {
     super(props)
 
     invariant(

@@ -1,21 +1,19 @@
-import { PureComponent, Context } from "react"
+/* global google */
+import { PureComponent, Context } from 'react'
 // @ts-ignore
-import warning from "warning"
+import warning from 'warning'
 
-import {
-  unregisterEvents,
-  applyUpdatersToPropsAndRegisterEvents
-} from "../../utils/helper"
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
-import MapContext from "../../map-context"
+import MapContext from '../../map-context'
 
 const eventMap = {
-  onDblClick: "dblclick",
-  onClick: "click"
+  onDblClick: 'dblclick',
+  onClick: 'click'
 }
 
 const updaterMap = {
-  opacity(instance: google.maps.GroundOverlay, opacity: number) {
+  opacity (instance: google.maps.GroundOverlay, opacity: number) {
     instance.setOpacity(opacity)
   }
 }
@@ -24,19 +22,17 @@ interface GroundOverlayState {
   groundOverlay?: google.maps.GroundOverlay
 }
 
+//prettier-ignore
 interface GroundOverlayProps {
-  options?: google.maps.GroundOverlayOptions
-  opacity?: number
-  onDblClick?: (e: MouseEvent) => void
-  onClick?: (e: MouseEvent) => void
-  url?: string
-  bounds: google.maps.LatLngBounds
+  options?: google.maps.GroundOverlayOptions;
+  opacity?: number;
+  onDblClick?: (e: MouseEvent) => void;
+  onClick?: (e: MouseEvent) => void;
+  url?: string;
+  bounds: google.maps.LatLngBounds;
 }
 
-export class GroundOverlay extends PureComponent<
-  GroundOverlayProps,
-  GroundOverlayState
-> {
+export class GroundOverlay extends PureComponent<GroundOverlayProps, GroundOverlayState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -45,7 +41,7 @@ export class GroundOverlay extends PureComponent<
     groundOverlay: null
   }
 
-  constructor(props: GroundOverlayProps, context: Context<google.maps.Map>) {
+  constructor (props: GroundOverlayProps, context: Context<google.maps.Map>) {
     super(props, context)
 
     warning(
@@ -55,14 +51,10 @@ export class GroundOverlay extends PureComponent<
   }
 
   componentDidMount = () => {
-    const groundOverlay = new google.maps.GroundOverlay(
-      this.props.url,
-      this.props.bounds,
-      {
-        ...this.props.options,
-        map: this.context
-      }
-    )
+    const groundOverlay = new google.maps.GroundOverlay(this.props.url, this.props.bounds, {
+      ...this.props.options,
+      map: this.context
+    })
 
     this.setState({ groundOverlay })
   }

@@ -1,13 +1,18 @@
-import { useState, useEffect, useContext } from "react"
+/* global google */
+import {
+  useState,
+  useEffect,
+  useContext
+} from 'react'
 
-import MapContext from "../map-context"
+import MapContext from '../map-context'
 
 import {
   unregisterEvents,
   applyUpdatersToPropsAndRegisterEvents
-} from "./helper"
+} from './helper'
 
-export default function useMapComponent(props) {
+export default function useMapComponent (props) {
   const [instance, setInstance] = useState(null)
   const context = useContext(MapContext)
 
@@ -39,5 +44,5 @@ export default function useMapComponent(props) {
     }
   })
 
-  return "was here"
+  return 'was here'
 }
