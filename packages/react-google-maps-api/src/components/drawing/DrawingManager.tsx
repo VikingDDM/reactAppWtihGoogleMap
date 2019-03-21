@@ -1,7 +1,6 @@
-/* globals google */
-import * as React from "react"
-
-import * as invariant from "invariant"
+import { PureComponent } from "react"
+// @ts-ignore
+import invariant from "invariant"
 
 import {
   unregisterEvents,
@@ -35,22 +34,21 @@ const updaterMap = {
 }
 
 interface DrawingManagerState {
-  drawingManager: google.maps.drawing.DrawingManager | null;
+  drawingManager?: google.maps.drawing.DrawingManager
 }
 
 interface DrawingManagerProps {
-  options?: google.maps.drawing.DrawingManagerOptions;
-  drawingMode?: google.maps.drawing.OverlayType | null;
-  onCircleComplete?: (circle: google.maps.Circle) => void;
-  onMarkerComplete?: (marker: google.maps.Marker) => void;
-  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void;
-  onPolygonComplete?: (polygon: google.maps.Polygon) => void;
-  onPolylineComplete?: (polyline: google.maps.Polyline) => void;
-  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void;
-  onLoad?: (drawingManager: google.maps.drawing.DrawingManager) => void;
+  options?: google.maps.drawing.DrawingManagerOptions
+  drawingMode?: google.maps.drawing.OverlayType | null
+  onCircleComplete?: (circle: google.maps.Circle) => void
+  onMarkerComplete?: (marker: google.maps.Marker) => void
+  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void
+  onPolygonComplete?: (polygon: google.maps.Polygon) => void
+  onPolylineComplete?: (polyline: google.maps.Polyline) => void
+  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void
 }
 
-export class DrawingManager extends React.PureComponent<
+export class DrawingManager extends PureComponent<
   DrawingManagerProps,
   DrawingManagerState
 > {
@@ -72,35 +70,23 @@ export class DrawingManager extends React.PureComponent<
   }
 
   componentDidMount = () => {
-    const drawingManager = new google.maps.drawing.DrawingManager(
-      typeof this.props.options === 'object'
-        ? {
-          ...this.props.options,
-          map: this.context
-        }
-        : {
-          map: this.context
-        }
-      )
+    const drawingManager = new google.maps.drawing.DrawingManager({
+      ...this.props.options,
+      map: this.context
+    })
 
     this.setState(
       () => ({
         drawingManager
       }),
       () => {
-        if (this.state.drawingManager !== null) {
-          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-            updaterMap,
-            eventMap,
-            prevProps: {},
-            nextProps: this.props,
-            instance: this.state.drawingManager
-          })
-
-          if (this.props.onLoad) {
-            this.props.onLoad(this.state.drawingManager)
-          }
-        }
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.drawingManager
+        })
       }
     )
   }
@@ -123,11 +109,11 @@ export class DrawingManager extends React.PureComponent<
     this.state.drawingManager && this.state.drawingManager.setMap(null)
   }
 
-  render = () => (<></>)
+  render = () => null
 
-  getDrawingMode = () => this.state.drawingManager!.getDrawingMode()
+  getDrawingMode = () => this.state.drawingManager.getDrawingMode()
 
-  getMap = () => this.state.drawingManager!.getMap()
+  getMap = () => this.state.drawingManager.getMap()
 }
 
 export default DrawingManager

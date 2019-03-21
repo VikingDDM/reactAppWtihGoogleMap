@@ -4,50 +4,7 @@ import { setKey, getKey } from "./docs-api-key"
 import LoadScript from "../LoadScript"
 
 const libraries = ["drawing", "places", "visualization"]
-
-const inputStyle = {
-  width: "400px",
-  height: "40px",
-  paddingLeft: "8px"
-}
-
-const buttonStyle = {
-  height: "40px",
-  marginLeft: "8px"
-}
-
-interface DocsApiKeyInputState {
-  key: string
-  loadScript: boolean
-}
-
-class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
-  constructor(props: {}) {
-    super(props)
-
-    const key = getKey()
-
-    this.state = key
-      ? { key, loadScript: true }
-      : { key: "", loadScript: false }
-  }
-
-  onInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    this.setState(() => ({
-      key: value
-    }))
-  }
-
-  onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    setKey(this.state.key)
-
-    this.setState(() => ({
-      loadScript: true
-    }))
-  }
-
+class DocsApiKeyInput extends Component<any, any> {
   render = () => {
     return (
       <>
@@ -57,15 +14,14 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
             onChange={this.onInputChange}
             value={this.state.key}
             placeholder="Enter Google Maps API Key"
-            style={inputStyle}
+            style={{ width: "400px", height: "40px", paddingLeft: "8px" }}
           />
-
-          <button type="submit" style={buttonStyle}>
+          <button type="submit" style={{ height: "40px", marginLeft: "8px" }}>
             Set Key
           </button>
         </form>
 
-        {this.state.loadScript ? (
+        {this.state.loadScript && (
           <LoadScript
             id="script-loader"
             googleMapsApiKey={this.state.key}
@@ -75,11 +31,27 @@ class DocsApiKeyInput extends Component<{}, DocsApiKeyInputState> {
             libraries={libraries}
             loadingElement={<div>Loading...</div>}
           />
-        ) : (
-          <></>
         )}
       </>
     )
+  }
+
+  constructor(props) {
+    super(props)
+
+    const key = getKey()
+
+    this.state = key
+      ? { key, loadScript: true }
+      : { key: "", loadScript: false }
+  }
+
+  onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
+    this.setState({ key: e.target.value })
+  onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setKey(this.state.key)
+    this.setState({ loadScript: true })
   }
 }
 

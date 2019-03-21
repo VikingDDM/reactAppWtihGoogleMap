@@ -28,17 +28,16 @@ const updaterMap = {
 }
 
 interface KmlLayerState {
-  kmlLayer: google.maps.KmlLayer | null;
+  kmlLayer?: google.maps.KmlLayer
 }
 
 interface KmlLayerProps {
-  options?: google.maps.KmlLayerOptions;
-  url?: string;
-  zIndex?: number;
-  onClick?: (e: google.maps.MouseEvent) => void;
-  onDefaultViewportChanged?: () => void;
-  onStatusChanged?: () => void;
-  onLoad: (kmlLayer: google.maps.KmlLayer) => void;
+  options?: google.maps.KmlLayerOptions
+  url?: string
+  zIndex?: number
+  onClick?: (e: google.maps.MouseEvent) => void
+  onDefaultViewportChanged?: () => void
+  onStatusChanged?: () => void
 }
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
@@ -58,21 +57,15 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
         kmlLayer
       }),
       () => {
-        if (this.state.kmlLayer !== null) {
-          this.state.kmlLayer.setMap(this.context)
+        this.state.kmlLayer.setMap(this.context)
 
-          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-            updaterMap,
-            eventMap,
-            prevProps: {},
-            nextProps: this.props,
-            instance: this.state.kmlLayer
-          })
-
-          if (this.props.onLoad) {
-            this.props.onLoad(this.state.kmlLayer)
-          }
-        }
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.kmlLayer
+        })
       }
     )
   }
@@ -95,9 +88,19 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
     this.state.kmlLayer && this.state.kmlLayer.setMap(null)
   }
 
-  render () {
-    return null
-  }
+  render = () => null
+
+  getDefaultViewport = () => this.state.kmlLayer.getDefaultViewport()
+
+  getMap = () => this.state.kmlLayer.getMap()
+
+  getMetadata = () => this.state.kmlLayer.getMetadata()
+
+  getStatus = () => this.state.kmlLayer.getStatus()
+
+  getUrl = () => this.state.kmlLayer.getUrl()
+
+  getZIndex = () => this.state.kmlLayer.getZIndex()
 }
 
 export default KmlLayer

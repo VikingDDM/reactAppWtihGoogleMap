@@ -18,9 +18,6 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
     }}
   >
     <Data
-      onLoad={data => {
-        console.log('data: ', data)
-      }}
       options={{
         controlPosition: "TOP_LEFT",
         controls: ["Point"],

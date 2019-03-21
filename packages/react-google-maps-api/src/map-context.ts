@@ -1,6 +1,6 @@
 /* global google */
-import { createContext } from "react"
+import { createContext, Context } from "react"
 
-const MapContext = createContext<google.maps.Map | null>(null)
+const MapContext: Context<google.maps.Map> = createContext(null)
 
 export default MapContext

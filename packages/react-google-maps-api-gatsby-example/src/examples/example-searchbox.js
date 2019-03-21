@@ -16,10 +16,6 @@ const center = {
   lng: -180
 }
 
-const onClick = (...args) => {
-  console.log('onClick args: ', args)
-}
-
 const ExampleSearchbox = ({ styles }) => (
   <div className='map'>
     <div className='map-container'>
@@ -28,7 +24,7 @@ const ExampleSearchbox = ({ styles }) => (
         mapContainerStyle={styles.container}
         zoom={2}
         center={center}
-        onClick={onClick}
+        onClick={(...args) => { console.log('onClick args: ', args) }}
       >
         <StandaloneSearchBox>
           <input

@@ -28,7 +28,6 @@
     "linters": {
       "*.{js|ts|tsx}": [
         "npx eslint --fix",
-        "tsc --noEmit",
         "git add -A"
       ]
     }

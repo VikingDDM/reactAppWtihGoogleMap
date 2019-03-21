@@ -38,9 +38,6 @@ const sydneyPolygonOptions = {
     }}
   >
     <Polygon
-      onLoad={polygon => {
-        console.log('polygon: ', polygon)
-      }}
       path={SYDNEY_COORDS}
       options={sydneyPolygonOptions}
     />

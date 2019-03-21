@@ -16,10 +16,6 @@ const center = {
   lng: -180
 }
 
-const onClick = (...args) => {
-  console.log('onClick args: ', args)
-}
-
 const ExampleTraffic = ({ styles }) => (
   <div className='map'>
     <div className='map-container'>
@@ -28,7 +24,9 @@ const ExampleTraffic = ({ styles }) => (
         mapContainerStyle={styles.container}
         zoom={2}
         center={center}
-        onClick={onClick}
+        onClick={(...args) => {
+          console.log('onClick args: ', args)
+        }}
       >
         <TrafficLayer />
       </GoogleMap>

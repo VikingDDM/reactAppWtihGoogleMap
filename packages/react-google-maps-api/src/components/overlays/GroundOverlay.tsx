@@ -1,6 +1,6 @@
-import * as React from "react"
-
-import * as invariant from "invariant"
+import { PureComponent, Context } from "react"
+// @ts-ignore
+import warning from "warning"
 
 import {
   unregisterEvents,
@@ -21,20 +21,19 @@ const updaterMap = {
 }
 
 interface GroundOverlayState {
-  groundOverlay: google.maps.GroundOverlay | null;
+  groundOverlay?: google.maps.GroundOverlay
 }
 
 interface GroundOverlayProps {
-  options?: google.maps.GroundOverlayOptions;
-  opacity?: number;
-  onDblClick?: (e: MouseEvent) => void;
-  onClick?: (e: MouseEvent) => void;
-  url: string;
-  bounds: google.maps.LatLngBounds;
-  onLoad: (groundOverlay: google.maps.GroundOverlay) => void;
+  options?: google.maps.GroundOverlayOptions
+  opacity?: number
+  onDblClick?: (e: MouseEvent) => void
+  onClick?: (e: MouseEvent) => void
+  url?: string
+  bounds: google.maps.LatLngBounds
 }
 
-export class GroundOverlay extends React.PureComponent<
+export class GroundOverlay extends PureComponent<
   GroundOverlayProps,
   GroundOverlayState
 > {
@@ -46,10 +45,10 @@ export class GroundOverlay extends React.PureComponent<
     groundOverlay: null
   }
 
-  constructor(props: GroundOverlayProps, context: React.Context<google.maps.Map>) {
+  constructor(props: GroundOverlayProps, context: Context<google.maps.Map>) {
     super(props, context)
 
-    invariant(
+    warning(
       !this.props.url || !this.props.bounds,
       `For GroundOveray, url and bounds are passed in to constructor and are immutable after instantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps-api\`, url and bounds. In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`
     )
@@ -65,16 +64,7 @@ export class GroundOverlay extends React.PureComponent<
       }
     )
 
-    this.setState(
-      () => {
-        groundOverlay
-      },
-      () => {
-        if (this.state.groundOverlay !== null && this.props.onLoad) {
-          this.props.onLoad(this.state.groundOverlay)
-        }
-      }
-    )
+    this.setState({ groundOverlay })
   }
 
   componentDidUpdate = (prevProps: GroundOverlayProps) => {
@@ -95,9 +85,15 @@ export class GroundOverlay extends React.PureComponent<
     }
   }
 
-  render () {
-    return null
-  }
+  render = () => null
+
+  getBounds = () => this.state.groundOverlay.getBounds()
+
+  getMap = () => this.state.groundOverlay.getMap()
+
+  getOpacity = () => this.state.groundOverlay.getOpacity()
+
+  getUrl = () => this.state.groundOverlay.getUrl()
 }
 
 export default GroundOverlay

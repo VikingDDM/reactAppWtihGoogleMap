@@ -16,19 +16,6 @@ const center = {
   lng: -180
 }
 
-const onClick = (...args) => {
-  console.log('onClick args: ', args)
-}
-
-const onBicyclingLayerLoad = (bicyclingLayer) => {
-  // Do something with bicyclingLayer
-  console.log('bicyclingLayer: ', bicyclingLayer)
-}
-
-const onMapLoad = map => {
-  console.log('map: ', map)
-}
-
 const ExampleBicycling = ({ styles }) => (
   <div className='map'>
     <div className='map-container'>
@@ -37,12 +24,11 @@ const ExampleBicycling = ({ styles }) => (
         mapContainerStyle={styles.container}
         zoom={2}
         center={center}
-        onClick={onClick}
-        onLoad={onMapLoad}
+        onClick={(...args) => {
+          console.log('onClick args: ', args)
+        }}
       >
-        <BicyclingLayer
-          onLoad={onBicyclingLayerLoad}
-        />
+        <BicyclingLayer />
       </GoogleMap>
     </div>
   </div>

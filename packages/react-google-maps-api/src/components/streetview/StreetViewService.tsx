@@ -1,16 +1,16 @@
-import * as React from "react"
+import { PureComponent } from "react"
 
 import MapContext from "../../map-context"
 
 interface StreetViewServiceProps {
-  onLoad: (streetViewService: google.maps.StreetViewService) => void;
+  onLoad: (streetViewService: google.maps.StreetViewService) => void
 }
 
 interface StreetViewServiceState {
-  streetViewService: google.maps.StreetViewService | null;
+  streetViewService?: google.maps.StreetViewService
 }
 
-export class StreetViewService extends React.PureComponent<
+export class StreetViewService extends PureComponent<
   StreetViewServiceProps,
   StreetViewServiceState
 > {
@@ -28,20 +28,22 @@ export class StreetViewService extends React.PureComponent<
         streetViewService
       }),
       () => {
-        if (
-          this.state.streetViewService !== null &&
-          this.props.onLoad
-        ) {
-          // @ts-ignore
-          this.props.onLoad(this.state.streetViewService)
-        }
+        this.props.onLoad(this.state.streetViewService)
       }
     )
   }
 
-  render () {
-    return null
-  }
+  render = () => null
+
+  getPanorama = (
+    request:
+      | google.maps.StreetViewLocationRequest
+      | google.maps.StreetViewPanoRequest,
+    callback: (
+      data: google.maps.StreetViewPanoramaData,
+      status: google.maps.StreetViewStatus
+    ) => void
+  ) => this.state.streetViewService.getPanorama(request, callback)
 }
 
 export default StreetViewService

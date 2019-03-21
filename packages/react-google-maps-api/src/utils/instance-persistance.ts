@@ -1,11 +1,3 @@
-export interface RestoreInstanceArg {
-  id: string
-  zoom?: number
-  center?: google.maps.LatLng | google.maps.LatLngLiteral
-  mapContainerStyle?: { [key: string]: any }
-  options?: google.maps.MapOptions
-}
-
 const clearChildren = (node: HTMLElement) => {
   if (node) {
     while (node.firstChild) {
@@ -42,44 +34,35 @@ export const restoreInstance = ({
   center,
   mapContainerStyle,
   options
-}: RestoreInstanceArg): google.maps.Map | false => {
-  // @ts-ignore
+}: {
+  id: string
+  zoom?: number
+  center?: google.maps.LatLng | google.maps.LatLngLiteral
+  mapContainerStyle?: any
+  options?: google.maps.MapOptions
+}) => {
   const map: google.maps.Map = window[getMapInstanceId(id)]
 
   const hiddenContainer = getHiddenMapContainer(id)
 
   if (map && hiddenContainer.children.length === 1) {
-    if (zoom) {
-      map.setZoom(zoom)
-    }
-
-    if (center) {
-      map.setCenter(center)
-    }
-
-    if (options) {
-      map.setOptions(options)
-    }
+    map.setZoom(zoom)
+    map.setCenter(center)
+    map.setOptions(options)
 
     const mapContainer = document.getElementById(id)
 
-    if (mapContainer) {
-      clearChildren(mapContainer)
+    clearChildren(mapContainer)
 
-      mapContainer.appendChild(hiddenContainer.children[0])
+    mapContainer.appendChild(hiddenContainer.children[0])
 
-      if (mapContainerStyle) {
-        Object.keys(mapContainerStyle).forEach(styleKey => {
-          // TODO
-          mapContainer.style[styleKey as any] = mapContainerStyle[styleKey]
-        })
-      }
-    }
+    // Copy mapContainerStyle to mapContainer
+    Object.keys(mapContainerStyle).forEach(styleKey => {
+      mapContainer.style[styleKey] = mapContainerStyle[styleKey]
+    })
 
     return map
   }
-
-  return false
 }
 
 export const saveInstance = (id: string, map: google.maps.Map) => {
@@ -89,10 +72,7 @@ export const saveInstance = (id: string, map: google.maps.Map) => {
 
   const mapContainer = document.getElementById(id)
 
-  if (mapContainer && mapContainer.children && mapContainer.children[0]) {
-    hiddenContainer.appendChild(mapContainer.children[0])
-  }
+  hiddenContainer.appendChild(mapContainer.children[0])
 
-  // @ts-ignore
   window[getMapInstanceId(id)] = map
 }

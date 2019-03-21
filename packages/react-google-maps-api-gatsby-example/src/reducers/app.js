@@ -40,9 +40,9 @@ export default handleActions({
     state.merge({
       language
     }),
-  [LOAD_SCRIPT_TOGGLE]: state =>
+  [LOAD_SCRIPT_TOGGLE]: (state, { payload: { loadScriptChecked } }) =>
     state.merge({
-      loadScriptChecked: !state.get('loadScriptChecked')
+      loadScriptChecked
     }),
   [SET_GOOGLE_MAPS_API_KEY]: (state, { payload: { googleMapsApiKey } }) =>
     state.merge({

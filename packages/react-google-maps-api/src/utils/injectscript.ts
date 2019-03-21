@@ -1,17 +1,10 @@
-import { isBrowser } from "./isbrowser"
-
-interface InjectScriptArg {
-  url: string
-  id: string
-}
-
-export const injectScript = ({ url, id }: InjectScriptArg): Promise<any> => {
-  if (isBrowser) {
+export const injectScript = ({ url, id }) => {
+  if (typeof document === "undefined") {
     return Promise.reject(new Error("document is undefined"))
   }
 
   return new Promise((resolve, reject) => {
-    if (document.getElementById(id)) {
+    if (document.getElementById(id) !== null) {
       return resolve(id)
     }
 

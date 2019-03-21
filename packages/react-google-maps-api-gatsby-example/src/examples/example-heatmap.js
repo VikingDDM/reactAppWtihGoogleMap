@@ -16,10 +16,6 @@ const center = {
   lng: -74
 }
 
-const onClick = (...args) => {
-  console.log('onClick args: ', args)
-}
-
 const ExampleHeatmap = ({ styles }) => (
   <div className='map'>
     <div className='map-container'>
@@ -28,7 +24,9 @@ const ExampleHeatmap = ({ styles }) => (
         mapContainerStyle={styles.container}
         zoom={10}
         center={center}
-        onClick={onClick}
+        onClick={(...args) => {
+          console.log('onClick args: ', args)
+        }}
       >
         <HeatmapLayer />
       </GoogleMap>

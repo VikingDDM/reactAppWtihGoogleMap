@@ -20,11 +20,7 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       console.log('onClick args: ', args)
     }}
   >
-    <TrafficLayer
-      onLoad={trafficLayer => {
-        console.log('trafficLayer: ', trafficLayer)
-      }}
-    />
+    <TrafficLayer />
   </GoogleMap>
 </ScriptLoaded>
 ```
