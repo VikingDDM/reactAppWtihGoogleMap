@@ -1,5 +1,3 @@
-export function forEach (obj: any, fn: any): any {
-  Object.keys(obj).forEach(function iterator(key) {
-    return fn(obj[key], key)
-  })
+export const forEach = (obj: any, fn: any): any => {
+  Object.keys(obj).forEach(key => fn(obj[key], key))
 }

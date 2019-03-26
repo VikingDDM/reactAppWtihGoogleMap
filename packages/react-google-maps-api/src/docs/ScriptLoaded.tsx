@@ -1,23 +1,27 @@
 import * as React from "react"
 
 interface ScriptLoadedState {
-  scriptLoaded: boolean;
+  scriptLoaded: boolean
 }
 
 interface ScriptLoadedProps {
-  children: React.ReactChild | React.ReactChildren;
+  children: React.ReactChild | React.ReactChildren
 }
 
-function SpanIntro(): JSX.Element {
-  return (
-    <span>
-      <a href='#introduction'>Enter API Key</a> to see examples
-    </span>
-  )
-}
-
-class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState> {
+class ScriptLoaded extends React.Component<
+  ScriptLoadedProps,
+  ScriptLoadedState
+> {
   interval: number | undefined
+
+  render = () =>
+    this.state.scriptLoaded ? (
+      this.props.children
+    ) : (
+      <span>
+        <a href="#introduction">Enter API Key</a> to see examples
+      </span>
+    )
 
   constructor(props: ScriptLoadedProps) {
     super(props)
@@ -27,45 +31,27 @@ class ScriptLoaded extends React.Component<ScriptLoadedProps, ScriptLoadedState>
       scriptLoaded: !!window.google
     }
 
-    this.interval = window.setInterval(this.checkIfScriptLoaded, 200)
+    this.interval = setInterval(this.checkIfScriptLoaded, 200)
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setScriptLoadedCallback = () => {
-    if (this.state.scriptLoaded) {
-      window.clearInterval(this.interval)
-    }
-  }
-
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  checkIfScriptLoaded = () => {
-    function serScriptLoaded () {
-      return {
-        scriptLoaded: true
-      }
-    }
-
-    ///@ts-ignore
-    if (window.google) {
-      this.setState(
-        serScriptLoaded,
-        this.setScriptLoadedCallback
-      )
-    }
-  }
-
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.clearInterval(this.interval)
   }
 
-  render(): JSX.Element {
-    return this.state.scriptLoaded
-      ? (
-        this.props.children
+  checkIfScriptLoaded = () => {
+    ///@ts-ignore
+    if (window.google) {
+      this.setState(
+        () => ({
+          scriptLoaded: true
+        }),
+        () => {
+          if (this.state.scriptLoaded) {
+            window.clearInterval(this.interval)
+          }
+        }
       )
-      : (
-        <SpanIntro />
-      )
+    }
   }
 }
 

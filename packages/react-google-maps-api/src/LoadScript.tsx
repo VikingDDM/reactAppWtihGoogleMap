@@ -12,6 +12,7 @@ interface LoadScriptState {
   loaded: boolean
 }
 
+//prettier-ignore
 interface LoadScriptProps {
   id: string;
   googleMapsApiKey: string;

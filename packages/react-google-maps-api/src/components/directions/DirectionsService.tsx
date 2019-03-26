@@ -7,16 +7,12 @@ interface DirectionsServiceState {
 }
 
 interface DirectionsServiceProps {
-  // required for default functionality
-  options: google.maps.DirectionsRequest;
-
-  // required for default functionality
-  callback: (
+  options: google.maps.DirectionsRequest; // required for default functionality
+  callback: (  // required for default functionality
     result: google.maps.DirectionsResult,
     status: google.maps.DirectionsStatus
   ) => void;
-  onLoad?: (directionsService: google.maps.DirectionsService) => void;
-  onUnmount?: (directionsService: google.maps.DirectionsService) => void;
+  onLoad: (directionsService: google.maps.DirectionsService) => void;
 }
 
 export class DirectionsService extends React.PureComponent<
@@ -27,21 +23,7 @@ export class DirectionsService extends React.PureComponent<
     directionsService: null
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setDirectionsServiceCallback = () => {
-    if (this.state.directionsService !== null) {
-      this.state.directionsService.route(
-        this.props.options,
-        this.props.callback
-      )
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.directionsService)
-      }
-    }
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     invariant(
       !!this.props.options,
       "DirectionsService expected options object as parameter, but got %s",
@@ -50,16 +32,22 @@ export class DirectionsService extends React.PureComponent<
 
     const directionsService = new google.maps.DirectionsService()
 
-    function setDirectionsService() {
-      return {
+    this.setState(
+      () => ({
         directionsService
+      }),
+      () => {
+        if (this.state.directionsService !== null) {
+          this.state.directionsService.route(
+            this.props.options,
+            this.props.callback
+          )
+        }
       }
-    }
-
-    this.setState(setDirectionsService, this.setDirectionsServiceCallback)
+    )
   }
 
-  componentDidUpdate() {
+  componentDidUpdate = () => {
     if (this.state.directionsService !== null) {
       this.state.directionsService.route(
         this.props.options,
@@ -68,16 +56,8 @@ export class DirectionsService extends React.PureComponent<
     }
   }
 
-  componentWillUnmount() {
-    if (this.state.directionsService !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.directionsService)
-      }
-    }
-  }
-
-  render() {
-    return <></>
+  render () {
+    return null
   }
 }
 

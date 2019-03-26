@@ -50,22 +50,26 @@ export const preventGoogleFonts = () => {
   // default methods for other elements are not affected
   const head = document.getElementsByTagName("head")[0]
 
-  // TODO: adding return before reflect solves the TS issue
-  //@ts-ignore
-  head.insertBefore = function insertBefore(
-    newElement: HTMLElement,
-    referenceElement: HTMLElement
-  ): void {
-    if (!isRobotoStyle(newElement)) {
-      Reflect.apply(head.insertBefore, head, [newElement, referenceElement])
-    }
-  }
+  const insertBefore = head.insertBefore
 
   // TODO: adding return before reflect solves the TS issue
   //@ts-ignore
-  head.appendChild = function appendChild(textNode: HTMLElement): void {
+  head.insertBefore = (
+    newElement: HTMLElement,
+    referenceElement: HTMLElement
+  ): void => {
+    if (!isRobotoStyle(newElement)) {
+      Reflect.apply(insertBefore, head, [newElement, referenceElement])
+    }
+  }
+
+  const appendChild = head.appendChild
+
+  // TODO: adding return before reflect solves the TS issue
+  //@ts-ignore
+  head.appendChild = (textNode: HTMLElement): void => {
     if (!isRobotoStyle(textNode)) {
-      Reflect.apply(head.appendChild, head, [textNode])
+      Reflect.apply(appendChild, head, [textNode])
     }
   }
 }

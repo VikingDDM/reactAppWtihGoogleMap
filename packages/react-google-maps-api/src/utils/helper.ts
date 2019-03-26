@@ -6,9 +6,8 @@ const applyUpdaterToNextProps = (
   updaterMap: any,
   prevProps: any,
   nextProps: any,
-  // eslint-disable-next-line @getify/proper-arrows/params
   instance: any
-): any => {
+) => {
   let map: any = {}
 
   const iter = (fn: any, key: string) => {
@@ -32,11 +31,11 @@ export function registerEvents(
 ): google.maps.MapsEventListener[] {
   const registeredList = reduce(
     eventMap,
-    function reducer(
+    (
       acc: google.maps.MapsEventListener[],
       googleEventName: string,
       onEventName: any
-    ): google.maps.MapsEventListener[] {
+    ) => {
       if (typeof props[onEventName] === "function") {
         acc.push(
           google.maps.event.addListener(
@@ -69,11 +68,11 @@ export function applyUpdatersToPropsAndRegisterEvents({
   nextProps,
   instance
 }: {
-  updaterMap: any;
-  eventMap: Record<string, string>;
-  prevProps: any;
-  nextProps: any;
-  instance: any;
+  updaterMap: any
+  eventMap: Record<string, string>
+  prevProps: any
+  nextProps: any
+  instance: any
 }) {
   applyUpdaterToNextProps(updaterMap, prevProps, nextProps, instance)
   return registerEvents(nextProps, instance, eventMap)
