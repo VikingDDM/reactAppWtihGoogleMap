@@ -188,13 +188,9 @@ export class GoogleMap extends React.PureComponent<
     }
   }
 
-  /* eslint-disable @getify/proper-arrows/name */
-  /* eslint-disable @getify/proper-arrows/this */
-  getRef = (ref: HTMLDivElement | null): void => {
+  getRef(ref: HTMLDivElement | null): void {
     this.mapRef = ref
   }
-
-
 
   render() {
     return (
