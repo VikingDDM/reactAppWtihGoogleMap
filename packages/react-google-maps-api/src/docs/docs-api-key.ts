@@ -1,4 +1,3 @@
-import localDevKey from "./googleMapKey"
 const KEY_NAME = "react-google-maps-api-key"
 
 export function setKey(key: string) {
@@ -6,5 +5,5 @@ export function setKey(key: string) {
 }
 
 export function getKey() {
-  return localDevKey || window.sessionStorage.getItem(KEY_NAME)
+  return window.sessionStorage.getItem(KEY_NAME)
 }
