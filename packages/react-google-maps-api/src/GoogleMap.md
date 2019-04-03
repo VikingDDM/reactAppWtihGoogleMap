@@ -1,8 +1,8 @@
-# KML Layer example
+# Google Map example
 
 ```jsx
-const { GoogleMap, LoadScript, Circle } = require("../../");
-const ScriptLoaded = require("../../docs/ScriptLoaded").default;
+const { GoogleMap, LoadScript } = require("./");
+const ScriptLoaded = require("./docs/ScriptLoaded").default;
 
 <ScriptLoaded>
   <GoogleMap
@@ -16,8 +16,6 @@ const ScriptLoaded = require("../../docs/ScriptLoaded").default;
       lat: -3.745,
       lng: -38.523
     }}
-  >
-    <KmlLayer />
-  </GoogleMap>
-</ScriptLoaded>
+  />
+</ScriptLoaded>;
 ```
