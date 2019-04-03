@@ -1,5 +1,6 @@
 /* eslint-disable filenames/match-exported */
 import * as React from "react"
+import { PureComponent } from "react"
 
 import {
   unregisterEvents,
@@ -8,13 +9,13 @@ import {
 
 import MapContext from "../../map-context"
 
-import {
-  Clusterer,
+import MarkerClusterer, {
   ClusterIconStyle,
   Cluster,
-  ClustererOptions,
-  TCalculator
-} from "@react-google-maps/marker-clusterer"
+  MarkerClustererOptions,
+  Calculator
+  // @ts-ignore
+} from "marker-clusterer-plus"
 
 const eventMap = {
   onClick: "click",
@@ -25,178 +26,153 @@ const eventMap = {
 }
 
 const updaterMap = {
-  averageCenter(instance: Clusterer, averageCenter: boolean) {
+  averageCenter(instance: MarkerClusterer, averageCenter: boolean) {
     instance.setAverageCenter(averageCenter)
   },
 
-  batchSizeIE(instance: Clusterer, batchSizeIE: number) {
+  batchSizeIE(instance: MarkerClusterer, batchSizeIE: number) {
     instance.setBatchSizeIE(batchSizeIE)
   },
 
-  calculator(instance: Clusterer, calculator: any) {
+  calculator(instance: MarkerClusterer, calculator: any) {
     instance.setCalculator(calculator)
   },
 
-  clusterClass(instance: Clusterer, clusterClass: string) {
+  clusterClass(instance: MarkerClusterer, clusterClass: string) {
     instance.setClusterClass(clusterClass)
   },
 
-  enableRetinaIcons(instance: Clusterer, enableRetinaIcons: boolean) {
+  enableRetinaIcons(instance: MarkerClusterer, enableRetinaIcons: boolean) {
     instance.setEnableRetinaIcons(enableRetinaIcons)
   },
 
-  gridSize(instance: Clusterer, gridSize: number) {
+  gridSize(instance: MarkerClusterer, gridSize: number) {
     instance.setGridSize(gridSize)
   },
 
-  ignoreHidden(instance: Clusterer, ignoreHidden: boolean) {
+  ignoreHidden(instance: MarkerClusterer, ignoreHidden: boolean) {
     instance.setIgnoreHidden(ignoreHidden)
   },
 
-  imageExtension(instance: Clusterer, imageExtension: string) {
+  imageExtension(instance: MarkerClusterer, imageExtension: string) {
     instance.setImageExtension(imageExtension)
   },
 
-  imagePath(instance: Clusterer, imagePath: string) {
+  imagePath(instance: MarkerClusterer, imagePath: string) {
     instance.setImagePath(imagePath)
   },
 
-  imageSizes(instance: Clusterer, imageSizes: number[]) {
+  imageSizes(instance: MarkerClusterer, imageSizes: number[]) {
     instance.setImageSizes(imageSizes)
   },
 
-  maxZoom(instance: Clusterer, maxZoom: number) {
+  maxZoom(instance: MarkerClusterer, maxZoom: number) {
     instance.setMaxZoom(maxZoom)
   },
 
-  minimumClusterSize(instance: Clusterer, minimumClusterSize: number) {
+  minimumClusterSize(instance: MarkerClusterer, minimumClusterSize: number) {
     instance.setMinimumClusterSize(minimumClusterSize)
   },
 
-  styles(instance: Clusterer, styles: ClusterIconStyle[]) {
+  styles(instance: MarkerClusterer, styles: ClusterIconStyle[]) {
     instance.setStyles(styles)
   },
 
-  title(instance: Clusterer, title: string) {
+  title(instance: MarkerClusterer, title: string) {
     instance.setTitle(title)
   },
 
-  zoomOnClick(instance: Clusterer, zoomOnClick: boolean) {
+  zoomOnClick(instance: MarkerClusterer, zoomOnClick: boolean) {
     instance.setZoomOnClick(zoomOnClick)
   }
 }
 
-interface ClustererState {
-  markerClusterer: Clusterer | null;
+interface MarkerClustererState {
+  markerClusterer?: MarkerClusterer
 }
 
-interface ClustererProps {
-  // required
-  children: (markerClusterer: Clusterer) => React.ReactNode;
-  options?: ClustererOptions; // TODO: it could be undefined
-  averageCenter?: boolean;
-  batchSizeIE?: number;
-  calculator?: TCalculator;
-  clusterClass: string;
-  enableRetinaIcons: boolean;
-  gridSize: number;
-  ignoreHidden: boolean;
-  imageExtension: string;
-  imagePath: string;
-  imageSizes: number[];
-  maxZoom: number;
-  minimumClusterSize: number;
-  styles: ClusterIconStyle[];
-  title: string;
-  zoomOnClick: boolean;
-  onClick: (cluster: Cluster) => void;
-  onClusteringBegin: (markerClusterer: Clusterer) => void;
-  onClusteringEnd: (markerClusterer: Clusterer) => void;
-  onMouseOver: (cluster: Cluster) => void;
-  onMouseOut: (cluster: Cluster) => void;
-  onLoad?: (markerClusterer: Clusterer) => void;
-  onUnmount?: (markerClusterer: Clusterer) => void;
+interface MarkerClustererProps {
+  children: (markerClusterer: MarkerClusterer) => React.ReactNode
+  initialOptions?: MarkerClustererOptions
+  averageCenter?: boolean
+  batchSizeIE: number
+  calculator: Calculator
+  clusterClass: string
+  enableRetinaIcons: boolean
+  gridSize: number
+  ignoreHidden: boolean
+  imageExtension: string
+  imagePath: string
+  imageSizes: number[]
+  maxZoom: number
+  minimumClusterSize: number
+  styles: ClusterIconStyle[]
+  title: string
+  zoomOnClick: boolean
+  onClick: (cluster: Cluster) => void
+  onClusteringBegin: (markerClusterer: MarkerClusterer) => void
+  onClusteringEnd: (markerClusterer: MarkerClusterer) => void
+  onMouseOver: (cluster: Cluster) => void
+  onMouseOut: (cluster: Cluster) => void
 }
 
-export class ClustererComponent extends React.PureComponent<
-  ClustererProps,
-  ClustererState
+export class MarkerClustererComponent extends PureComponent<
+  MarkerClustererProps,
+  MarkerClustererState
 > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
 
-  state: ClustererState = {
+  state: MarkerClustererState = {
     markerClusterer: null
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setClustererCallback = (): void => {
-    if (this.state.markerClusterer !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.markerClusterer
-      })
+  componentDidMount = () => {
+    const markerClusterer = new MarkerClusterer(
+      this.context,
+      [],
+      this.props.initialOptions
+    )
 
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.markerClusterer)
+    this.setState(
+      () => ({
+        markerClusterer
+      }),
+      () => {
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+          updaterMap,
+          eventMap,
+          prevProps: {},
+          nextProps: this.props,
+          instance: this.state.markerClusterer
+        })
       }
-    }
+    )
   }
 
-  componentDidMount(): void {
-    if (this.context) {
-      const markerClusterer = new Clusterer(
-        this.context,
-        [],
-        this.props.options
-      )
+  componentDidUpdate = (prevProps: MarkerClustererProps) => {
+    unregisterEvents(this.registeredEvents)
 
-      this.setState(
-        function setClusterer(): ClustererState {
-          return {
-            markerClusterer
-          }
-        },
-        this.setClustererCallback
-      )
-    }
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.markerClusterer
+    })
   }
 
-  componentDidUpdate (prevProps: ClustererProps) {
-    if (this.state.markerClusterer) {
-      unregisterEvents(this.registeredEvents)
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
 
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.markerClusterer
-      })
-    }
+    this.state.markerClusterer && this.state.markerClusterer.setMap(null)
   }
 
-  componentWillUnmount () {
-    if (this.state.markerClusterer !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.markerClusterer)
-      }
-
-      unregisterEvents(this.registeredEvents)
-      //@ts-ignore
-      this.state.markerClusterer.setMap(null)
-    }
-  }
-
-  render() {
-    return this.state.markerClusterer !== null
+  render = () =>
+    this.state.markerClusterer
       ? this.props.children(this.state.markerClusterer)
       : null
-  }
 }
 
-export default ClustererComponent
+export default MarkerClustererComponent

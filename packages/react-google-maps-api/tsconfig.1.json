@@ -24,7 +24,10 @@
       "node_modules/@types"
     ],
     "types": [
-      "googlemaps"
+      "googlemaps",
+      "react",
+      "invariant",
+      "markerclustererplus"
     ],
     "outDir": "./lib/",
     "declaration": true,
@@ -53,7 +56,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "removeComments": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
   "files": [
     "./src/index.ts"

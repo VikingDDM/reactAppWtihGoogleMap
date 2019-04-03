@@ -8,15 +8,14 @@ module.exports = {
     'plugin:react-perf/recommended',
     'standard-react',
     'plugin:jsx-a11y/recommended',
-    'plugin:@typescript-eslint/recommended' // Uses the recommended rules from @typescript-eslint/eslint-plugin
-    // 'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-    // 'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
-    // 'prettier/react',
-    // 'prettier/standard',
-    // 'prettier/@typescript-eslint'
+    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
+    'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    'prettier/react',
+    'prettier/standard',
+    'prettier/@typescript-eslint'
   ],
   plugins: [
-    '@getify/proper-arrows',
     'you-dont-need-lodash-underscore',
     'json',
     'dependencies',
@@ -27,14 +26,15 @@ module.exports = {
     'html',
     'ascii',
     'promise',
+    'promiseparams',
     'react',
     'optimize-regex',
     'react-perf',
     'standard',
     'no-inferred-method-name',
     'react-functional-set-state',
-    '@typescript-eslint'
-    // 'prettier'
+    '@typescript-eslint',
+    'prettier'
   ],
   env: {
     browser: true,
@@ -63,29 +63,9 @@ module.exports = {
     }
   },
   rules: {
-    '@getify/proper-arrows/params': [
-      'error', {
-        'unused': 'trailing'
-      }
-    ],
-    '@getify/proper-arrows/name': [
-      'error', { 'trivial': false }
-    ],
-    '@getify/proper-arrows/where': [
-      'error', { 'global': true }
-    ],
-    '@getify/proper-arrows/return': [
-      'error', { 'object': true }
-    ],
-    '@getify/proper-arrows/this': [
-      'error',
-      'never', {
-        'no-global': true
-      }
-    ],
-
     'ascii/valid-name': 2,
     'optimize-regex/optimize-regex': 'warn',
+    'promiseparams/promiseparams': 2,
     'filenames/no-index': 0,
     'filenames/match-regex': [2, '^[a-z0-9-.]+$', true],
     'filenames/match-exported': [2, ['camel', 'kebab', null]],
@@ -129,17 +109,13 @@ module.exports = {
         amd: true
       }
     ],
-    'import/named': 'off',
+    'import/named': 2,
     'import/namespace': 2,
     'import/export': 2,
     'import/no-duplicates': 0,
     'import/imports-first': 2,
-    'semi': ['error', 'never'],
-    'quote': 'single',
-    // 'prettier/prettier': ['error', {trailingComma: 'none', semi: false, singleQoute: true, printWidth: 80, tabWidth: 2, parser: 'typescript'}],
+    'prettier/prettier': ['error', {trailingComma: 'none', semi: false, singleQoute: true, printWidth: 80, tabWidth: 2, parser: 'typescript'}],
     // @typescript-eslint rule overrides
-    "indent": "off",
-    '@typescript-eslint/indent': ["error", 2],
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/no-explicit-any': 0

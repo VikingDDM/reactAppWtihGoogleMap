@@ -13,7 +13,12 @@ const eventMap = {}
 const updaterMap = {
   data(
     instance: google.maps.visualization.HeatmapLayer,
-    data: google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation> | google.maps.LatLng[] | google.maps.visualization.WeightedLocation[]
+    data:
+      | google.maps.MVCArray<
+          google.maps.LatLng | google.maps.visualization.WeightedLocation
+        >
+      | google.maps.LatLng[]
+      | google.maps.visualization.WeightedLocation[]
   ) {
     instance.setData(data)
   },
@@ -31,21 +36,28 @@ const updaterMap = {
 }
 
 interface HeatmapLayerState {
-  heatmapLayer: google.maps.visualization.HeatmapLayer | null;
+  heatmapLayer: google.maps.visualization.HeatmapLayer | null
 }
 
 interface HeatmapLayerProps {
-  // required
-  data: google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation> | google.maps.LatLng[] | google.maps.visualization.WeightedLocation[];
-  options?: google.maps.visualization.HeatmapLayerOptions;
-  onLoad?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void;
-  onUnmount?: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void;
+  data:
+    | google.maps.MVCArray<
+        google.maps.LatLng | google.maps.visualization.WeightedLocation
+      >
+    | google.maps.LatLng[]
+    | google.maps.visualization.WeightedLocation[]
+  options?: google.maps.visualization.HeatmapLayerOptions
+  onLoad: (heatmapLayer: google.maps.visualization.HeatmapLayer) => void
 }
 
 export class HeatmapLayer extends React.PureComponent<
   HeatmapLayerProps,
   HeatmapLayerState
 > {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -54,53 +66,44 @@ export class HeatmapLayer extends React.PureComponent<
     heatmapLayer: null
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setHeatmapLayerCallback = () => {
-    if (this.state.heatmapLayer !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.heatmapLayer
-      })
+  constructor(props: HeatmapLayerProps) {
+    super(props)
 
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.heatmapLayer)
-      }
-    }
-  }
-
-  componentDidMount() {
     invariant(
       google.maps.visualization,
       'Did you include "visualization" in the libraries array prop in <LoadScript />?'
     )
+    invariant(props.data, "data property is required in HeatmapLayer")
+  }
 
-    invariant(
-      this.props.data,
-      "data property is required in HeatmapLayer"
-    )
-
+  componentDidMount = () => {
     const heatmapLayer = new google.maps.visualization.HeatmapLayer({
       data: this.props.data,
-      ...(this.props.options || {}),
+      ...this.props.options,
       map: this.context
     })
 
-    function setHeatmapLayer() {
-      return {
-        heatmapLayer
-      }
-    }
-
     this.setState(
-      setHeatmapLayer,
-      this.setHeatmapLayerCallback
+      () => ({
+        heatmapLayer
+      }),
+      () => {
+        if (this.state.heatmapLayer !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.heatmapLayer
+          })
+
+          this.props.onLoad(this.state.heatmapLayer)
+        }
+      }
     )
   }
 
-  componentDidUpdate(prevProps: HeatmapLayerProps) {
+  componentDidUpdate = (prevProps: HeatmapLayerProps) => {
     unregisterEvents(this.registeredEvents)
 
     this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
@@ -112,21 +115,15 @@ export class HeatmapLayer extends React.PureComponent<
     })
   }
 
-  componentWillUnmount() {
-    if (this.state.heatmapLayer !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.heatmapLayer)
-      }
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
 
-      unregisterEvents(this.registeredEvents)
-
+    if (this.state.heatmapLayer) {
       this.state.heatmapLayer.setMap(null)
     }
   }
 
-  render() {
-    return null
-  }
+  render = () => null
 }
 
 export default HeatmapLayer

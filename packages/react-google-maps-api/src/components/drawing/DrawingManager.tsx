@@ -14,7 +14,7 @@ const eventMap = {
   onCircleComplete: "circlecomplete",
   onMarkerComplete: "markercomplete",
   onOverlayComplete: "overlaycomplete",
-  ondrawingManagerComplete: "drawingManagercomplete",
+  onPolygonComplete: "polygoncomplete",
   onPolylineComplete: "polylinecomplete",
   onRectangleComplete: "rectanglecomplete"
 }
@@ -35,26 +35,29 @@ const updaterMap = {
 }
 
 interface DrawingManagerState {
-  drawingManager: google.maps.drawing.DrawingManager | null;
+  drawingManager: google.maps.drawing.DrawingManager | null
 }
 
 interface DrawingManagerProps {
-  options?: google.maps.drawing.DrawingManagerOptions;
-  drawingMode?: google.maps.drawing.OverlayType | null;
-  onCircleComplete?: (circle: google.maps.Circle) => void;
-  onMarkerComplete?: (marker: google.maps.Marker) => void;
-  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void;
-  onPolygonComplete?: (polygon: google.maps.Polygon) => void;
-  onPolylineComplete?: (polyline: google.maps.Polyline) => void;
-  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void;
-  onLoad?: (drawingManager: google.maps.drawing.DrawingManager) => void;
-  onUnmount?: (drawingManager: google.maps.drawing.DrawingManager) => void;
+  options?: google.maps.drawing.DrawingManagerOptions
+  drawingMode?: google.maps.drawing.OverlayType | null
+  onCircleComplete?: (circle: google.maps.Circle) => void
+  onMarkerComplete?: (marker: google.maps.Marker) => void
+  onOverlayComplete?: (e: google.maps.drawing.OverlayCompleteEvent) => void
+  onPolygonComplete?: (polygon: google.maps.Polygon) => void
+  onPolylineComplete?: (polyline: google.maps.Polyline) => void
+  onRectangleComplete?: (rectangle: google.maps.Rectangle) => void
+  onLoad: (drawingManager: google.maps.drawing.DrawingManager) => void
 }
 
 export class DrawingManager extends React.PureComponent<
   DrawingManagerProps,
   DrawingManagerState
 > {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -72,70 +75,55 @@ export class DrawingManager extends React.PureComponent<
     )
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setDrawingManagerCallback = () => {
-    if (this.state.drawingManager !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.drawingManager
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.drawingManager)
-      }
-    }
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     const drawingManager = new google.maps.drawing.DrawingManager({
-      ...(this.props.options || {}),
+      ...this.props.options,
       map: this.context
     })
 
-    function setDrawingManager() {
-      return {
-        drawingManager
-      }
-    }
-
     this.setState(
-      setDrawingManager,
-      this.setDrawingManagerCallback
+      () => ({
+        drawingManager
+      }),
+      () => {
+        if (this.state.drawingManager !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.drawingManager
+          })
+
+          this.props.onLoad(this.state.drawingManager)
+        }
+      }
     )
   }
 
-  componentDidUpdate(prevProps: DrawingManagerProps) {
-    if (this.state.drawingManager !== null) {
-      unregisterEvents(this.registeredEvents)
+  componentDidUpdate = (prevProps: DrawingManagerProps) => {
+    unregisterEvents(this.registeredEvents)
 
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.drawingManager
-      })
-    }
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.drawingManager
+    })
   }
 
-  componentWillUnmount() {
-    if (this.state.drawingManager !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.drawingManager)
-      }
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
 
-      unregisterEvents(this.registeredEvents)
-
-      this.state.drawingManager.setMap(null)
-    }
+    this.state.drawingManager && this.state.drawingManager.setMap(null)
   }
 
-  render() {
-    return <></>
-  }
+  render = () => <></>
+
+  getDrawingMode = () => this.state.drawingManager!.getDrawingMode()
+
+  getMap = () => this.state.drawingManager!.getMap()
 }
 
 export default DrawingManager

@@ -38,8 +38,6 @@ const loaderId = uniqid('loader-')
 
 const onLoad = () => console.log('script loaded')
 
-const onError = (err) => console.log('onError: ', err)
-
 const GoogleMaps = ({ googleMapsApiKey, language }) => (
   <div>
     <LoadScript
@@ -49,7 +47,6 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
       region={'EN'}
       version={'weekly'}
       onLoad={onLoad}
-      onError={onError}
       loadingElement={Loading}
       libraries={googleMapsLibraries}
       preventGoogleFontsLoading

@@ -1,18 +1,17 @@
 /* eslint-disable filenames/match-regex */
-export function getOffsetOverride(
+export const getOffsetOverride = (
   containerElement: HTMLElement,
   getPixelPositionOffset?: (
     offsetWidth: number,
     offsetHeight: number
   ) => { x: number; y: number }
-) {
-  return typeof getPixelPositionOffset === "function"
+) =>
+  typeof getPixelPositionOffset === "function"
     ? getPixelPositionOffset(
-      containerElement.offsetWidth,
-      containerElement.offsetHeight
-    )
+        containerElement.offsetWidth,
+        containerElement.offsetHeight
+      )
     : {}
-}
 
 const createLatLng = (inst: any, Type: any): any => new Type(inst.lat, inst.lng)
 
@@ -22,9 +21,8 @@ const createLatLngBounds = (inst: any, Type: any): any =>
     new google.maps.LatLng(inst.sw.lat, inst.sw.lng)
   )
 
-const ensureOfType = (inst: any, type: any, factory: any) => {
-  return inst instanceof type ? inst : factory(inst, type)
-}
+const ensureOfType = (inst: any, type: any, factory: any) =>
+  inst instanceof type ? inst : factory(inst, type)
 
 const getLayoutStylesByBounds = (
   mapCanvasProjection: google.maps.MapCanvasProjection,
@@ -76,18 +74,16 @@ export const getLayoutStyles = (
   mapCanvasProjection: google.maps.MapCanvasProjection,
   offset: any,
   bounds?: google.maps.LatLngBounds,
-  // eslint-disable-next-line @getify/proper-arrows/params
   position?: google.maps.LatLng
-) => {
-  return bounds !== undefined
+) =>
+  bounds !== undefined
     ? getLayoutStylesByBounds(
-      mapCanvasProjection,
-      offset,
-      ensureOfType(bounds, google.maps.LatLngBounds, createLatLngBounds)
-    )
+        mapCanvasProjection,
+        offset,
+        ensureOfType(bounds, google.maps.LatLngBounds, createLatLngBounds)
+      )
     : getLayoutStylesByPosition(
-      mapCanvasProjection,
-      offset,
-      ensureOfType(position, google.maps.LatLng, createLatLng)
-    )
-}
+        mapCanvasProjection,
+        offset,
+        ensureOfType(position, google.maps.LatLng, createLatLng)
+      )

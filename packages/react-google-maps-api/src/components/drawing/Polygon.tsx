@@ -37,14 +37,23 @@ const updaterMap = {
   },
   path(
     instance: google.maps.Polygon,
-    path: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[]
+    path:
+      | google.maps.MVCArray<google.maps.LatLng>
+      | google.maps.LatLng[]
+      | google.maps.LatLngLiteral[]
   ) {
     instance.setPath(path)
   },
 
   paths(
     instance: google.maps.Polygon,
-    paths: google.maps.MVCArray<google.maps.LatLng> | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>> | google.maps.LatLng[] | google.maps.LatLng[][] | google.maps.LatLngLiteral[] | google.maps.LatLngLiteral[][]
+    paths:
+      | google.maps.MVCArray<google.maps.LatLng>
+      | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>>
+      | google.maps.LatLng[]
+      | google.maps.LatLng[][]
+      | google.maps.LatLngLiteral[]
+      | google.maps.LatLngLiteral[][]
   ) {
     instance.setPaths(paths)
   },
@@ -55,32 +64,44 @@ const updaterMap = {
 }
 
 interface PolygonState {
-  polygon: google.maps.Polygon | null;
+  polygon: google.maps.Polygon | null
 }
 
 interface PolygonProps {
-  options?: google.maps.PolygonOptions;
-  draggable?: boolean;
-  editable?: boolean;
-  visible?: boolean;
-  path?: google.maps.MVCArray<google.maps.LatLng> | google.maps.LatLng[] | google.maps.LatLngLiteral[];
-  paths?: google.maps.MVCArray<google.maps.LatLng> | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>> | google.maps.LatLng[] | google.maps.LatLng[][] | google.maps.LatLngLiteral[] | google.maps.LatLngLiteral[][];
-  onDblClick?: (e: google.maps.MouseEvent) => void;
-  onDragEnd?: (e: google.maps.MouseEvent) => void;
-  onDragStart?: (e: google.maps.MouseEvent) => void;
-  onMouseDown?: (e: google.maps.MouseEvent) => void;
-  onMouseMove?: (e: google.maps.MouseEvent) => void;
-  onMouseOut?: (e: google.maps.MouseEvent) => void;
-  onMouseOver?: (e: google.maps.MouseEvent) => void;
-  onMouseUp?: (e: google.maps.MouseEvent) => void;
-  onRightClick?: (e: google.maps.MouseEvent) => void;
-  onClick?: (e: google.maps.MouseEvent) => void;
-  onDrag?: (e: google.maps.MouseEvent) => void;
-  onLoad?: (polygon: google.maps.Polygon) => void;
-  onUnmount?: (polygon: google.maps.Polygon) => void;
+  options?: google.maps.PolygonOptions
+  draggable?: boolean
+  editable?: boolean
+  visible?: boolean
+  path?:
+    | google.maps.MVCArray<google.maps.LatLng>
+    | google.maps.LatLng[]
+    | google.maps.LatLngLiteral[]
+  paths?:
+    | google.maps.MVCArray<google.maps.LatLng>
+    | google.maps.MVCArray<google.maps.MVCArray<google.maps.LatLng>>
+    | google.maps.LatLng[]
+    | google.maps.LatLng[][]
+    | google.maps.LatLngLiteral[]
+    | google.maps.LatLngLiteral[][]
+  onDblClick?: (e: MouseEvent) => void
+  onDragEnd?: (e: MouseEvent) => void
+  onDragStart?: (e: MouseEvent) => void
+  onMouseDown?: (e: MouseEvent) => void
+  onMouseMove?: (e: MouseEvent) => void
+  onMouseOut?: (e: MouseEvent) => void
+  onMouseOver?: (e: MouseEvent) => void
+  onMouseUp?: (e: MouseEvent) => void
+  onRightClick?: (e: MouseEvent) => void
+  onClick?: (e: MouseEvent) => void
+  onDrag?: (e: MouseEvent) => void
+  onLoad: (polygon: google.maps.Polygon) => void
 }
 
 export class Polygon extends React.PureComponent<PolygonProps, PolygonState> {
+  public static defaultProps = {
+    options: {},
+    onLoad: () => {}
+  }
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -89,65 +110,48 @@ export class Polygon extends React.PureComponent<PolygonProps, PolygonState> {
     polygon: null
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
-  setPolygonCallback = () => {
-    if (this.state.polygon !== null) {
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps: {},
-        nextProps: this.props,
-        instance: this.state.polygon
-      })
-
-      if (this.props.onLoad) {
-        this.props.onLoad(this.state.polygon)
-      }
-    }
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     const polygon = new google.maps.Polygon({
-      ...(this.props.options || {}),
+      ...this.props.options,
       map: this.context
     })
 
-    function setPolygon() {
-      return {
-        polygon
-      }
-    }
-
     this.setState(
-      setPolygon,
-      this.setPolygonCallback
+      () => ({
+        polygon
+      }),
+      () => {
+        if (this.state.polygon !== null) {
+          this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.state.polygon
+          })
+
+          this.props.onLoad(this.state.polygon)
+        }
+      }
     )
   }
 
-  componentDidUpdate(prevProps: PolygonProps) {
-    if (this.state.polygon !== null) {
-      unregisterEvents(this.registeredEvents)
+  componentDidUpdate = (prevProps: PolygonProps) => {
+    unregisterEvents(this.registeredEvents)
 
-      this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
-        updaterMap,
-        eventMap,
-        prevProps,
-        nextProps: this.props,
-        instance: this.state.polygon
-      })
-    }
+    this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+      updaterMap,
+      eventMap,
+      prevProps,
+      nextProps: this.props,
+      instance: this.state.polygon
+    })
   }
 
-  componentWillUnmount() {
-    if (this.state.polygon !== null) {
-      if (this.props.onUnmount) {
-        this.props.onUnmount(this.state.polygon)
-      }
+  componentWillUnmount = () => {
+    unregisterEvents(this.registeredEvents)
 
-      unregisterEvents(this.registeredEvents)
-
-      this.state.polygon && this.state.polygon.setMap(null)
-    }
+    this.state.polygon && this.state.polygon.setMap(null)
   }
 
   render = () => null

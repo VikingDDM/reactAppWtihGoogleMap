@@ -1,9 +1,9 @@
 export interface RestoreInstanceArg {
-  id: string;
-  zoom?: number;
-  center?: google.maps.LatLng | google.maps.LatLngLiteral;
-  mapContainerStyle?: { [key: string]: any };
-  options?: google.maps.MapOptions;
+  id: string
+  zoom?: number
+  center?: google.maps.LatLng | google.maps.LatLngLiteral
+  mapContainerStyle?: { [key: string]: any }
+  options?: google.maps.MapOptions
 }
 
 const clearChildren = (node: HTMLElement) => {
@@ -14,11 +14,11 @@ const clearChildren = (node: HTMLElement) => {
   }
 }
 
-const getMapInstanceId = (id: string): string => {
+const getMapInstanceId = (id: string) => {
   return `google-map-${id}`
 }
 
-const getHiddenMapContainer = (id: string): HTMLElement => {
+const getHiddenMapContainer = (id: string) => {
   const hiddenMapContainer = `hidden-container-${id}`
 
   let element = document.getElementById(hiddenMapContainer)
@@ -40,11 +40,9 @@ export const restoreInstance = ({
   id,
   zoom,
   center,
-  // eslint-disable-next-line @getify/proper-arrows/params
   mapContainerStyle,
   options
 }: RestoreInstanceArg): google.maps.Map | false => {
-  // TODO: extend WindowType and refactor for better type support.
   // @ts-ignore
   const map: google.maps.Map = window[getMapInstanceId(id)]
 
@@ -70,8 +68,8 @@ export const restoreInstance = ({
 
       mapContainer.appendChild(hiddenContainer.children[0])
 
-      if (typeof mapContainerStyle === 'object') {
-        Object.keys(mapContainerStyle).forEach(function forEachStyle(styleKey) {
+      if (mapContainerStyle) {
+        Object.keys(mapContainerStyle).forEach(styleKey => {
           // TODO
           mapContainer.style[styleKey as any] = mapContainerStyle[styleKey]
         })
