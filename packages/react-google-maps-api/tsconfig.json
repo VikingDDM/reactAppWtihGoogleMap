@@ -26,8 +26,7 @@
     "types": [
       "googlemaps",
       "react",
-      "react-dom",
-      "jest"
+      "react-dom"
     ],
     "outDir": "./lib/",
     "declaration": true,

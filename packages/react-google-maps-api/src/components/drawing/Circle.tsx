@@ -51,7 +51,7 @@ interface CircleState {
   circle: google.maps.Circle | null;
 }
 
-export interface CircleProps {
+interface CircleProps {
   options?: google.maps.CircleOptions;
 
   // required
