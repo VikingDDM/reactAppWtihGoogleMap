@@ -90,7 +90,7 @@ interface ClustererState {
   markerClusterer: Clusterer | null;
 }
 
-export interface ClustererProps {
+interface ClustererProps {
   // required
   children: (markerClusterer: Clusterer) => React.ReactNode;
   options?: ClustererOptions; // TODO: it could be undefined

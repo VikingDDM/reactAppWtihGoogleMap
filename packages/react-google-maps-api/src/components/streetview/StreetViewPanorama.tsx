@@ -73,7 +73,7 @@ interface StreetViewPanoramaState {
   streetViewPanorama: google.maps.StreetViewPanorama | null;
 }
 
-export interface StreetViewPanoramaProps {
+interface StreetViewPanoramaProps {
   options?: google.maps.StreetViewPanoramaOptions;
   onCloseclick?: (event: google.maps.event) => void;
   onPanoChanged?: () => void;

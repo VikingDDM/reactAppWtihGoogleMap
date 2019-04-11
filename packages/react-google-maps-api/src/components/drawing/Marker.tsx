@@ -88,7 +88,7 @@ interface MarkerState {
   marker: google.maps.Marker | null;
 }
 
-export interface MarkerProps {
+interface MarkerProps {
   options?: google.maps.MapOptions;
   animation?: google.maps.Animation;
   clickable?: boolean;

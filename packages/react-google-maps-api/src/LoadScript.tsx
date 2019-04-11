@@ -11,7 +11,7 @@ interface LoadScriptState {
   loaded: boolean;
 }
 
-export interface LoadScriptProps {
+interface LoadScriptProps {
   // required
   id: string;
 
