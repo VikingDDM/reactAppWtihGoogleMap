@@ -52,7 +52,7 @@ interface RectangleState {
   rectangle: google.maps.Rectangle | null;
 }
 
-export interface RectangleProps {
+interface RectangleProps {
   options?: google.maps.RectangleOptions;
   bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
   draggable?: boolean;

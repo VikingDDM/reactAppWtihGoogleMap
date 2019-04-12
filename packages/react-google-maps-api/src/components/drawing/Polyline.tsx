@@ -52,7 +52,7 @@ interface PolylineState {
   polyline: google.maps.Polyline | null;
 }
 
-export interface PolylineProps {
+interface PolylineProps {
   options?: google.maps.PolylineOptions;
   draggable?: boolean;
   editable?: boolean;

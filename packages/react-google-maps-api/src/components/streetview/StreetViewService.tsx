@@ -2,7 +2,7 @@ import * as React from "react"
 
 import MapContext from "../../map-context"
 
-export interface StreetViewServiceProps {
+interface StreetViewServiceProps {
   onLoad?: (streetViewService: google.maps.StreetViewService | null) => void;
   onUnmount?: (streetViewService: google.maps.StreetViewService | null) => void;
 }

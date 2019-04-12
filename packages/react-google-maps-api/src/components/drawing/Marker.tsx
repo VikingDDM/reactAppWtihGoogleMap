@@ -88,12 +88,12 @@ interface MarkerState {
   marker: google.maps.Marker | null;
 }
 
-export interface MarkerProps {
+interface MarkerProps {
   options?: google.maps.MapOptions;
   animation?: google.maps.Animation;
   clickable?: boolean;
   cursor?: string;
-  draggable?: boolean;
+  draggable?: string;
   icon?: string | google.maps.Icon | google.maps.Symbol;
   label?: string | google.maps.MarkerLabel;
   opacity?: number;

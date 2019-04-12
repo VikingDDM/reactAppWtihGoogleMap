@@ -1,6 +1,6 @@
 # @react-google-maps/api
 
-@react-google-maps/api@1.2.2
+@react-google-maps/api@1.1.0
 
 > This library requires React v16.6 or later. If you need support for earlier versions of React, you should check out [react-google-maps](https://github.com/tomchentw/react-google-maps)
 
@@ -68,12 +68,5 @@ After:
     const bounds = new window.google.maps.LatLngBounds();
     map.fitBounds(bounds);
   }}
-  onUnmount={map => {
-    // do your stuff before map is unmounted
-  }}
 />
 ```
-
-Since 1.2.0 you can use onLoad and onMount props for each @react-google-maps/api component, ref does not contain API methods anymore.
-
-Since version 1.2.2 We added useGoogleMap hook, which is working only with React@16.8.1 and later versions.
