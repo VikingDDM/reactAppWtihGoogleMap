@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/root",
-  "version": "1.2.0-alpha.14",
+  "version": "1.2.2",
   "private": true,
   "description": "@react-google-maps API integration",
   "license": "MIT",
@@ -23,7 +23,7 @@
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn && yarn build && cd ../..",
     "build:docs": "cd packages/react-google-maps-api && yarn && yarn docs:build && cd ../..",
     "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start",
-    "test:api": "cd packages/react-google-maps-api && npm run test && cd ../.. "
+    "test:api": "cd packages/react-google-maps-api && yarn test && cd ../.. "
   },
   "lint-staged": {
     "linters": {
@@ -36,8 +36,10 @@
   },
   "devDependencies": {
     "husky": "1.3.1",
+    "jest-cli": "^24.7.1",
     "lerna": "3.13.0",
-    "lint-staged": "8.1.4"
+    "lint-staged": "8.1.4",
+    "ts-jest": "^24.0.2"
   },
   "husky": {
     "hooks": {

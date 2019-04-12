@@ -11,26 +11,18 @@ interface LoadScriptState {
   loaded: boolean;
 }
 
-interface LoadScriptProps {
-  // required
-  id: string;
-
+export interface LoadScriptProps {
   // required
   googleMapsApiKey: string;
-
-  // required
-  language: string;
-
-  // required
-  region: string;
-
-  // required
+  id: string;
   version: string;
+  language?: string;
+  region?: string;
+  libraries?: string[];
   loadingElement?: React.ReactNode;
   onLoad?: () => void;
   onError?: (error: Error) => void;
   onUnmount?: () => void;
-  libraries: string[];
   preventGoogleFontsLoading?: boolean;
 }
 
@@ -40,7 +32,8 @@ const DefaultLoadingElement = () => (
 
 class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
   public static defaultProps = {
-    libraries: [] // Do not remove!,
+    id: 'script-loader',
+    version: 'weekly',
   }
 
   check: React.RefObject<HTMLDivElement> = React.createRef()
@@ -137,7 +130,6 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
     return new Promise(promiseCallback)
   }
 
-  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   cleanup = () => {
     cleaningUp = true
     const script = document.getElementById(this.props.id)
@@ -187,11 +179,27 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       preventGoogleFonts()
     }
 
+    const params = [`key=${this.props.googleMapsApiKey}`]
+
+    if (this.props.version) {
+      params.push(`v=${this.props.version}`)
+    }
+
+    if (this.props.language) {
+      params.push(`language=${this.props.language}`)
+    }
+
+    if (this.props.region) {
+      params.push(`region=${this.props.region}`)
+    }
+
+    if (this.props.libraries && this.props.libraries.length) {
+      params.push(`&libraries=${this.props.libraries.join(",")}`)
+    }
+
     const injectScriptOptions = {
       id: this.props.id,
-      url: `https://maps.googleapis.com/maps/api/js?v=${this.props.version}&key=${this.props.googleMapsApiKey}&language=${this.props.language}&region=${this.props.region}${
-        this.props.libraries ? `&libraries=${this.props.libraries.join(",")}` : ""
-      }`
+      url: `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
     }
 
     injectScript(injectScriptOptions)
@@ -214,13 +222,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
         }
 
         console.error(`
-          There has been an Error with loading Google Maps API script, please check that you provided all required props to <LoadScript />
-          Props you have provided:
-          googleMapsApiKey: ${this.props.googleMapsApiKey}
-          language: ${this.props.language}
-          region: ${this.props.region}
-          version: ${this.props.version}
-          libraries: ${(this.props.libraries || []).join(",")}
+          There has been an Error with loading Google Maps API script, please check that you provided correct google API key to <LoadScript /> (${this.props.googleMapsApiKey})
           Otherwise it is a Network issues.
         `)
       })
