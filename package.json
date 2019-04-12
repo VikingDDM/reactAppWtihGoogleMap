@@ -22,8 +22,7 @@
     "build:api": "cd packages/react-google-maps-api && npm run build && cd ../.. ",
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn && yarn build && cd ../..",
     "build:docs": "cd packages/react-google-maps-api && yarn && yarn docs:build && cd ../..",
-    "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start",
-    "test:api": "cd packages/react-google-maps-api && yarn test && cd ../.. "
+    "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start"
   },
   "lint-staged": {
     "linters": {
