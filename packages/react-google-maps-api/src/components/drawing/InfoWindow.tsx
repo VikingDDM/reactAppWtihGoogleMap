@@ -42,9 +42,9 @@ interface InfoWindowState {
 }
 
 export interface InfoWindowProps {
-  anchor?: google.maps.MVCObject;
+  anchor: google.maps.MVCObject | null;
   options?: google.maps.InfoWindowOptions;
-  position?: google.maps.LatLng | google.maps.LatLngLiteral;
+  position: google.maps.LatLng | google.maps.LatLngLiteral;
   zIndex?: number;
   onCloseClick?: () => void;
   onDomReady?: () => void;
@@ -68,7 +68,8 @@ export class InfoWindow extends React.PureComponent<
     infoWindow: null
   }
 
-  open = (infoWindow: google.maps.InfoWindow, anchor?: google.maps.MVCObject) => {
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+  open = (infoWindow: google.maps.InfoWindow, anchor: google.maps.MVCObject) => {
     if (anchor) {
       infoWindow.open(this.context, anchor)
     } else if (infoWindow.getPosition()) {
@@ -81,10 +82,12 @@ export class InfoWindow extends React.PureComponent<
     }
   }
 
+  // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
   setInfowindowCallback = () => {
     if (
       this.state.infoWindow !== null &&
-      this.containerElement !== null
+      this.containerElement !== null &&
+      this.props.anchor !== null
     ) {
       this.state.infoWindow.setContent(this.containerElement)
 
