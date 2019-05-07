@@ -6,8 +6,6 @@ import { connect } from 'react-redux'
 
 import { LoadScript } from '@react-google-maps/api'
 
-import Card from '../components/card'
-
 import CheckboxData from '../components/checkbox-data'
 import CheckboxDirections from '../components/checkbox-directions'
 import CheckboxHeatmap from '../components/checkbox-heatmap'
@@ -43,78 +41,100 @@ const onLoad = () => console.log('script loaded')
 const onError = (err) => console.log('onError: ', err)
 
 const GoogleMaps = ({ googleMapsApiKey, language }) => (
-  <LoadScript
-    id={loaderId}
-    googleMapsApiKey={googleMapsApiKey}
-    language={language}
-    region={'EN'}
-    version={'weekly'}
-    onLoad={onLoad}
-    onError={onError}
-    loadingElement={Loading}
-    libraries={googleMapsLibraries}
-    preventGoogleFontsLoading
-  >
-    <Card>
-      <CheckboxData />
+  <div>
+    <LoadScript
+      id={loaderId}
+      googleMapsApiKey={googleMapsApiKey}
+      language={language}
+      region={'EN'}
+      version={'weekly'}
+      onLoad={onLoad}
+      onError={onError}
+      loadingElement={Loading}
+      libraries={googleMapsLibraries}
+      preventGoogleFontsLoading
+    >
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxData />
 
-      <SectionData />
-    </Card>
+          <SectionData />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxDirections />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxDirections />
 
-      <SectionDirections />
-    </Card>
+          <SectionDirections />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxHeatmap />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxHeatmap />
 
-      <SectionHeatmap />
-    </Card>
+          <SectionHeatmap />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxTraffic />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxTraffic />
 
-      <SectionTraffic />
-    </Card>
+          <SectionTraffic />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxShapes />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxShapes />
 
-      <SectionShapes />
-    </Card>
+          <SectionShapes />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxDrawing />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxDrawing />
 
-      <SectionDrawing />
-    </Card>
+          <SectionDrawing />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxBicycling />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxBicycling />
 
-      <SectionBicycling />
-    </Card>
+          <SectionBicycling />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxGround />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxGround />
 
-      <SectionGround />
-    </Card>
+          <SectionGround />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxOptions />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxOptions />
 
-      <SectionOptions />
-    </Card>
+          <SectionOptions />
+        </div>
+      </div>
 
-    <Card>
-      <CheckboxSearchbox />
+      <div className='card shadow-sm mb-3'>
+        <div className='card-body'>
+          <CheckboxSearchbox />
 
-      <SectionSearchbox />
-    </Card>
-  </LoadScript>
+          <SectionSearchbox />
+        </div>
+      </div>
+    </LoadScript>
+  </div>
 )
 
 GoogleMaps.propTypes = {
