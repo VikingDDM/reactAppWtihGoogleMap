@@ -24,7 +24,6 @@ const InputBoxApiKey = ({ value, onChange }) => (
       autoCapitalize='off'
       onChange={onChange}
       value={value}
-      placeholder='Enter your key here'
     />
   </div>
 )
