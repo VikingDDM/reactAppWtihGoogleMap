@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/root",
-  "version": "1.2.3-alpha.10",
+  "version": "1.2.3-alpha.11",
   "private": true,
   "description": "@react-google-maps API integration",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "contributors": [
     "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
-    "Ivan Konev <ivankonev@gmail.com>"
+    "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)"
   ],
   "repository": {
     "type": "git",
@@ -24,11 +24,7 @@
     "build:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn && yarn build && cd ../..",
     "build:docs": "cd packages/react-google-maps-api && yarn && yarn docs:build && cd ../..",
     "start:gatsby": "cd packages/react-google-maps-api-gatsby-example && yarn start",
-    "test:api": "cd packages/react-google-maps-api && yarn test && cd ../.. ",
-    "bootstrap":"lerna bootstrap",
-    "build":"lerna run build --stream",
-    "lint":"lerna run lint --scope=@react-google-maps/api --stream",
-    "storybook":"lerna run start --scope=@react-google-maps/storybook --stream"
+    "test:api": "cd packages/react-google-maps-api && yarn test && cd ../.. "
   },
   "lint-staged": {
     "linters": {

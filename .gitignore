@@ -51,6 +51,5 @@ packages/react-google-maps-api/dist
 packages/react-google-maps-api/styleguide
 packages/react-google-maps-api/src/docs/googleMapKey.ts
 
-lib/
-dist/
+
 googleMapKey.js
