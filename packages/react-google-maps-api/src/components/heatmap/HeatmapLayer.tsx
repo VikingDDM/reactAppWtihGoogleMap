@@ -1,5 +1,5 @@
 import * as React from "react"
-import * as invariant from "invariant"
+import invariant from "invariant"
 
 import {
   unregisterEvents,
@@ -24,6 +24,8 @@ const updaterMap = {
     instance: google.maps.visualization.HeatmapLayer,
     options: google.maps.visualization.HeatmapLayerOptions
   ) {
+    // TODO: add to official typings
+    //@ts-ignore
     instance.setOptions(options)
   }
 }
@@ -43,7 +45,7 @@ export interface HeatmapLayerProps {
 export class HeatmapLayer extends React.PureComponent<
   HeatmapLayerProps,
   HeatmapLayerState
-> {
+  > {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
