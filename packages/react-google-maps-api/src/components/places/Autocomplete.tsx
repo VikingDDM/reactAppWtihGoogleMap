@@ -7,7 +7,7 @@ import {
 
 import MapContext from "../../map-context"
 
-import invariant from "invariant"
+import * as invariant from "invariant"
 
 const eventMap = {
   onPlaceChanged: "place_changed"

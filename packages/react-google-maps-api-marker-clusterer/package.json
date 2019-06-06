@@ -19,13 +19,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "unpkg": "dist/reactgooglemapsmarkerclusterer.umd.production.js",
-  "module": "dist/reactgooglemapsmarkerclusterer.es.production.js",
+  "main": "lib/index.js",
+  "browser": "umd/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
   "files": [
+    "dist/",
+    "lib/",
     "src/",
-    "dist/"
+    "CHANGELOG.md"
   ],
   "keywords": [
     "React",
@@ -36,13 +38,15 @@
     "Marker"
   ],
   "scripts": {
-    "build": "tsdx build --name markerClusterer",
+    "build": "yarn build:commonjs && yarn build:esm && yarn build:umd",
+    "build:commonjs": "rimraf ./lib && tsc -p ./tsconfig.json",
+    "build:esm": "rimraf ./esm && tsc -p ./tsconfig-esm.json",
+    "build:umd": "rimraf ./umd && tsc -p ./tsconfig-umd.json",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
     "pub": "yarn build && yarn publish .",
-    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
-    "prepublishOnly": "yarn build"
+    "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution"
   },
   "dependencies": {
     "@types/googlemaps": "3.36.0"

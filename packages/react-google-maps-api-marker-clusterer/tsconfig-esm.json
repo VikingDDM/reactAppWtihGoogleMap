@@ -12,9 +12,9 @@
     "__mocks__"
   ],
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es2015",
     "jsx": "react",
     "lib": [
       "dom",
@@ -26,10 +26,10 @@
     "types": [
       "googlemaps"
     ],
-    "outDir": "./lib/",
+    "outDir": "./esm/",
     "declaration": true,
     "declarationMap": true,
-    "declarationDir": "./lib/",
+    "declarationDir": "./esm/",
     "strict": true,
     "alwaysStrict": true,
     "strictNullChecks": true,

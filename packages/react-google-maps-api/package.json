@@ -11,8 +11,7 @@
   "contributors": [
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
     "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
-    "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)",
-    "Daniel K. <klenicak@gmail.com> (https://github.com/fredyc)"
+    "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)"
   ],
   "repository": {
     "type": "git",
@@ -25,13 +24,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "unpkg": "dist/reactgooglemapsapi.umd.production.js",
-  "module": "dist/reactgooglemapsapi.es.production.js",
+  "main": "lib/index.js",
+  "browser": "umd/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
   "files": [
+    "dist/",
+    "lib/",
     "src/",
-    "dist/"
+    "CHANGELOG.md"
   ],
   "keywords": [
     "React",
@@ -69,7 +70,10 @@
     "Typescript"
   ],
   "scripts": {
-    "build": "tsdx build --name reactGoogleMapsApi",
+    "build": "yarn build:commonjs && yarn build:esm && yarn build:umd",
+    "build:commonjs": "rimraf ./lib && tsc -p ./tsconfig.json",
+    "build:esm": "rimraf ./esm && tsc -p ./tsconfig-esm.json",
+    "build:umd": "rimraf ./umd && tsc -p ./tsconfig-umd.json",
     "clean": "rimraf ./package-lock.json ./yarn.lock ./node_modules/ && yarn",
     "update": "yarn-check -u",
     "lint": "npx eslint ./src/**/*.{ts,tsx}",
@@ -78,8 +82,7 @@
     "docs:dev": "npx styleguidist server --config ./styleguide.config.js --verbose",
     "docs:build": "npx styleguidist build --config ./styleguide.config.js --verbose",
     "tc": "tsc -p ./tsconfig.json --noEmit --traceResolution",
-    "test": "jest",
-    "prepublishOnly": "yarn build"
+    "test": "jest"
   },
   "dependencies": {
     "@react-google-maps/marker-clusterer": "1.2.3",

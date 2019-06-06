@@ -12,7 +12,7 @@
     "__mocks__"
   ],
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "umd",
     "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
@@ -26,10 +26,10 @@
     "types": [
       "googlemaps"
     ],
-    "outDir": "./lib/",
+    "outDir": "./umd/",
     "declaration": true,
     "declarationMap": true,
-    "declarationDir": "./lib/",
+    "declarationDir": "./umd/",
     "strict": true,
     "alwaysStrict": true,
     "strictNullChecks": true,
