@@ -21,8 +21,8 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "unpkg": "dist/reactgooglemapsmarkerclusterer.umd.production.js",
-  "module": "dist/reactgooglemapsmarkerclusterer.es.production.js",
+  "unpkg": "dist/markerclusterer.umd.production.js",
+  "module": "dist/markerclusterer.es.production.js",
   "files": [
     "src/",
     "dist/"
@@ -77,7 +77,7 @@
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.5.0",
     "rimraf": "2.6.3",
-    "typescript": "3.5.1",
+    "typescript": "3.4.5",
     "webpack": "4.32.2"
   },
   "gitHead": "80167ddcc3d8e356dbf0b0c3a6292c6a3a989f83"
