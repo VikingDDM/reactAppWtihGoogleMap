@@ -1,7 +1,7 @@
 /* globals google */
 import * as React from "react"
 
-import invariant from "invariant"
+import * as invariant from "invariant"
 
 import {
   unregisterEvents,

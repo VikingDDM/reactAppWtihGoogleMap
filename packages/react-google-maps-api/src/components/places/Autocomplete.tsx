@@ -7,7 +7,7 @@ import {
 
 import MapContext from "../../map-context"
 
-import invariant from "invariant"
+import * as invariant from "invariant"
 
 const eventMap = {
   onPlaceChanged: "place_changed"
@@ -27,16 +27,12 @@ const updaterMap = {
     instance.setComponentRestrictions(restrictions)
   },
   fields(instance: google.maps.places.Autocomplete, fields: string[]) {
-    // TODO: add to @types/googlemaps
-    // @ts-ignore
     instance.setFields(fields)
   },
   options(
     instance: google.maps.places.Autocomplete,
     options: google.maps.places.AutocompleteOptions
   ) {
-    // TODO: add to @types/googlemaps
-    // @ts-ignore
     instance.setOptions(options)
   },
   types(instance: google.maps.places.Autocomplete, types: string[]) {
