@@ -34,8 +34,6 @@ module.exports = {
       name: "Components",
       components: [
         "src/LoadScript.tsx",
-        "src/LoadScriptNext.tsx",
-        "src/useLoadScript.tsx",
         "src/GoogleMap.tsx",
         "src/components/**/*.tsx"
       ]

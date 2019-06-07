@@ -4,8 +4,6 @@ import { injectScript } from "./utils/injectscript"
 import { preventGoogleFonts } from "./utils/prevent-google-fonts"
 
 import { isBrowser } from "./utils/isbrowser"
-import { LoadScriptUrlOptions, makeLoadScriptUrl } from "./utils/make-load-script-url";
-import invariant from "invariant";
 
 let cleaningUp = false
 
@@ -13,8 +11,14 @@ interface LoadScriptState {
   loaded: boolean;
 }
 
-export interface LoadScriptProps extends LoadScriptUrlOptions {
-  id?: string;
+export interface LoadScriptProps {
+  // required
+  googleMapsApiKey: string;
+  id: string;
+  version: string;
+  language?: string;
+  region?: string;
+  libraries?: string[];
   loadingElement?: React.ReactNode;
   onLoad?: () => void;
   onError?: (error: Error) => void;
@@ -22,17 +26,15 @@ export interface LoadScriptProps extends LoadScriptUrlOptions {
   preventGoogleFontsLoading?: boolean;
 }
 
-export function DefaultLoadingElement() {
-  return <div>{`Loading...`}</div>
-}
-
-export const defaultLoadScriptProps = {
-  id: 'script-loader',
-  version: 'weekly'
-}
+const DefaultLoadingElement = () => (
+  <div>{`Loading...`}</div>
+)
 
 class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
-  public static defaultProps = defaultLoadScriptProps
+  public static defaultProps = {
+    id: 'script-loader',
+    version: 'weekly',
+  }
 
   check: React.RefObject<HTMLDivElement> = React.createRef()
 
@@ -106,7 +108,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
   // eslint-disable-next-line @getify/proper-arrows/name
   isCleaningUp = async () => {
-    function promiseCallback(resolve: () => void) {
+    function promiseCallback (resolve: () => void) {
       if (!cleaningUp) {
         resolve()
       } else {
@@ -130,7 +132,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
   cleanup = () => {
     cleaningUp = true
-    const script = document.getElementById(this.props.id!)
+    const script = document.getElementById(this.props.id)
 
     if (script && script.parentNode) {
       script.parentNode.removeChild(script)
@@ -138,10 +140,10 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("script"))
-      .filter(function filter(script: HTMLScriptElement): boolean {
+      .filter(function filter (script: HTMLScriptElement) {
         return script.src.includes("maps.googleapis")
       })
-      .forEach(function forEach(script: HTMLScriptElement): void {
+      .forEach(function forEach (script: HTMLScriptElement) {
         if (script.parentNode) {
           script.parentNode.removeChild(script)
         }
@@ -149,10 +151,11 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("link"))
-      .filter(function filter(link: HTMLLinkElement): boolean {
-        return link.href === "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
+      .filter(function filter (link: HTMLLinkElement) {
+        link.href ===
+        "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans"
       })
-      .forEach(function forEach(link: HTMLLinkElement) {
+      .forEach(function forEach (link: HTMLLinkElement) {
         if (link.parentNode) {
           link.parentNode.removeChild(link)
         }
@@ -160,10 +163,10 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
     Array.prototype.slice
       .call(document.getElementsByTagName("style"))
-      .filter(function filter(style: HTMLStyleElement): boolean {
-        return style.innerText.length > 0 && style.innerText.includes(".gm-")
+      .filter(function filter (style: HTMLStyleElement) {
+        return style.innerText && style.innerText.includes(".gm-")
       })
-      .forEach(function forEach(style: HTMLStyleElement) {
+      .forEach(function forEach (style: HTMLStyleElement) {
         if (style.parentNode) {
           style.parentNode.removeChild(style)
         }
@@ -176,11 +179,27 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
       preventGoogleFonts()
     }
 
-    invariant(typeof this.props.id === 'string', 'LoadScript requires "id" prop to be a string')
+    const params = [`key=${this.props.googleMapsApiKey}`]
+
+    if (this.props.version) {
+      params.push(`v=${this.props.version}`)
+    }
+
+    if (this.props.language) {
+      params.push(`language=${this.props.language}`)
+    }
+
+    if (this.props.region) {
+      params.push(`region=${this.props.region}`)
+    }
+
+    if (this.props.libraries && this.props.libraries.length) {
+      params.push(`&libraries=${this.props.libraries.join(",")}`)
+    }
 
     const injectScriptOptions = {
-      id: this.props.id!,
-      url: makeLoadScriptUrl(this.props)
+      id: this.props.id,
+      url: `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
     }
 
     injectScript(injectScriptOptions)
@@ -190,7 +209,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
           this.props.onLoad()
         }
 
-        this.setState(function setLoaded() {
+        this.setState(function setLoaded () {
           return {
             loaded: true
           }
@@ -203,8 +222,8 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
         }
 
         console.error(`
-          There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${this.props.googleMapsApiKey || '-'}) or Client ID (${this.props.googleMapsClientId || '-'}) to <LoadScript />
-          Otherwise it is a Network issue.
+          There has been an Error with loading Google Maps API script, please check that you provided correct google API key to <LoadScript /> (${this.props.googleMapsApiKey})
+          Otherwise it is a Network issues.
         `)
       })
   }
