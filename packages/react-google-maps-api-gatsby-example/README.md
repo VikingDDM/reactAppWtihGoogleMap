@@ -1,34 +1,34 @@
-# @react-google-maps/api example Gatsby.js
+# @react-google-maps/api@1.2.2 example Gatsby.js
 
 ![logo](https://raw.githubusercontent.com/JustFly1984/react-google-maps-api/master/logo.png)
 
 ## Install
 
 ```#!/bin/bash
-yarn
+npm i
 ```
 
 ## Run Development
 
 ```#!/bin/bash
-yarn start
+npm start
 ```
 
 ## Build
 
 ```#!/bin/bash
-yarn build
+npm run build
 ```
 
 ## Clean
 
 ```#!/bin/bash
-yarn clean
+npm run clean
 ```
 
 ## Lint with eslint
 
 ```#!/bin/bash
-yarn lint
+npm run lint
 ```
 
