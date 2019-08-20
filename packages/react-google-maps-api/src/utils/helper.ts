@@ -75,7 +75,6 @@ export function applyUpdatersToPropsAndRegisterEvents({
   nextProps: any;
   instance: any;
 }) {
-  const registeredEvents = registerEvents(nextProps, instance, eventMap)
   applyUpdaterToNextProps(updaterMap, prevProps, nextProps, instance)
-  return registeredEvents
+  return registerEvents(nextProps, instance, eventMap)
 }

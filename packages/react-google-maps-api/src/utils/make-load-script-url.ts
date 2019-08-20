@@ -7,7 +7,6 @@ export interface LoadScriptUrlOptions {
   language?: string;
   region?: string;
   libraries?: string[];
-  channel?: string;
 }
 
 export function makeLoadScriptUrl({
@@ -16,8 +15,7 @@ export function makeLoadScriptUrl({
   version = 'weekly',
   language,
   region,
-  libraries,
-  channel
+  libraries
 }: LoadScriptUrlOptions) {
   const params = []
 
@@ -45,14 +43,8 @@ export function makeLoadScriptUrl({
   }
 
   if (libraries && libraries.length) {
-    params.push(`libraries=${libraries.sort().join(",")}`)
+    params.push(`libraries=${libraries.join(",")}`)
   }
-
-  if (channel) {
-    params.push(`channel=${channel}`)
-  }
-
-  params.push('callback=initMap')
 
   return `https://maps.googleapis.com/maps/api/js?${params.join('&')}`
 }
