@@ -16,7 +16,6 @@ import CheckboxOverlayView from '../components/checkbox-overlay-view'
 import CheckboxShapes from '../components/checkbox-shapes'
 import CheckboxDrawing from '../components/checkbox-drawing'
 import CheckboxBicycling from '../components/checkbox-bicycling'
-import CheckboxTransit from '../components/checkbox-transit'
 import CheckboxGround from '../components/checkbox-ground'
 import CheckboxOptions from '../components/checkbox-options'
 import CheckboxSearchbox from '../components/checkbox-searchbox'
@@ -28,7 +27,6 @@ import SectionTraffic from './section-traffic'
 import SectionShapes from './section-shapes'
 import SectionDrawing from './section-drawing'
 import SectionBicycling from './section-bicycling'
-import SectionTransit from './section-transit'
 import SectionGround from './section-ground'
 import SectionOptions from './section-options'
 import SectionOverlayView from './section-overlay-view'
@@ -99,12 +97,6 @@ const GoogleMaps = ({ googleMapsApiKey, language }) => (
       <CheckboxBicycling />
 
       <SectionBicycling />
-    </Card>
-
-    <Card>
-      <CheckboxTransit />
-
-      <SectionTransit />
     </Card>
 
     <Card>
