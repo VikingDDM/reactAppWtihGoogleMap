@@ -28,6 +28,11 @@ export {
 } from "./components/maps/BicyclingLayer"
 
 export {
+  default as TransitLayer,
+  TransitLayerProps
+} from "./components/maps/TransitLayer"
+
+export {
   default as DrawingManager,
   DrawingManagerProps
 } from "./components/drawing/DrawingManager"
@@ -41,6 +46,11 @@ export {
   default as MarkerClusterer,
   ClustererProps as MarkerClustererProps
 } from "./components/addons/MarkerClusterer"
+
+export {
+  default as InfoBox,
+  InfoBoxProps
+} from "./components/addons/InfoBox"
 
 export {
   default as InfoWindow,
