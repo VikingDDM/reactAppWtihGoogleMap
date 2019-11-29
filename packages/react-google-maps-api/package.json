@@ -1,6 +1,6 @@
 {
   "name": "@react-google-maps/api",
-  "version": "1.7.13",
+  "version": "1.7.14",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
@@ -112,7 +112,7 @@
     "eslint-plugin-node": "10.0.0",
     "eslint-plugin-optimize-regex": "1.1.7",
     "eslint-plugin-promise": "4.2.1",
-    "eslint-plugin-react": "7.16.0",
+    "eslint-plugin-react": "7.17.0",
     "eslint-plugin-react-functional-set-state": "1.2.1",
     "eslint-plugin-react-hooks": "2.3.0",
     "eslint-plugin-react-perf": "3.2.3",
