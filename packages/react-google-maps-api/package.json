@@ -9,6 +9,9 @@
     "email": "justfly1984@gmail.com",
     "url": "https://github.com/JustFly1984"
   },
+  "engines": {
+    "node": "12.13.1"
+  },
   "contributors": [
     "Uri Klar <uriklar@gmail.com> (https://github.com/uriklar)",
     "Ignat Awwit <ignatius.awwit@gmail.com> (https://github.com/awwit)",
@@ -96,7 +99,7 @@
     "@getify/eslint-plugin-proper-arrows": "8.0.1",
     "@testing-library/react": "9.4.0",
     "@types/babel-types": "7.0.7",
-    "@types/invariant": "2.2.30",
+    "@types/invariant": "2.2.31",
     "@types/jest": "24.0.24",
     "awesome-typescript-loader": "5.2.1",
     "eslint-config-standard": "14.1.0",
