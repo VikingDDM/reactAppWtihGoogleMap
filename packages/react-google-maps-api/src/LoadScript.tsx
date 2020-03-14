@@ -56,7 +56,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
 
       this.isCleaningUp()
         .then(this.injectScript)
-        .catch(function error(err) {
+        .catch(function err(err) {
           console.error('Error at injecting script after cleaning up: ', err)
         })
     }
