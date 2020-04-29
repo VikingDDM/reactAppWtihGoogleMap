@@ -1,7 +1,5 @@
 # Changelog
 
-## 1.9.0 remove appendChild in OverlayView
-
 ## 1.8.2 update dependencies
 
 ## 1.8.1 cleanup
