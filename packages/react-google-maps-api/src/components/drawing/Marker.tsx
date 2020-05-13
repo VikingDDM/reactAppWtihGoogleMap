@@ -5,7 +5,6 @@ import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../u
 import MapContext from '../../map-context'
 
 import { Clusterer } from '@react-google-maps/marker-clusterer'
-import { ReactNode } from 'react'
 
 const eventMap = {
   onAnimationChanged: 'animation_changed',
@@ -249,22 +248,7 @@ export class Marker extends React.PureComponent<MarkerProps, MarkerState> {
   }
 
   render(): React.ReactNode {
-    interface HasMarkerAnchor {
-      anchor?: google.maps.Marker | null
-    }
-
-    let children: ReactNode | null = null
-    if(this.props.children) {
-      children = React.Children.map(this.props.children, child => {
-        if(!React.isValidElement<HasMarkerAnchor>(child)) {
-          return child;
-        }
-
-        let elementChild: React.ReactElement<HasMarkerAnchor> = child;
-        return React.cloneElement(elementChild, {anchor: this.state.marker});
-      })
-    }
-    return children || null
+    return this.props.children || null
   }
 }
 
