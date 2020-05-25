@@ -75,4 +75,4 @@ export {
 
 export { default as Autocomplete, AutocompleteProps } from './components/places/Autocomplete'
 
-export { default as MapContext, useGoogleMap } from './map-context'
+export { useGoogleMap } from './map-context'

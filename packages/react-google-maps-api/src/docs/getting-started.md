@@ -1,4 +1,4 @@
-# Install @react-google-maps/api
+## Install @react-google-maps/api
 
 ```bash
 npm install --save @react-google-maps/api
@@ -17,33 +17,32 @@ The simplest way to get a functional map is:
 
 > ⚠️ Make sure you cache the props passed to `GoogleMap` to avoid re-renders that may harm the performance.
 
-```md
-import React, { Component } from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-
-const containerStyle = {
-  width: '400px',
-  height: '400px'
-};
-
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
+```js
+import React, { Component } from 'react'
+import { GoogleMap, LoadScript } from '@react-google-maps/api'
 
 class MyComponents extends Component {
+  containerStyle = {
+    width: '400px',
+    height: '400px'
+  };
+
+  center = {
+    lat: -3.745,
+    lng: -38.523
+  };
+
   render() {
     return (
       <LoadScript
         googleMapsApiKey="YOUR_API_KEY"
       >
         <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
+          mapContainerStyle={this.containerStyle}
+          center={this.center}
           zoom={10}
         >
           { /* Child components, such as markers, info windows, etc. */ }
-          <></>
         </GoogleMap>
       </LoadScript>
     )
@@ -53,12 +52,11 @@ class MyComponents extends Component {
 
 Or you can also adopt a functional component style:
 
-```md
+```js
 import React from 'react'
 
 function MyComponent(props) {
   const { containerStyle, center } = props;
-
   return (
     <LoadScript
       googleMapsApiKey="YOUR_API_KEY"
