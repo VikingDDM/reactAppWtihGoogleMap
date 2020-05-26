@@ -141,8 +141,6 @@ export class Cluster {
       marker.setMap(null)
     }
 
-    this.updateIcon()
-
     return true
   }
 
@@ -194,7 +192,7 @@ export class Cluster {
   }
 
   isMarkerAlreadyAdded(marker: MarkerExtended): boolean {
-    if (this.markers.indexOf) {
+    if (this.markers.includes) {
       return this.markers.includes(marker)
     } else {
       for (let i = 0; i < this.markers.length; i++) {
