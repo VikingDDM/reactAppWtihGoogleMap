@@ -42,14 +42,14 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
   }
 
   cleanupCallback = (): void => {
-    delete window.google.maps
+    delete window.google
 
     this.injectScript()
   }
 
   componentDidMount(): void {
     if (isBrowser) {
-      if (window.google && window.google.maps && !cleaningUp) {
+      if (window.google && !cleaningUp) {
         console.error('google api is already presented')
 
         return
@@ -206,7 +206,7 @@ class LoadScript extends React.PureComponent<LoadScriptProps, LoadScriptState> {
         console.error(`
           There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${this
             .props.googleMapsApiKey || '-'}) or Client ID (${this.props.googleMapsClientId ||
-            '-'}) to <LoadScript />
+          '-'}) to <LoadScript />
           Otherwise it is a Network issue.
         `)
       })

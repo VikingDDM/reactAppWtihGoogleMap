@@ -88,7 +88,7 @@ export function useLoadScript({
         }
       }
 
-      if (window.google && window.google.maps && previouslyLoadedUrl === url) {
+      if (window.google && previouslyLoadedUrl === url) {
         setLoadedIfMounted()
         return
       }
