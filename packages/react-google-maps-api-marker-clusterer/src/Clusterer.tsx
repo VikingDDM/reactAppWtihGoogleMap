@@ -648,7 +648,6 @@ export class Clusterer {
       if (this.timerRefStatic !== null) {
         window.clearTimeout(this.timerRefStatic)
 
-        // @ts-ignore
         delete this.timerRefStatic
       }
     }
