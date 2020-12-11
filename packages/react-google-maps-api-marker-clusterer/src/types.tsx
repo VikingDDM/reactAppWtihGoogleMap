@@ -32,7 +32,6 @@ export interface ClustererOptions {
 
 export interface ClusterIconStyle {
   url: string
-  className?: string
   height: number
   width: number
   anchorText?: number[]
