@@ -61,6 +61,3 @@ googleMapKey.js
 
 .rts2_cache*
 .dccache
-
-# Hide secret Google Maps API Config
-.storybook/maps.config.ts
