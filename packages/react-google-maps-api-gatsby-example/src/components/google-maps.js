@@ -65,7 +65,7 @@ function GoogleMaps() {
       onError={onError}
       loadingElement={Loading}
       libraries={googleMapsLibraries}
-      preventGoogleFontsLoading={false}
+      preventGoogleFontsLoading
     >
       <Card>
         <CheckboxData />
