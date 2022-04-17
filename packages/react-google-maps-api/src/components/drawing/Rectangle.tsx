@@ -106,7 +106,6 @@ export class Rectangle extends PureComponent<RectangleProps, RectangleState> {
   componentDidMount(): void {
     const rectangle = new google.maps.Rectangle({
       ...(this.props.options || {}),
-      // @ts-ignore
       map: this.context,
     })
 

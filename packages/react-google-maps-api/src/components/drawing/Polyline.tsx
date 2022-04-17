@@ -109,7 +109,6 @@ export class Polyline extends PureComponent<PolylineProps, PolylineState> {
   componentDidMount(): void {
     const polyline = new google.maps.Polyline({
       ...(this.props.options || {}),
-      // @ts-ignore
       map: this.context,
     })
 

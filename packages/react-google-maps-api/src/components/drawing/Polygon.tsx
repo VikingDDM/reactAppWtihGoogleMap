@@ -131,7 +131,6 @@ export class Polygon extends PureComponent<PolygonProps, PolygonState> {
   componentDidMount(): void {
     const polygon = new google.maps.Polygon({
       ...(this.props.options || {}),
-      // @ts-ignore
       map: this.context,
     })
 

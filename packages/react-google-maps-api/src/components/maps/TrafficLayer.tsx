@@ -1,6 +1,6 @@
-import { memo, PureComponent, useContext, useEffect, useState, type ContextType } from 'react'
+import { PureComponent } from 'react'
 
-import { applyUpdatersToPropsAndRegisterEvents, unregisterEvents } from '../../utils/helper'
+import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
 
 const eventMap = {}
@@ -23,56 +23,8 @@ export interface TrafficLayerProps {
   onUnmount?: ((trafficLayer: google.maps.TrafficLayer) => void) | undefined
 }
 
-function TrafficLayerFunctional({ options, onLoad, onUnmount }: TrafficLayerProps): null {
-  const context = useContext(MapContext)
-
-  const [instance, setInstance] = useState<google.maps.TrafficLayer | null>(null)
-
-  // Order does matter
-  useEffect(() => {
-    if (instance !== null) {
-      instance.setMap(context)
-    }
-  }, [context])
-
-  useEffect(() => {
-    if (options && instance !== null) {
-
-      instance.setOptions(options)
-    }
-  }, [instance, options])
-
-  useEffect(() => {
-    const trafficLayer = new google.maps.TrafficLayer({
-      ...(options || {}),
-      map: context,
-    })
-
-    setInstance(trafficLayer)
-
-    if (onLoad) {
-      onLoad(trafficLayer)
-    }
-
-    return () => {
-      if (instance !== null) {
-        if (onUnmount) {
-          onUnmount(instance)
-        }
-
-        instance.setMap(null)
-      }
-    }
-  }, [context])
-
-  return null
-}
-
-export const TrafficLayerF = memo(TrafficLayerFunctional)
-
 export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerState> {
   static contextType = MapContext
-  declare context: ContextType<typeof MapContext>
 
   state = {
     trafficLayer: null,
@@ -80,6 +32,7 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
 
   setTrafficLayerCallback = () => {
     if (this.state.trafficLayer !== null && this.props.onLoad) {
+      // @ts-ignore
       this.props.onLoad(this.state.trafficLayer)
     }
   }
@@ -124,6 +77,7 @@ export class TrafficLayer extends PureComponent<TrafficLayerProps, TrafficLayerS
   componentWillUnmount(): void {
     if (this.state.trafficLayer !== null) {
       if (this.props.onUnmount) {
+        // @ts-ignore
         this.props.onUnmount(this.state.trafficLayer)
       }
 

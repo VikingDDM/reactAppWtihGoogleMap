@@ -43,9 +43,9 @@ export { Cluster } from './Cluster'
 export { ClusterIcon } from './ClusterIcon'
 
 export {
-  type ClusterIconInfo,
-  type ClusterIconStyle,
-  type MarkerExtended,
-  type TCalculator,
-  type ClustererOptions,
+  ClusterIconInfo,
+  ClusterIconStyle,
+  MarkerExtended,
+  TCalculator,
+  ClustererOptions,
 } from './types'

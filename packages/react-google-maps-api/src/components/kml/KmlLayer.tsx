@@ -61,7 +61,6 @@ export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
   componentDidMount(): void {
     const kmlLayer = new google.maps.KmlLayer({
       ...this.props.options,
-      // @ts-ignore
       map: this.context,
     })
 

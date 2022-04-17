@@ -114,7 +114,6 @@ export class Circle extends PureComponent<CircleProps, CircleState> {
   componentDidMount(): void {
     const circle = new google.maps.Circle({
       ...(this.props.options || {}),
-    // @ts-ignore
       map: this.context,
     })
 

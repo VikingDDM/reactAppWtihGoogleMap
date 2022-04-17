@@ -81,7 +81,6 @@ const updaterMap = {
 }
 
 export interface MarkerProps {
-  children?: ReactNode | undefined
   options?: google.maps.MarkerOptions | undefined
   /** Start an animation. Any ongoing animation will be cancelled. Currently supported animations are: BOUNCE, DROP. Passing in null will cause any animation to stop. */
   animation?: google.maps.Animation | undefined
@@ -177,13 +176,11 @@ export class Marker extends PureComponent<MarkerProps> {
 
     // Unfortunately we can't just do this in the contstructor, because the
     // `MapContext` might not be filled in yet.
-      // @ts-ignore
     this.marker = new google.maps.Marker(markerOptions)
 
     if (this.props.clusterer) {
       this.props.clusterer.addMarker(this.marker, !!this.props.noClustererRedraw)
     } else {
-      // @ts-ignore
       this.marker.setMap(this.context)
     }
 

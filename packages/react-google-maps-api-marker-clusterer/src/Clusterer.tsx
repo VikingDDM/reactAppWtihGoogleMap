@@ -134,13 +134,11 @@ export class Clusterer {
     this.setupStyles()
 
     this.addMarkers(optMarkers, true)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.setMap(map) // Note: this causes onAdd to be called
   }
 
   onAdd() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.activeMap = this.getMap()
 
@@ -151,7 +149,6 @@ export class Clusterer {
     // Add the map event listeners
     this.listeners = [
       google.maps.event.addListener(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.getMap(),
         'zoom_changed',
@@ -163,10 +160,8 @@ export class Clusterer {
           // event is triggered so the cluster markers that have been removed
           // do not get redrawn. Same goes for a zoom in at maxZoom.
           if (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             this.getMap().getZoom() === (this.get('minZoom') || 0) ||
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             this.getMap().getZoom() === this.get('maxZoom')
           ) {
@@ -175,7 +170,6 @@ export class Clusterer {
         }
       ),
       google.maps.event.addListener(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.getMap(),
         'idle',
@@ -242,7 +236,6 @@ export class Clusterer {
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.getMap().fitBounds(bounds)
   }
@@ -496,7 +489,6 @@ export class Clusterer {
   }
 
   getExtendedBounds(bounds: google.maps.LatLngBounds): google.maps.LatLngBounds {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const projection = this.getProjection()
     // Convert the points to pixels and the extend out by the grid size.
@@ -636,7 +628,6 @@ export class Clusterer {
       if (this.timerRefStatic !== null) {
         window.clearTimeout(this.timerRefStatic)
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         delete this.timerRefStatic
       }
@@ -647,16 +638,13 @@ export class Clusterer {
     //
     // See Comments 9 & 11 on Issue 3651 relating to this workaround for a Google Maps bug:
     const mapBounds =
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this.getMap().getZoom() > 3
         ? new google.maps.LatLngBounds(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             this.getMap()
               .getBounds()
               .getSouthWest(),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             this.getMap()
               .getBounds()
@@ -674,8 +662,10 @@ export class Clusterer {
     for (let i = iFirst; i < iLast; i++) {
       const marker = this.markers[i]
 
-      if (!marker.isAdded && this.isMarkerInBounds(marker, bounds) && (!this.ignoreHidden || (this.ignoreHidden && marker.getVisible()))) {
-        this.addToClosestCluster(marker)
+      if (!marker.isAdded && this.isMarkerInBounds(marker, bounds)) {
+        if (!this.ignoreHidden || (this.ignoreHidden && marker.getVisible())) {
+          this.addToClosestCluster(marker)
+        }
       }
     }
 
@@ -708,12 +698,10 @@ export class Clusterer {
     return function applyExtend(object: any) {
       // eslint-disable-next-line guard-for-in
       for (const property in object.prototype) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.prototype[property] = object.prototype[property]
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return this
     }.apply(obj1, [obj2])

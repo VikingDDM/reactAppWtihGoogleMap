@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'
+import * as React from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -119,7 +119,7 @@ export interface DataProps {
   onUnmount?: ((data: google.maps.Data) => void) | undefined
 }
 
-export class Data extends PureComponent<DataProps, DataState> {
+export class Data extends React.PureComponent<DataProps, DataState> {
   static contextType = MapContext
 
   registeredEvents: google.maps.MapsEventListener[] = []
@@ -137,7 +137,6 @@ export class Data extends PureComponent<DataProps, DataState> {
   componentDidMount(): void {
     const data = new google.maps.Data({
       ...(this.props.options || {}),
-    // @ts-ignore
       map: this.context,
     })
 
