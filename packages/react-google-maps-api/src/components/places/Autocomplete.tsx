@@ -1,4 +1,4 @@
-import { Children, type ContextType, createRef, PureComponent, type ReactChild, type RefObject } from 'react'
+import { Children, createRef, PureComponent, type ReactChild, type RefObject } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 
@@ -63,12 +63,7 @@ export interface AutocompleteProps {
 }
 
 export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteState> {
-  static defaultProps = {
-    className: ''
-  }
-
   static contextType = MapContext
-  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
   containerElement: RefObject<HTMLDivElement> = createRef()
@@ -105,7 +100,7 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
         instance: autocomplete,
       })
 
-      this.setState(() => {
+      this.setState(function setAutocomplete() {
         return {
           autocomplete,
         }
@@ -132,7 +127,7 @@ export class Autocomplete extends PureComponent<AutocompleteProps, AutocompleteS
   }
 
   render(): JSX.Element {
-    return <div ref={this.containerElement} className={this.props.className}>{Children.only(this.props.children)}</div>
+    return <div ref={this.containerElement} className={this.props.className || ''}>{Children.only(this.props.children)}</div>
   }
 }
 

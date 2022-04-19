@@ -1,4 +1,4 @@
-import { type ContextType, PureComponent } from 'react'
+import { PureComponent } from 'react'
 
 import { unregisterEvents, applyUpdatersToPropsAndRegisterEvents } from '../../utils/helper'
 import MapContext from '../../map-context'
@@ -45,7 +45,6 @@ export interface KmlLayerProps {
 
 export class KmlLayer extends PureComponent<KmlLayerProps, KmlLayerState> {
   static contextType = MapContext
-  declare context: ContextType<typeof MapContext>
 
   registeredEvents: google.maps.MapsEventListener[] = []
 

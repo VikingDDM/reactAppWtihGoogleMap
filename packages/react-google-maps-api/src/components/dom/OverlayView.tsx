@@ -1,3 +1,4 @@
+import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
 import invariant from 'invariant'
@@ -5,11 +6,10 @@ import invariant from 'invariant'
 import MapContext from '../../map-context'
 
 import { getOffsetOverride, getLayoutStyles, arePositionsEqual } from './dom-helper'
-import { ReactNode, CSSProperties, PureComponent, RefObject, createRef, ReactPortal, Children } from 'react'
 
 interface OverlayViewState {
   paneEl: Element | null
-  containerStyle: CSSProperties
+  containerStyle: React.CSSProperties
 }
 
 function convertToLatLngString(latLngLike?: google.maps.LatLng | google.maps.LatLngLiteral | null) {
@@ -41,7 +41,6 @@ function convertToLatLngBoundsString(latLngBoundsLike?: google.maps.LatLngBounds
 
 export type PaneNames = keyof google.maps.MapPanes
 export interface OverlayViewProps {
-  children?: ReactNode | undefined
   // required
   mapPaneName: PaneNames
   getPixelPositionOffset?: ((offsetWidth: number, offsetHeight: number) => { x: number; y: number }) | undefined
@@ -51,7 +50,7 @@ export interface OverlayViewProps {
   onUnmount?: ((overlayView: google.maps.OverlayView) => void) | undefined
 }
 
-export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewState> {
+export class OverlayView extends React.PureComponent<OverlayViewProps, OverlayViewState> {
   static FLOAT_PANE: PaneNames = `floatPane`
   static MAP_PANE: PaneNames = `mapPane`
   static MARKER_LAYER: PaneNames = `markerLayer`
@@ -69,7 +68,7 @@ export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewStat
   }
 
   overlayView: google.maps.OverlayView
-  containerRef: RefObject<HTMLDivElement>
+  containerRef: React.RefObject<HTMLDivElement>
 
   updatePane = (): void => {
     const mapPaneName = this.props.mapPaneName
@@ -141,7 +140,7 @@ export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewStat
   constructor(props: OverlayViewProps) {
     super(props)
 
-    this.containerRef = createRef()
+    this.containerRef = React.createRef()
     // You must implement three methods: onAdd(), draw(), and onRemove().
     const overlayView = new google.maps.OverlayView()
     overlayView.onAdd = this.onAdd
@@ -153,7 +152,6 @@ export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewStat
   componentDidMount(): void {
     // You must call setMap() with a valid Map object to trigger the call to
     // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
-    // @ts-ignore
     this.overlayView.setMap(this.context)
   }
 
@@ -175,7 +173,7 @@ export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewStat
     this.overlayView.setMap(null)
   }
 
-  render(): ReactPortal | ReactNode {
+  render(): React.ReactPortal | React.ReactNode {
     const paneEl = this.state.paneEl
     if (paneEl) {
       return ReactDOM.createPortal(
@@ -183,7 +181,7 @@ export class OverlayView extends PureComponent<OverlayViewProps, OverlayViewStat
           ref={this.containerRef}
           style={this.state.containerStyle}
         >
-          {Children.only(this.props.children)}
+          {React.Children.only(this.props.children)}
         </div>,
         paneEl
       )

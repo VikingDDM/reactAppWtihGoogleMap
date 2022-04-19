@@ -13,7 +13,6 @@ export class InfoBox {
   boxStyle: {
     [key: string]: any
   }
-
   closeBoxMargin: string
   closeBoxURL: string
   infoBoxClearance: google.maps.Size
@@ -106,7 +105,6 @@ export class InfoBox {
         this.div.appendChild(this.content)
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const panes = this.getPanes()
       panes[this.pane].appendChild(this.div) // Add the InfoBox div to the DOM
@@ -148,14 +146,14 @@ export class InfoBox {
 
         for (let i = 0; i < events.length; i++) {
           this.eventListeners.push(
-            google.maps.event.addDomListener(this.div, events[i], cancelHandler)
+            google.maps.event.addListener(this.div, events[i], cancelHandler)
           )
         }
 
         // Workaround for Google bug that causes the cursor to change to a pointer
         // when the mouse moves over a marker underneath InfoBox.
         this.eventListeners.push(
-          google.maps.event.addDomListener(
+          google.maps.event.addListener(
             this.div,
             'mouseover',
             () => {
@@ -167,7 +165,7 @@ export class InfoBox {
         )
       }
 
-      this.contextListener = google.maps.event.addDomListener(
+      this.contextListener = google.maps.event.addListener(
         this.div,
         'contextmenu',
         ignoreHandler
@@ -203,7 +201,7 @@ export class InfoBox {
   addClickHandler(): void {
     if (this.div && this.div.firstChild && this.closeBoxURL !== '') {
       const closeBox = this.div.firstChild
-      this.closeListener = google.maps.event.addDomListener(
+      this.closeListener = google.maps.event.addListener(
         closeBox,
         'click',
         this.getCloseClickHandler()
@@ -235,7 +233,6 @@ export class InfoBox {
 
   panBox(disablePan?: boolean): void {
     if (this.div && !disablePan) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined = this.getMap()
 
@@ -252,10 +249,8 @@ export class InfoBox {
         }
 
         const mapDiv = map.getDiv()
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const mapWidth = mapDiv.offsetWidth
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const mapHeight = mapDiv.offsetHeight
         const iwOffsetX = this.pixelOffset.width
@@ -265,7 +260,6 @@ export class InfoBox {
         const padX = this.infoBoxClearance.width
         const padY = this.infoBoxClearance.height
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const projection: google.maps.MapCanvasProjection = this.getProjection()
         const pixPosition = projection.fromLatLngToContainerPixel(this.position)
@@ -311,9 +305,7 @@ export class InfoBox {
       // Apply style values defined in the boxStyle parameter:
       const boxStyle = this.boxStyle
       for (const i in boxStyle) {
-
-        if (Object.prototype.hasOwnProperty.call(boxStyle, i)) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        if (boxStyle.hasOwnProperty(i)) {
           // @ts-ignore
           this.div.style[i] = boxStyle[i]
         }
@@ -328,7 +320,6 @@ export class InfoBox {
         // See http://www.quirksmode.org/css/opacity.html
         const opacity = parseFloat(this.div.style.opacity || '')
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.div.style.msFilter =
           '"progid:DXImageTransform.Microsoft.Alpha(Opacity=' + opacity * 100 + ')"'
@@ -369,11 +360,9 @@ export class InfoBox {
         bw.right = parseInt(computedStyle.borderRightWidth || '', 10) || 0
       }
     } else if (
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       document.documentElement.currentStyle // MSIE
     ) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const currentStyle = this.div.currentStyle
 
@@ -400,10 +389,8 @@ export class InfoBox {
     this.createInfoBoxDiv()
 
     if (this.div) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const projection: google.maps.MapCanvasProjection = this.getProjection()
-
       const pixPosition = projection.fromLatLngToDivPixel(this.position)
 
       if (pixPosition !== null) {
@@ -574,10 +561,8 @@ export class InfoBox {
   }
 
   getVisible(): boolean {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const map: google.maps.Map | google.maps.StreetViewPanorama | null | undefined = this.getMap()
-
     let isVisible
 
     if (typeof map === 'undefined' || map === null) {
@@ -608,18 +593,14 @@ export class InfoBox {
     anchor?: google.maps.MVCObject
   ): void {
     if (anchor) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this.position = anchor.getPosition()
-
       this.moveListener = google.maps.event.addListener(
         anchor,
         'position_changed',
         () => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           const position = anchor.getPosition()
-
           this.setPosition(position)
         }
       )
@@ -628,14 +609,12 @@ export class InfoBox {
         anchor,
         'map_changed',
         () => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           this.setMap(anchor.map)
         }
       )
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.setMap(map)
 
@@ -672,7 +651,6 @@ export class InfoBox {
       this.contextListener = null
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.setMap(null)
   }
@@ -681,16 +659,13 @@ export class InfoBox {
     return function applyExtend(object: any) {
       // eslint-disable-next-line guard-for-in
       for (const property in object.prototype) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        if (!Object.prototype.hasOwnProperty.call(this, property)) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        if (!this.prototype.hasOwnProperty(property)) {
           // @ts-ignore
           this.prototype[property] = object.prototype[property]
         }
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return this
     }.apply(obj1, [obj2])
