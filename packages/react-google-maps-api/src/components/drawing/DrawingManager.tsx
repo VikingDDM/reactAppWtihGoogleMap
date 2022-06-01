@@ -63,7 +63,6 @@ function DrawingManagerFunctional({
   onCircleComplete,
   onMarkerComplete,
   onOverlayComplete,
-  onPolygonComplete,
   onPolylineComplete,
   onRectangleComplete,
   onLoad,
@@ -77,7 +76,6 @@ function DrawingManagerFunctional({
   const [markercompleteListener, setMarkerCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
   const [overlaycompleteListener, setOverlayCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
   const [polygoncompleteListener, setPolygonCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
-  const [polylinecompleteListener, setPolylineCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
   const [rectanglecompleteListener, setRectangleCompleteListener] = useState<google.maps.MapsEventListener | null>(null)
 
   // Order does matter
@@ -136,25 +134,13 @@ function DrawingManagerFunctional({
   }, [instance, onOverlayComplete])
 
   useEffect(() => {
-    if (instance && onPolygonComplete) {
+    if (instance && onPolylineComplete) {
       if (polygoncompleteListener !== null) {
         google.maps.event.removeListener(polygoncompleteListener)
       }
 
       setPolygonCompleteListener(
-        google.maps.event.addListener(instance, 'polygoncomplete', onPolygonComplete)
-      )
-    }
-  }, [instance, onPolygonComplete])
-
-  useEffect(() => {
-    if (instance && onPolylineComplete) {
-      if (polylinecompleteListener !== null) {
-        google.maps.event.removeListener(polylinecompleteListener)
-      }
-      
-      setPolylineCompleteListener(
-        google.maps.event.addListener(instance, 'polylinecomplete', onPolylineComplete)
+        google.maps.event.addListener(instance, 'polygoncomplete', onPolylineComplete)
       )
     }
   }, [instance, onPolylineComplete])
@@ -205,15 +191,9 @@ function DrawingManagerFunctional({
       )
     }
 
-    if (onPolygonComplete) {
-      setPolygonCompleteListener(
-        google.maps.event.addListener(drawingManager, 'polygoncomplete', onPolygonComplete)
-      )
-    }
-
     if (onPolylineComplete) {
-      setPolylineCompleteListener(
-        google.maps.event.addListener(drawingManager, 'polylinecomplete', onPolylineComplete)
+      setPolygonCompleteListener(
+        google.maps.event.addListener(drawingManager, 'polygoncomplete', onPolylineComplete)
       )
     }
 
@@ -245,10 +225,6 @@ function DrawingManagerFunctional({
 
         if (polygoncompleteListener) {
           google.maps.event.removeListener(polygoncompleteListener)
-        }
-
-        if (polylinecompleteListener) {
-          google.maps.event.removeListener(polylinecompleteListener)
         }
 
         if (rectanglecompleteListener) {
