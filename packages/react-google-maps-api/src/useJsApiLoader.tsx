@@ -25,7 +25,6 @@ export function useJsApiLoader({
   preventGoogleFontsLoading,
   // channel,
   mapIds,
-  authReferrerPolicy,
 }: UseLoadScriptOptions): {
   isLoaded: boolean
   loadError: Error | undefined
@@ -51,9 +50,8 @@ export function useJsApiLoader({
       region,
       mapIds,
       nonce,
-      authReferrerPolicy,
     })
-  }, [id, googleMapsApiKey, version, libraries, language, region, mapIds, nonce, authReferrerPolicy])
+  }, [id, googleMapsApiKey, version, libraries, language, region, mapIds, nonce])
 
   useEffect(function effect() {
     if (isLoaded) {
