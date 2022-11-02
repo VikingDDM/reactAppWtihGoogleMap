@@ -121,7 +121,6 @@ function PolygonFunctional({
   editable,
   visible,
   path,
-  paths,
   onDblClick,
   onDragEnd,
   onDragStart,
@@ -188,12 +187,6 @@ function PolygonFunctional({
       instance.setPath(path)
     }
   }, [instance, path])
-
-  useEffect(() => {
-    if (typeof paths !== 'undefined' && instance !== null) {
-      instance.setPaths(paths)
-    }
-  }, [instance, paths])
 
   useEffect(() => {
     if (instance && onDblClick) {
@@ -335,10 +328,6 @@ function PolygonFunctional({
 
     if (path) {
       polygon.setPath(path)
-    }
-
-    if (paths) {
-      polygon.setPaths(paths)
     }
 
     if (typeof visible !== 'undefined') {
