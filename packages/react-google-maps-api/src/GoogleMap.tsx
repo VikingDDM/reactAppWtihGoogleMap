@@ -224,7 +224,7 @@ function GoogleMapFunctional({
         google.maps.event.addListener(map, 'dragend', onDragEnd)
       )
     }
-  }, [onDragEnd])
+  }, [onDblClick])
 
   useEffect(() => {
     if (map && onDragStart) {
