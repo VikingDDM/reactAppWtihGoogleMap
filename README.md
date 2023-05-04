@@ -1,15 +1,3 @@
-<div align="center">
-
-![logo](https://raw.githubusercontent.com/JustFly1984/react-google-maps-api/master/logo.png)
-
-# @react-google-maps organization root
-
-[![npm package](https://img.shields.io/npm/v/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
-[![npm downloads](https://img.shields.io/npm/dt/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/@react-google-maps/api)](https://www.npmjs.com/package/@react-google-maps/api)
-[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/react-google-maps)
-
-</div>
 
 ## README
 
